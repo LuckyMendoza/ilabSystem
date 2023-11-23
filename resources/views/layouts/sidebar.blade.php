@@ -35,6 +35,12 @@
         <div data-i18n="Basic">Doctors</div>
       </a>
     </li>
+    <li class="menu-item {{ (request()->is('patient*')) ? 'active' : '' }} ">
+        <a href="/patient" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-user"></i>
+          <div data-i18n="Basic">Patient</div>
+        </a>
+      </li>
   @endif
 @endif
 

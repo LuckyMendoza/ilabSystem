@@ -18,7 +18,7 @@ use App\Http\Controllers\{
     DashboardController,
     UsersController,
     ServicesController,
-  
+    PatientController,
 };
 
 // Route::get('/', function () {
@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/get_services', [ServicesController::class, 'getAllServices'])->name('get_services');
     Route::post('/newService', [ServicesController::class, 'createService'])->name('newService');
     Route::post('/updateService', [ServicesController::class, 'updateServiceData'])->name('updateService');
-    
+
     // Users
     Route::get('/changepassword', [UsersController::class, 'changePass'])->name('changepassword');
     Route::get('/doctor', [UsersController::class, 'viewDoctors'])->name('doctor');
@@ -68,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/updateDoctor', [UsersController::class, 'updateDoctorData'])->name('updateDoctor');
     Route::post('/updatePass', [UsersController::class, 'updatePassword'])->name('updatePass');
 
-    
+
      // Appointment
      Route::get('/appointment', [UsersController::class, 'viewAppointment'])->name('appointment');
      Route::get('/scheduleList', [UsersController::class, 'viewScheduledAppointment'])->name('scheduleList');
@@ -76,5 +76,7 @@ Route::middleware(['auth'])->group(function () {
      Route::post('/updateAppointment', [UsersController::class, 'updateAppointmentSchedule'])->name('updateAppointment');
      Route::get('/approveAppointment/{id}/{status}/{patient}', [UsersController::class, 'approveAppointmentSchedule'])->name('approveAppointment');
      Route::get('/monthlyAnalytics', [UsersController::class, 'getMonthlyAnalytics'])->name('monthlyAnalytics');
-      
+
+    // Patient
+    Route::resource('patient', PatientController::class);
 });

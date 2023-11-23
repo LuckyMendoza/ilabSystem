@@ -37,7 +37,7 @@
 
   <link href="{{ asset('custom/css/custom.css')}}" rel="stylesheet" type="text/css" />
 
-
+  <script src="{{ asset('js/sweetalert2/dist/sweetalert2.all.js') }}"></script>
   @yield('specific-css')
 
   <!-- Helpers -->
@@ -389,7 +389,7 @@
                var lg       = fp[0].files.length; // get length
                var items    = fp[0].files;
                var fileSize = 0;
-           
+
            if (lg > 0) {
                for (var i = 0; i < lg; i++) {
                    fileSize = fileSize+items[i].size; // get file size
