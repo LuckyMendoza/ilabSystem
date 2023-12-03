@@ -11,7 +11,7 @@ use App\Models\schedule_list;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\UserVerification;
 use Illuminate\Support\Facades\Notification;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class UsersController extends Controller
@@ -102,31 +102,66 @@ class UsersController extends Controller
 
     public function createAppointmentSchedule(Request $request){
 
-        DB::beginTransaction();
-        $check_appointment = schedule_list::where('user_id',Auth::user()->id)
-                                          ->where('schedule_date',$request['schedule_date'])
-                                          ->where('status','0')
-                                          ->count();
+        $check_avail = schedule_list::where('doctor', $request['doctor'])->where('status', '1')->count();
 
-        if($check_appointment > 0){
-            return 'You have pending appointment schedule.! Please wait for confirmation';
-        }
+        if ($check_avail > 10) {
+            $patient = User::find(Auth::user()->id);
+            $info = [
+				'name' => $patient->name,
+				'email_message' => 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
+				'is_sent' => true,
 
-        $book_appointment = new schedule_list;
-        $book_appointment->user_id = Auth::user()->id;
-        $book_appointment->schedule_date = $request['schedule_date'];
-        $book_appointment->service = $request['service'];
-        $book_appointment->doctor = $request['doctor'];
-        $book_appointment->status = '0';
-        $book_appointment->save();
+			];
+            try {
+                $patient->notify(new UserVerification($info));
+            } catch (\Throwable $th) {
+                $message = 'Email sending failed';
+            }
 
-        if($book_appointment){
-            DB::commit();
-            return 'success';
+            $result = $this->storeAppointment($request, '2');
+
+            if($result){
+                return 'warning';
+            }else{
+                return 'Something went wrong!';
+            }
         }else{
-            return 'Something went wrong!';
-        }
+            DB::beginTransaction();
+            $check_appointment = schedule_list::where('user_id',Auth::user()->id)
+                                              ->where('schedule_date',$request['schedule_date'])
+                                              ->where('status','0')
+                                              ->count();
 
+            if($check_appointment > 0){
+                return 'You have pending appointment schedule.! Please wait for confirmation';
+            }
+
+            $result = $this->storeAppointment($request, '0');
+
+            if($result){
+                DB::commit();
+                return 'success';
+            }else{
+                return 'Something went wrong!';
+            }
+        }
+    }
+
+    private function storeAppointment($request, $status){
+        try {
+            $book_appointment = new schedule_list;
+            $book_appointment->user_id = Auth::user()->id;
+            $book_appointment->schedule_date = $request['schedule_date'];
+            $book_appointment->service = $request['service'];
+            $book_appointment->doctor = $request['doctor'];
+            $book_appointment->status = $status;
+            $book_appointment->save();
+
+            $message = true;
+        } catch (\Throwable $th) {
+            $message = false;
+        }
+        return $message;
     }
 
     public function updateAppointmentSchedule(Request $request){
@@ -152,17 +187,21 @@ class UsersController extends Controller
     public function approveAppointmentSchedule($id,$status,$patientid){
         $stats = $status == 'approved' ? '1' : '2';
         DB::beginTransaction();
-        $update = schedule_list::where('id',$id)->update(['status' => $stats]);
+        $update = schedule_list::find($id)->update(['status' => $stats]);
 
         if($update){
-            $patient = User::where('id',$patientid)->first();
+            $patient = User::find($patientid);
             $info = [
 				'name' => $patient->name,
 				'email_message' => $status == 'approved' ? 'Good day.! Please be inform that your appointment has been approved.' : 'Good day.! Please be inform that your appointment has been disapproved.',
 				'is_sent' => true,
 
 			];
-			$patient->notify(new UserVerification($info));
+            try {
+                $patient->notify(new UserVerification($info));
+            } catch (\Throwable $th) {
+                $message = 'Email sending failed';
+            }
             DB::commit();
             return 'success';
         }else{

@@ -1,5 +1,5 @@
 $(document).ready(function() {
-   
+
     const user = $('#user_type').val()
     var table = $('#services_table').DataTable({
         processing: true,
@@ -69,7 +69,7 @@ $(document).ready(function() {
                     return type === 'sort' ? data : moment(data).isValid() ? moment(data).format('ll') : '---';
                 }
 
-            }, 
+            },
 			{
             data: null,
             orderable: false,
@@ -78,14 +78,14 @@ $(document).ready(function() {
             render: function(data, type, row) {
                 console.log(data)
                     if(user == 'patient' && data.status == 0){
-                        return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor 
-                        + '" data-service="' + data.service_id 
+                        return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
+                        + '" data-service="' + data.service_id
                         + '" data-schedule_date="' + data.schedule_date
                         + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
                     }else if(user == 'patient' && (data.status == 1 || data.status == 2)){
                         return '<span>No available</span>';
                     }else if (user == 'doctor' && data.status == 0){
-                        return '<button type="button"  data-id=' + data.id 
+                        return '<button type="button"  data-id=' + data.id
                         + '" data-patient="' + data.patient
                         + '" data-patient_id="' + data.user_id
                         + '" data-schedule_date="' + data.schedule_date
@@ -93,13 +93,13 @@ $(document).ready(function() {
                     }else if (user == 'doctor' && (data.status == 1 || data.status == 2)){
                         return '<span>No available</span>';
                     }else if (user == 'admin' && data.status == 0){
-                        return '<button type="button"  data-id=' + data.id 
-                        + '" data-patient="' + data.patient 
+                        return '<button type="button"  data-id=' + data.id
+                        + '" data-patient="' + data.patient
                         + '" data-schedule_date="' + data.schedule_date
                         + '" data-patient_id="' + data.user_id
                         + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>'
-                        +'<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor 
-                        + '" data-service="' + data.service_id 
+                        +'<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
+                        + '" data-service="' + data.service_id
                         + '" data-schedule_date="' + data.schedule_date
                         + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
                     }else if (user == 'admin' && (data.status == 1 || data.status == 2)){
@@ -119,11 +119,11 @@ $(document).ready(function() {
         $('#service').val('');
         $('#doctor').val('');
         $('#schedule_date').val('');
-       
+
     })
 
     $('#save_btn').on('click', function(e) {
-        
+
         e.preventDefault();
 
         var btn = $(this);
@@ -133,11 +133,11 @@ $(document).ready(function() {
             rules: {
                 service_name: {
                     required: true,
-                
+
                 },
                 price: {
                     required: true,
-                
+
                 }
             }
         });
@@ -163,20 +163,27 @@ $(document).ready(function() {
                 $('#msg').empty();
             },
             success: function(result) {
-                //toastr.clear();
-                if(result != 'success'){
-                    alert(result)
-                }else{
-                    alert('save')
+
+                if (result === 'warning') {
+                    alert('Doctor appointment limit reached. Please wait for availability or try another time slot.');
                     window.location.reload();
+                } else if (result === 'success') {
+                    alert('Your appointment has been received and is under review. Please wait for confirmation.');
+                    window.location.reload();
+                } else if (result === 'update') {
+                    alert('Appointment updated successfully!.');
+                    window.location.reload();
+                } else {
+                    alert('Error: ' + result);
                 }
+
                 btn.attr('disabled', false);
             }
         });
-      
+
     });
 
-   
+
 
     // Edit - with universal route
     $('table tbody').on('click', '.edit', function() {
@@ -185,9 +192,9 @@ $(document).ready(function() {
         $('#service').val($(this).data('service'));
         $('#doctor').val($(this).data('doctor'));
         $('#schedule_date').val($(this).data('schedule_date'));
-       
+
     });
-    
+
     $('table tbody').on('click', '#approve', function() {
         $('#data_id').val($(this).data('id'));
         $('#patient_id').val($(this).data('patient_id'));

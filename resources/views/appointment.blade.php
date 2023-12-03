@@ -33,7 +33,7 @@
                     <th>Doctor</th>
                     <th>Status</th>
                     <th>Date Created</th>
-                    <th></th> 
+                    <th></th>
                 </tr>
             </thead>
         </table>
@@ -77,7 +77,7 @@
                 <label for="email" class="form-label">Schedule Date</label>
                 <input type="date" class="form-control" id="schedule_date" name="schedule_date" autofocus autocomplete="off" required />
               </div>
-             
+
             </div>
               <div class="modal-footer">
                     <button type="button" class="btn btn-primary" id="save_btn">Save</button>
@@ -104,14 +104,15 @@
               <input type="hidden" id="patient_id" name="patient_id"/>
               <div class="text-center">
                 <h1><i class="fa fa-calendar"></i></h1>
-                
+
                 <h4>Are you sure?</h4>
-                <span> Do you want to confirm </span><strong><span id="client_info"></span></strong> schedule?</span> 
+                <span> Do you want to confirm </span><strong><span id="client_info"></span></strong> schedule?</span>
                 <br/>
             </div>
               <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="approve_btn">Approve</button>
-                    <button type="button" class="btn btn-danger" id="cancel_btn">Cancel</button>
+                    <button type="button" class="btn btn-success" id="approve_btn">Approve</button>
+                    <button type="button" class="btn btn-danger" id="cancel_btn">Disapprove</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
               </div>
         </div>
     </div>
