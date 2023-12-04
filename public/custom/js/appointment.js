@@ -41,6 +41,30 @@ $(document).ready(function() {
                 searchable: true
             },
             {
+                data: "time_from",
+                name: "time_from",
+                searchable: true,
+                render: function(data, type) {
+                    if (type === 'sort') {
+                        return data;
+                    } else {
+                        return data === '00:00:00' ? '00:00:00' : moment(data, 'HH:mm:ss').format('h:mm A');
+                    }
+                }
+            },
+            {
+                data: "time_to",
+                name: "time_to",
+                searchable: true,
+                render: function(data, type) {
+                    if (type === 'sort') {
+                        return data;
+                    } else {
+                        return data === '00:00:00' ? '00:00:00' : moment(data, 'HH:mm:ss').format('h:mm A');
+                    }
+                }
+            },
+            {
                 data: "doctor_name",
                 name: "doctor_name",
                 searchable: true
@@ -81,6 +105,8 @@ $(document).ready(function() {
                         return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
                         + '" data-service="' + data.service_id
                         + '" data-schedule_date="' + data.schedule_date
+                        + '" data-time_from="' + data.time_from
+                        + '" data-time_to="' + data.time_to
                         + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
                     }else if(user == 'patient' && (data.status == 1 || data.status == 2)){
                         return '<span>No available</span>';
@@ -101,6 +127,8 @@ $(document).ready(function() {
                         +'<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
                         + '" data-service="' + data.service_id
                         + '" data-schedule_date="' + data.schedule_date
+                        + '" data-time_from="' + data.time_from
+                        + '" data-time_to="' + data.time_to
                         + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
                     }else if (user == 'admin' && (data.status == 1 || data.status == 2)){
                         return '<span>No available</span>';
@@ -192,7 +220,8 @@ $(document).ready(function() {
         $('#service').val($(this).data('service'));
         $('#doctor').val($(this).data('doctor'));
         $('#schedule_date').val($(this).data('schedule_date'));
-
+        $('#time_from').val($(this).data('time_from'));
+        $('#time_to').val($(this).data('time_to'));
     });
 
     $('table tbody').on('click', '#approve', function() {

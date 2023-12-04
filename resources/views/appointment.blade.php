@@ -30,6 +30,8 @@
 					<th>Service</th>
                     <th>Price</th>
                     <th>Scheduled Date</th>
+                    <th>Time From</th>
+                    <th>Time To</th>
                     <th>Doctor</th>
                     <th>Status</th>
                     <th>Date Created</th>
@@ -73,6 +75,18 @@
                     @endforeach
                 </select>
               </div>
+
+              <div class="form-group col-12 row">
+                <div class="col-6 mb-2">
+                    <label for="time_from" class="form-label">Time From</label>
+                    <input type="time" class="form-control" id="time_from" name="time_from" autofocus autocomplete="off" required>
+                </div>
+                <div class="col-6 mb-2">
+                    <label for="time_to" class="form-label">Time To</label>
+                    <input type="time" class="form-control" id="time_to" name="time_to" autofocus autocomplete="off" required>
+                </div>
+              </div>
+
               <div class="mb-3">
                 <label for="email" class="form-label">Schedule Date</label>
                 <input type="date" class="form-control" id="schedule_date" name="schedule_date" autofocus autocomplete="off" required />

@@ -12,6 +12,8 @@ class schedule_list extends Model{
     protected $fillable = [
         'user_id',
         'schedule_date',
+        'time_from',
+        'time_to',
         'doctor',
         'service',
         'status'

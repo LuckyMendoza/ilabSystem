@@ -152,6 +152,8 @@ class UsersController extends Controller
             $book_appointment = new schedule_list;
             $book_appointment->user_id = Auth::user()->id;
             $book_appointment->schedule_date = $request['schedule_date'];
+            $book_appointment->time_from = $request['time_from'];
+            $book_appointment->time_to = $request['time_to'];
             $book_appointment->service = $request['service'];
             $book_appointment->doctor = $request['doctor'];
             $book_appointment->status = $status;
@@ -171,7 +173,9 @@ class UsersController extends Controller
                                 ->update([
                                         'doctor' => $request['doctor'],
                                         'service' => $request['service'],
-                                        'schedule_date' => $request['schedule_date']
+                                        'schedule_date' => $request['schedule_date'],
+                                        'time_from' => $request['time_from'],
+                                        'time_to' => $request['time_to']
                                     ]);
 
         if($update){
