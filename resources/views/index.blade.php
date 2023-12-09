@@ -9,7 +9,7 @@
 
 
     <!-- Favicon Icon start -->
-    <link rel="icon" type="/home/image/png" href="/home/images/favicon/favicon.png">
+    <link rel="icon" type="/home/image/png" href="/images/ilab_logo.jpg">
     <!-- Favicon Icon End -->
     <!-- bootstrap css -->
     <link rel="stylesheet" href="/home/css/bootstrap.min.css">
