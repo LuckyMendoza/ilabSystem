@@ -1,6 +1,6 @@
 
 
-Ctrl+i
+/* Ctrl+i */
 /*
 Author       : Finest Web Geek
 Template Name: Responsive - Medical Template
@@ -32,8 +32,8 @@ Version      : 1.0
 
 /* 00 ----------------common css Start-------------------*/
 
-.loader {
-    background-color: #ffffff;
+/* .loader {
+    background-color: #a34c4c;
     height: 100%;
     width: 100%;
     position: fixed;
@@ -57,7 +57,7 @@ Version      : 1.0
 }
 
 .loader .loader-icon i {
-    font-size: 60px;
+    font-size: 60px;    
     animation: loder 2s infinite alternate;
     margin-top: 20px;
 }
@@ -69,7 +69,65 @@ Version      : 1.0
     100% {
         transform: rotate(360deg);
     }
+} */
+
+.loader {
+    background-color: rgba(88, 224, 129, 0.904); /* Transparent red background */
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    margin-top: 0px;
+    top: 0px;
+    z-index: 9999;
 }
+
+.loader .loader-icon {
+    width: 150px;
+    height: 150px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hide the spinner icon */
+.loader .loader-icon i {
+    display: none;
+}
+
+
+
+
+/* Style the preloader image and apply rotation animation */
+.loader .loader-icon .preloader-img {
+    width: 100px; /* Set the width of your image */
+    height: auto; /* Maintain aspect ratio */
+    animation: rotateImage 2s infinite linear;
+}
+
+@keyframes rotateImage {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* 
+@keyframes loader {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} */
+
 
 @font-face {
     font-family: 'Poppins';
@@ -277,7 +335,8 @@ div#sticky-wrapper {
 }
 
 .is-sticky .header-area {
-    background: #28477D;
+    background: linear-gradient(to top, #44a6f1, #00b1eb, #00b9d8, #00bebb, #00c099, #40c089, #5ebf79, #76be6b, #78be6a, #7abe68, #7cbd67, #7ebd66);
+    /* background: rgb(145, 231, 47); */
     box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.3);
     transition: .3s all;
 }
@@ -309,7 +368,7 @@ header.header-area {
     position: fi;
     width: 100%;
     z-index: 999;
-    
+
     transition: .3s all;
 }
 
@@ -318,7 +377,9 @@ header.header-area .logo-col {
 }
 
 header.header-area .main-menu {
+    
     text-align: right;
+    
 }
 
 header.header-area .main-menu ul {
@@ -343,7 +404,7 @@ header.header-area .main-menu ul li:last-child a {
     padding: 17px 28px;
     font-weight: 600;
     border-radius: 0px 30px 0px 30px;
-    color: #44A6F1;
+    color: #a9f09b;
     overflow: hidden;
     border: none;
 }
@@ -357,6 +418,7 @@ header.header-area .main-menu ul li:last-child a::before {
 
 header.header-area .main-menu ul li:last-child a:hover {
     color: #fff;
+    font-size: medium;
 }
 
 header.header-area .main-menu ul li a {
@@ -369,8 +431,10 @@ header.header-area .main-menu ul li a {
     color: #fff;
     transition: .5s all;
     font-family: 'Orkney';
+    font: bold;
     position: relative;
     z-index: 1;
+ 
 }
 
 header.header-area .main-menu ul li a::before {
@@ -397,49 +461,111 @@ header.header-area .main-menu ul li a:hover::before {
 
 /* 04 ----------------Hero area start-------------------*/
 
-section.hero-area {
-    background-image: url(/home/images/hero-bg.png);
+/* section.hero-area {
+    
     background-image: linear-gradient(to top, #44a6f1, #00b1eb, #00b9d8, #00bebb, #00c099, #40c089, #5ebf79, #76be6b, #78be6a, #7abe68, #7cbd67, #7ebd66);
+    background-repeat: no-repeat;
+    background-image: url(/home/images/homepage.jpg);
+    background-size: cover;
+    background-position: center;
+    padding-top:  400px;
+    padding-bottom: 50px;
+    background: rgba(76, 175, 80, 0.3); /* Green background with 30% opacity */
+    
+
+    
+  
+
+
+section.hero-area {
+    background-image: url(/home/images/homepage.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    padding-top: 220px;
-    padding-bottom: 305px;
-   
+    padding-top: 200px;
+    padding-bottom: 100px;
+    
+    position: relative; /* Ensure child elements are positioned relative to this */
 }
 
-
-section.hero-area .hero-content {
-    max-width: 600px;
+/* Add an overlay color */
+section.hero-area::before {
+    content: ""; /* Create a pseudo-element to overlay the color */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(76, 175, 80, 0.3); /* Green background with 30% opacity */
+    /* Adjust the color and opacity values as needed */
 }
 
-section.hero-area .hero-content h1 {
-    color: #fff;
-    text-transform: capitalize;
-    font-size: 70px;
-    font-weight: 700;
-    line-height: 1.42;
-    margin-bottom: 15px;
+.hero-area .welcomepage {
+    position: relative;
+    margin-left: 120px;
+    text-align: center; /* Add this to center the text within .welcomepage */
+}
+.hero-area .welcomepage h1{
+    font-size: 81px;
+}
+.hero-area .welcomepage p {
+    font-size: 40px;
 }
 
-section.hero-area .hero-content p {
+.hero-area .welcomepage h1,
+.hero-area .welcomepage p {
+    display: flex;
+    flex-direction: column;
+ 
+    align-items: center;
+    text-align: center;
+    margin-top: 0;
+    margin-right: 20px; 
+  
+    color: whitesmoke;
+    
+}
+
+/* Optionally, you can reset the styles for .hero-area h1 and .hero-area p */
+/* .hero-area h1,
+.hero-area p {
+    display: initial;
+    /* Reset any other styles if needed */
+/* } */ 
+
+/* section.hero-area .hero-btn {
+    margin-top: 20px; /* Adjust the spacing as needed */
+/* } */
+
+
+
+
+
+
+
+
+/*---------------------------------------*/
+
+
+
+
+
+
+/* Define the fadeIn animation */
+
+
+
+/* section.hero-area {
     font-size: 20px;
     line-height: 1.6;
     color: #fff;
     margin-bottom: 38px;
-}
+} */
 
-section.hero-area .hero-content .hero-btn ul {
-    display: flex;
-    justify-content: flex-start;
-}
 
-section.hero-area .hero-content .hero-btn ul li {
-    display: inline-block;
-    align-self: center;
-}
 
-section.hero-area .hero-content .hero-btn ul li:first-child {
+
+/* section.hero-area .hero-content .hero-btn ul li:first-child {
     margin-right: 35px;
 }
 
@@ -471,17 +597,9 @@ section.hero-area .hero-content .hero-btn ul li a .wave1 {
         box-shadow: 0 0 0 35px rgba(40, 71, 125, 0.1), 0 0 0 12px rgba(40, 71, 125, 0.1), 0 0 0 24px rgba(40, 71, 125, 0.1);
     }
 }
+ */
 
-section.hero-area .hero-img img {
-    max-width: none;
-    position: absolute;
-    top: -93px;
-    right: -121px;
-}
 
-section.hero-area .hero-img img:last-child {
-    display: none;
-}
 
 /* 04 ----------------Hero area End-------------------*/
 
