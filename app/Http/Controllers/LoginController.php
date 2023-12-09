@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -42,6 +43,7 @@ class LoginController extends Controller
 			$validator = Validator::make($request->all(), ['email' => 'required|exists:users', 'password' => 'required']);
 	        if($validator->fails()){
 	            return 'no_user';
+				// return redirect('/login')->with('message', 'Login Failed');
 	        }
 	        else{
 				$is_verified = User::where('email',$request['email'])->where('is_verified','1')->count();
@@ -82,16 +84,16 @@ class LoginController extends Controller
 		$user->save();
 
 		if($user){
-			// $http = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? "https://" : "http://";
+			$http = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on'? "https://" : "http://";
 
-			// $url = $http . $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
-			// $info = [
-			// 	'name' => $user->name,
-			// 	'email_message' => 'Please click this link to activate your account'.$url.'/Verifieduser/'.$user->id,
-			// 	'is_sent' => true,
+			$url = $http . $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
+			$info = [
+				'name' => $user->name,
+				'email_message' => 'Please click this link to activate your account'.$url.'/Verifieduser/'.$user->id,
+				'is_sent' => true,
 
-			// ];
-			// $user->notify(new UserVerification($info));
+			];
+			$user->notify(new UserVerification($info));
 
 			DB::commit();
 			return 'success';
