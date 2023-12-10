@@ -94,7 +94,7 @@
             <!-- Search -->
             <div class="navbar-nav align-items-center">
               <div class="nav-item d-flex align-items-center">
-                <span>Welcome, <span class="text-primary semi-bold">{{ ucwords(Auth::user()->name) }}</span> | {{date('F d, Y - D')}} </span>
+                <span>Welcome, <span class="text-primary semi-bold">{{ ucwords(Auth::user()->fname) }}</span> | {{date('F d, Y - D')}} </span>
 
                 {{-- <i class="bx bx-search fs-4 lh-0"></i>
                 <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..." /> --}}

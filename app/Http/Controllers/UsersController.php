@@ -35,7 +35,9 @@ class UsersController extends Controller
 		DB::beginTransaction();
 
 		$user = new User;
-		$user->name = $request['name'];
+		$user->fname = $request['fname'];
+        $user->lname = $request['lname'];
+        $user->gender = $request['gender'];
         $user->email = $request['email'];
         $user->birthdate = $request['birthdate'];
         $user->contact = $request['contact'];
@@ -58,7 +60,8 @@ class UsersController extends Controller
         DB::beginTransaction();
 
         $user = User::where('id',$request['data_id'])->first();
-		$user->name = $request['name'];
+        $user->fname = $request['fname'];
+        $user->lname = $request['lname'];
         $user->email = $request['email'];
         $user->birthdate = $request['birthdate'];
         $user->contact = $request['contact'];
@@ -85,7 +88,7 @@ class UsersController extends Controller
                    ->join('users as b','b.id','a.user_id')
                    ->join('users as c','c.id','a.doctor')
                    ->join('service_offers as d','d.id','a.service')
-                   ->select('a.*','b.name as patient','c.name as doctor_name','d.service_name as service','d.id as service_id'
+                   ->select('a.*','b.fname as patient','c.fname as doctor_name','d.service_name as service','d.id as service_id'
                    ,'d.price');
         if(Auth::user()->user_type == 'doctor'){
             $query = $query->where('a.doctor',Auth::user()->id);
@@ -107,7 +110,7 @@ class UsersController extends Controller
         if ($check_avail > 10) {
             $patient = User::find(Auth::user()->id);
             $info = [
-				'name' => $patient->name,
+				'fname' => $patient->fname,
 				'email_message' => 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
 				'is_sent' => true,
 
@@ -196,7 +199,7 @@ class UsersController extends Controller
         if($update){
             $patient = User::find($patientid);
             $info = [
-				'name' => $patient->name,
+				'fname' => $patient->fname,
 				'email_message' => $status == 'approved' ? 'Good day.! Please be inform that your appointment has been approved.' : 'Good day.! Please be inform that your appointment has been disapproved.',
 				'is_sent' => true,
 

@@ -71,7 +71,7 @@
                 <select class="form-select" id="doctor" name="doctor" required>
                   <option selected disabled>Select Doctor</option>
                   @foreach($doctors as $doctor)
-                    <option value="{{$doctor->id}}">{{$doctor->name}}</option>
+                    <option value="{{$doctor->id}}">{{$doctor->fname}} {{$doctor->lname}}</option>
                     @endforeach
                 </select>
               </div>

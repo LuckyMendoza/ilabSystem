@@ -66,7 +66,15 @@ $('#register_btn').click(function(e) {
 
     form.validate({
         rules: {
-            name: {
+            fname: {
+                required: true,
+
+            },
+            lname: {
+                required: true,
+
+            },
+            gender: {
                 required: true,
 
             },

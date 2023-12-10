@@ -20,75 +20,57 @@ $(document).ready(function() {
                 }
             }
         },
-        columns: [{
-                data: 'name',
-                name: 'name',
-                searchable: true
-            },
+        columns: [
+            { data: 'fname', name: 'fname', searchable: true },
+            { data: 'lname', name: 'lname', searchable: true },
+            { data: 'gender', name: 'gender', searchable: true },
+            { data: 'address', name: 'address', searchable: true },
+            { data: 'contact', name: 'contact', searchable: true },
+            { data: 'email', name: 'email', searchable: true },
+            { data: 'birthdate', name: 'birthdate', searchable: true },
             {
-                data: "address",
-                name: "address",
-                searchable: true
-            },
-        
-			{
-                data: "contact",
-                name: "contact",
-                searchable: true
-            },
-            {
-                data: "email",
-                name: "email",
-                searchable: true
-            },
-            {
-                data: "birthdate",
-                name: "birthdate",
-                searchable: true
-            },
-			{
-                data: "created_at",
-                name: "created_at",
+                data: 'created_at',
+                name: 'created_at',
                 searchable: true,
                 class: 'v-middle',
                 render: function(data, type) {
                     return type === 'sort' ? data : moment(data).isValid() ? moment(data).format('ll') : '---';
                 }
-
-            }, 
+            },
 			{
-            data: null,
-            orderable: false,
-            searchable: false,
-            class: 'text-right',
-            render: function(data, type, row) {
-               
-                    return '<button type="button"  data-id=' + data.id + ' data-name="' + data.name 
-                                    + '" data-address="' + data.address 
-                                    + '" data-contact="' + data.contact
-                                    + '" data-email="' + data.email
-                                    + '" data-birthdate="' + data.birthdate
-                                    + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button> ';
-				
-
-				}
-			}
+                data: null,
+                orderable: false,
+                searchable: false,
+                class: 'text-right',
+                render: function(data, type, row) {
+                    return '<button type="button" data-id="' + data.id + '" data-fname="' + data.fname +
+                        '" data-lname="' + data.lname +
+                        '" data-gender="' + data.gender +
+                        '" data-address="' + data.address +
+                        '" data-contact="' + data.contact +
+                        '" data-email="' + data.email +
+                        '" data-birthdate="' + data.birthdate +
+                        '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
+                }
+            }
         ],
         drawCallback: function(settings, json) {
             $('.tooltips').tooltip();
-        },
-
+        }
     });
-
+        
+   
     $('#new').on('click', function(e) {
         $('#data_id').val(0);
-        $('#name').val('');
+        $('#fname').val('');
+        $('#lname').val('');
+        $('#gender').val('').change();
         $('#address').val('');
         $('#contact').val('');
         $('#birthdate').val('');
         $('#email').val('');
         $('.form-password-toggle').show();
-    })
+    });
 
     $('#save_btn').on('click', function(e) {
         
@@ -148,17 +130,17 @@ $(document).ready(function() {
 
     // Edit - with universal route
     $('table tbody').on('click', '.edit', function() {
-       
+        // Your code for editing goes here...
         $('#data_id').val($(this).data('id'));
         $('.form-password-toggle').hide();
-        $('#name').val($(this).data('name'));
+        $('#fname').val($(this).data('fname'));
+        $('#lname').val($(this).data('lname'));
+        $('#gender').val($(this).data('gender')).change();
         $('#address').val($(this).data('address'));
         $('#contact').val($(this).data('contact'));
         $('#birthdate').val($(this).data('birthdate'));
         $('#email').val($(this).data('email'));
-       
     });
-
     $('#btn_update').click(function(e){
         e.preventDefault();
 

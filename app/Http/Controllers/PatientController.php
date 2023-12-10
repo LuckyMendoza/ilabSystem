@@ -17,7 +17,9 @@ class PatientController extends Controller{
 
     public function store(Request $request){
         $validatedData = $request->validate([
-            'name' => 'required',
+            'fname' => 'required',
+            'lname' => 'required',
+            'gender' => 'required',
             'address' => 'required',
             'contact' => 'required',
             'birthdate' => 'required',
@@ -27,7 +29,9 @@ class PatientController extends Controller{
 
         try {
             User::create([
-                'name' => $validatedData['name'],
+                'fname' => $validatedData['fname'],
+                'lname' => $validatedData['lname'],
+                'gender' => $validatedData['gender'],
                 'email' => $validatedData['email'],
                 'birthdate' => $validatedData['birthdate'],
                 'contact' => $validatedData['contact'],
@@ -45,7 +49,9 @@ class PatientController extends Controller{
 
     public function update(Request $request, $id){
         $validatedData = $request->validate([
-            'name' => 'required',
+            'fname' => 'required',
+            'lname' => 'required',
+            'gender' => 'required',
             'address' => 'required',
             'contact' => 'required',
             'birthdate' => 'required',
@@ -54,8 +60,9 @@ class PatientController extends Controller{
 
         try {
             User::where('id', $id)->update([
-                'name' => $validatedData['name'],
-                'email' => $validatedData['email'],
+                'fname' => $validatedData['fname'],
+                'lname' => $validatedData['lname'],
+                'gender' => $validatedData['gender'],
                 'birthdate' => $validatedData['birthdate'],
                 'contact' => $validatedData['contact'],
                 'address' => $validatedData['address'],

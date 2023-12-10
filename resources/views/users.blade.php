@@ -9,13 +9,13 @@
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between">
-            <h4 class="text-primary mb-0 semi-bold">Doctors</h4>
+            <h4 class="text-primary mb-0 semi-bold">Staff</h4>
             <!-- hidden logged role -->
             
             <div class="">
                 <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal_add" id="new">
                     <i class="menu-icon tf-icons bx bx-plus"></i>
-                    Add Doctor
+                    Add Staff
                 </button>
             </div>
         </div>
@@ -25,8 +25,10 @@
         <table class="table" id="services_table">
             <thead>
                 <tr>
-                    <th>Fullname</th>
-					<th>Address</th>
+                    <th> First Name</th>
+                    <th> Last Name</th>
+                    <th> Gender</th>
+				          	<th>Address</th>
                     <th>Contact</th>
                     <th>Email Address</th>
                     <th>Birthdate</th>
@@ -44,7 +46,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title bold text-primary" id="modalTopTitle">Doctor Information</h5>
+                <h5 class="modal-title bold text-primary" id="modalTopTitle">Staff Information</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -53,9 +55,24 @@
               <div class="modal-body">
               <input type="hidden" id="data_id" name="data_id" value="0"/>
               <div class="form-group mb-2">
-                <label for="email" class="form-label">Fullname</label>
-                <input type="text" class="form-control" id="name"  name="name" autofocus autocomplete="off" required />
+                <label for="email" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="fame"  name="fname" autofocus autocomplete="off" required />
               </div>
+              <div class="form-group mb-2">
+                <label for="email" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lname"  name="lname" autofocus autocomplete="off" required />
+              </div>
+              <div class="form-group mb-2">
+                
+                  <label for="gender" class="form-label">--Select gender--</label>
+                  <select class="form-control" name="gender" required>
+                      <option value="" selected disabled>--Select gender--</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                   
+                  </select>
+              
+            </div>
               <div class="form-group mb-2">
                 <label for="email" class="form-label">Address</label>
                 <input type="text" class="form-control" id="address" name="address" autofocus autocomplete="off" required />

@@ -74,9 +74,23 @@
             <form class="mb-3" data-parsley-validate>
               @csrf
               <div class="mb-3">
-                <label for="email" class="form-label">Fullname</label>
-                <input type="text" class="form-control" name="name" autofocus autocomplete="off" required />
+                <label for="email" class="form-label">First Name</label>
+                <input type="text" class="form-control" name="fname" autofocus autocomplete="off" required />
               </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Last Name</label>
+                <input type="text" class="form-control" name="lname" autofocus autocomplete="off" required />
+              </div>
+              <div class="mb-3">
+                <label for="gender" class="form-label">--Select gender--</label>
+                <select class="form-control" name="gender" required>
+                    <option value="" selected disabled>--Select gender--</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                 
+                </select>
+            </div>
+            
               <div class="mb-3">
                 <label for="email" class="form-label">Address</label>
                 <input type="text" class="form-control" name="address" autofocus autocomplete="off" required />

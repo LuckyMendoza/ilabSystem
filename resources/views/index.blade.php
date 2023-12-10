@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Medical</title>
+    <title>iLab</title>
 
 
     <!-- Favicon Icon start -->
@@ -42,7 +42,7 @@
     @include('homepage.partials.about');
     {{--end about}}
 
-    
+
 
     {{--services start--}}
     @include('homepage.partials.services');
@@ -50,7 +50,7 @@
 
     {{--fedback --}}
     @include('homepage.partials.feedback');
-     {{--fedback end --}}
+    {{--fedback end --}}
 
     {{--contact--}}
     @include('homepage.partials.contact')

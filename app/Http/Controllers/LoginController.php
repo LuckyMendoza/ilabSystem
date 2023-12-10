@@ -64,6 +64,9 @@ class LoginController extends Controller
 		}
     }
 
+
+
+
 	public function registration(Request $request){
 		$check_email = User::where('email',$request['email'])->count();
 		if($check_email > 0){
@@ -73,7 +76,9 @@ class LoginController extends Controller
 		DB::beginTransaction();
 
 		$user = new User;
-		$user->name = $request['name'];
+		$user->fname = $request['fname'];
+		$user->lname = $request['lname'];
+		$user->gender = $request['gender'];
         $user->email = $request['email'];
         $user->birthdate = $request['birthdate'];
         $user->contact = $request['contact'];
@@ -117,7 +122,7 @@ class LoginController extends Controller
 			$default_pass = Hash::make($generated);
 
 			$info = [
-				'name' => $check_email->name,
+				'fname' => $check_email->fname,
 				'email_message' => 'Your new password is '.$generated.' . Please make sure to change your password.! ',
 				'is_sent' => true,
 

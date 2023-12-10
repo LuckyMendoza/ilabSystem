@@ -32,7 +32,7 @@
     <li class="menu-item @yield('users')">
       <a href="/doctor" class="menu-link">
         <i class="menu-icon tf-icons bx bx-user"></i>
-        <div data-i18n="Basic">Doctors</div>
+        <div data-i18n="Basic">Staff</div>
       </a>
     </li>
     <li class="menu-item {{ (request()->is('patient*')) ? 'active' : '' }} ">
