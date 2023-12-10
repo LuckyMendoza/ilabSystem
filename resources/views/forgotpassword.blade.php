@@ -55,7 +55,7 @@
             <!-- Logo -->
             <div class="app-brand justify-content-center">
               <a href="index.html" class="app-brand-link gap-2">
-                <img src="{{ asset('images/logo_clinic.png') }}" style="width: 275px; height: 75px;">
+                <img src="{{ asset('images/ilab_logo.jpg') }}" style="width: 275px; height: 75px;">
               </a>
             </div>
             <form class="mb-3" data-parsley-validate>

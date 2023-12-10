@@ -48,7 +48,9 @@
     @include('homepage.partials.services');
     {{--end services--}}
 
-
+    {{--fedback --}}
+    @include('homepage.partials.feedback');
+     {{--fedback end --}}
 
     {{--contact--}}
     @include('homepage.partials.contact')

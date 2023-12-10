@@ -27,7 +27,7 @@
                         <ul>
                             <li><a href="#">Home</a></li>
                             <li><a href="#about">about us</a></li>
-
+                            <li><a href="#feedback">Feedback</a></li>
                             <li><a href="#departments">Services</a></li>
                             <li><a href="#Contact">Contact</a></li>
                             <li><a class="btn" href="/register">Book Appionment</a></li>
