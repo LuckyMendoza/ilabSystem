@@ -93,7 +93,7 @@ class LoginController extends Controller
 
 			$url = $http . $_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'];
 			$info = [
-				'name' => $user->name,
+				'fname' => $user->fname,
 				'email_message' => 'Please click this link to activate your account'.$url.'/Verifieduser/'.$user->id,
 				'is_sent' => true,
 
