@@ -181,6 +181,33 @@ $(document).ready(function() {
         //$('#msg').css('display', 'block');
         let url = $('#data_id').val() == 0 ? '/createAppointment' : '/updateAppointment'
 
+        // $.ajax({
+        //     type: 'POST',
+        //     url: url,
+        //     data: data,
+        //     processData: false,
+        //     contentType: false,
+        //     beforeSend: function(){
+        //         $('#msg').empty();
+        //     },
+        //     success: function(result) {
+
+        //         if (result === 'warning') {
+        //             alert('Doctor appointment limit reached. Please wait for availability or try another time slot.');
+        //             window.location.reload();
+        //         } else if (result === 'success') {
+        //             alert('Your appointment has been received and is under review. Please wait for confirmation.');
+        //             window.location.reload();
+        //         } else if (result === 'update') {
+        //             alert('Appointment updated successfully!.');
+        //             window.location.reload();
+        //         } else {
+        //             alert('Error: ' + result);
+        //         }
+
+        //         btn.attr('disabled', false);
+        //     }
+        // });
         $.ajax({
             type: 'POST',
             url: url,
@@ -190,24 +217,24 @@ $(document).ready(function() {
             beforeSend: function(){
                 $('#msg').empty();
             },
-            success: function(result) {
-
-                if (result === 'warning') {
-                    alert('Doctor appointment limit reached. Please wait for availability or try another time slot.');
+            success: function(response) {
+                if (response.status === 'warning') {
+                    alert(response.message);
                     window.location.reload();
-                } else if (result === 'success') {
+                } else if (response.status === 'success') {
                     alert('Your appointment has been received and is under review. Please wait for confirmation.');
                     window.location.reload();
-                } else if (result === 'update') {
+                } else if (response.status === 'update') {
                     alert('Appointment updated successfully!.');
                     window.location.reload();
                 } else {
-                    alert('Error: ' + result);
+                    alert('Error: ' + response.message);
                 }
-
+        
                 btn.attr('disabled', false);
             }
         });
+        
 
     });
 
