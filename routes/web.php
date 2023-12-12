@@ -19,6 +19,7 @@ use App\Http\Controllers\{
     UsersController,
     ServicesController,
     PatientController,
+    ChatController
 };
 
 // Route::get('/', function () {
@@ -79,4 +80,8 @@ Route::middleware(['auth'])->group(function () {
 
     // Patient
     Route::resource('patient', PatientController::class);
+
+    Route::get('/chat', [ChatController::class, 'index']);
+    Route::post('/chat', [ChatController::class, 'store']);
+    Route::get('/chat/{user}', [ChatController::class, 'getUserChat']);
 });
