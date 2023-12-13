@@ -50,6 +50,8 @@
                             class="edit btn btn-sm btn-primary"><i class="fa fa-pencil-alt"></i></button>
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modal_delete{{ $index }}"
                             class="edit btn btn-sm btn-primary"><i class="fa fa-trash"></i></button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#add_appointment{{ $index }}"
+                            class="edit btn btn-sm btn-primary"><i class="fa fa-calendar"></i></button>
                     </td>
 
                     {{-- add appointment --}}
