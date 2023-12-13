@@ -86,6 +86,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/chat', [ChatController::class, 'index']);
     Route::post('/chat', [ChatController::class, 'store']);
     Route::get('/chat/{user}', [ChatController::class, 'getUserChat']);
-    Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('feedback');
-    Route::get('/feedback/submit', [FeedbackController::class, 'createFeedback'])->name('createFeedback');
+    Route::get('/feedback', [FeedbackController::class, 'feedback']);
+    Route::post('/createFeedback', [FeedbackController::class, 'createFeedback'])->name('createFeedback');
 });

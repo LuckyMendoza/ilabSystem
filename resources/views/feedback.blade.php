@@ -7,6 +7,7 @@
 @endsection
 @section('main_content')
 
+<!-- Sa resources/views/feedback.blade.php -->
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -16,42 +17,29 @@
                 <div class="card-body">
                     <!-- Display validation errors here, if any -->
                     @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
                     @endif
 
-                    <form action="/createFeedback" method="post">
-                        @csrf
-                        <!-- Blade directive para sa CSRF protection -->
+                    <form action="{{ route('createFeedback') }}" method="post">
+                        @csrf <!-- Blade directive para sa CSRF protection -->
 
-                        <!-- Input field for comment -->
+                        <!-- Input field for comments -->
                         <div class="form-group">
-                            <label for="comment">Comment:</label>
-                            <textarea name="comment" style="height:150px;" id="comment" class="form-control"
-                                required>{{ old('comment') }}</textarea>
+                            <label for="comments">Comments:</label>
+                            <textarea name="comments" id="comments" class="form-control" required>{{ old('comments') }}</textarea>
                         </div>
 
-                        <!-- Input field for rating -->
                         <!-- Input field for star rating -->
                         <div class="form-group">
                             <label for="star_rating">Star Rating:</label>
-                            <div class="stars" onclick="setRating(event)">
-                                <span class="fa fa-star" data-rating="1"></span>
-                                <span class="fa fa-star" data-rating="2"></span>
-                                <span class="fa fa-star" data-rating="3"></span>
-                                <span class="fa fa-star" data-rating="4"></span>
-                                <span class="fa fa-star" data-rating="5"></span>
-                                <input type="hidden" name="star_rating" id="star_rating"
-                                    value="{{ old('star_rating') }}">
-                            </div>
+                            <!-- Dito mo ilagay ang iyong HTML para sa star rating -->
                         </div>
-
-                        <!-- Other input fields... -->
 
                         <button type="submit" class="btn btn-primary">Submit Feedback</button>
                     </form>
@@ -60,6 +48,7 @@
         </div>
     </div>
 </div>
+
 
 
 

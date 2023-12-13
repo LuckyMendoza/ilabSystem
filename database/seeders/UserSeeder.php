@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -25,6 +26,15 @@ class UserSeeder extends Seeder
             'is_verified'   => '1',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
+
+            
         ]);
+
+        // Generate 8 fake user records
+    
+
+       
+
+
     }
 }

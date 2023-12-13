@@ -11,25 +11,25 @@ class CreateFeedback extends Migration
      *
      * @return void
      */
-    public function up()
-    {
-        Schema::create('feedback', function (Blueprint $table) {
-            $table->increments('id')->nullable();;
-            $table->unsignedBigInteger('user_id'); // Foreign key na tumutukoy sa id ng users
-            $table->longText('comments')->nullable();
-            $table->integer('star_rating')->nullable();;
-            $table->enum('status', ['active', 'deactive'])->nullable();
-            $table->timestamps();
-    
-            // I-dagdag ang foreign key constraint
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-        });
-    }
-    
-    // ...
-    
-    public function down()
-    {
-        Schema::dropIfExists('feedback');
-    }
+  // Sa database/migrations
+public function up()
+{
+    Schema::create('feedback', function (Blueprint $table) {
+        $table->increments('id');
+        $table->unsignedBigInteger('user_id'); // Foreign key na tumutukoy sa id ng users
+        $table->longText('comments')->nullable();
+        $table->integer('star_rating');
+        $table->enum('status', ['active', 'deactive']);
+        $table->timestamps();
+
+        // I-dagdag ang foreign key constraint
+        $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+    });
+}
+
+public function down()
+{
+    Schema::dropIfExists('feedback');
+}
+
 }
