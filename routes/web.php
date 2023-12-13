@@ -19,7 +19,12 @@ use App\Http\Controllers\{
     UsersController,
     ServicesController,
     PatientController,
+<<<<<<< Updated upstream
     ChatController
+=======
+    FeedbackController,
+
+>>>>>>> Stashed changes
 };
 
 // Route::get('/', function () {
@@ -80,8 +85,13 @@ Route::middleware(['auth'])->group(function () {
 
     // Patient
     Route::resource('patient', PatientController::class);
+<<<<<<< Updated upstream
 
     Route::get('/chat', [ChatController::class, 'index']);
     Route::post('/chat', [ChatController::class, 'store']);
     Route::get('/chat/{user}', [ChatController::class, 'getUserChat']);
+=======
+    Route::get('/feedback', [FeedbackController::class, 'feedback'])->name('feedback');
+    Route::get('/feedback/submit', [FeedbackController::class, 'createFeedback'])->name('createFeedback');
+>>>>>>> Stashed changes
 });
