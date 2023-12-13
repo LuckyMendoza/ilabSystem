@@ -121,8 +121,8 @@
                           </div>
                         </div>
                         <div class="flex-grow-1">
-                          <span class="fw-semibold d-block">{{ ucwords(Auth::user()->name) }} </span>
-                          <small class="text-muted">{{ ucwords(Auth::user()->role) }}</small>
+                          <span class="fw-semibold d-block">{{ Auth::user()->fname.' '.Auth::user()->lname }} </span>
+                          <small class="text-muted">{{ ucwords(Auth::user()->user_type) }}</small>
                         </div>
                       </div>
                     </a>

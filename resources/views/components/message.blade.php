@@ -31,7 +31,7 @@
                                             <div class="d-flex flex-row">
                                                 <img src="{{ asset('asset/img/avatars/logo.png') }}" alt="avatar" class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="50" height="50">
                                                 <div class="pt-1">
-                                                    <p class="fw-bold mb-0">{{ $u->name }}</p>
+                                                    <p class="fw-bold mb-0">{{ ucfirst($u->user_type).' - '.$u->fname.' '.$u->lname }}</p>
                                                     <p class="small text-muted">{{ $latestMessage ? $latestMessage->message : 'No messages' }}</p>
                                                 </div>
                                             </div>
@@ -163,7 +163,7 @@ $(document).ready(function() {
                         '<img src="{{ asset('asset/img/avatars/logo.png') }}" alt="avatar" class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="50" height="50">' +
                         '<div class="card w-100">' +
                         '<div class="card-header d-flex justify-content-between p-2">' +
-                        '<p class="fw-bold mb-0">' + message.sender.name + ':</p>' +
+                        '<p class="fw-bold mb-0">' + message.sender.fname + ' ' + message.sender.lname + ':</p>' +
                         '<p class="text-muted small mb-0"><i class="far fa-clock me-1"></i>' + timeAgo + '</p>' +
                         '</div>' +
                         '<div class="card-body">' +

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Faker\Factory as Faker;
+use App\Models\User;
 
 class UserSeeder extends Seeder
 {
@@ -15,26 +17,34 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
+    public function run(){
         DB::table('users')->insert([
             'id'       => "1",
-            'fname'       => "Admin",
+            'fname'       => "System",
+            'lname'       => "Admin",
             'email'   => 'admin@gmail.com',
             'password'   => Hash::make('admin'),
             'user_type'   => 'admin',
-            'is_verified'   => '1',
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-
-            
+            'is_verified'   => '1'
         ]);
 
-        // Generate 8 fake user records
-    
-
-       
-
-
+        $faker = Faker::create();
+        $addressCount = 10;
+        for ($i = 1; $i <= $addressCount; $i++) {
+            User::create([
+                'fname' => $faker->firstName,
+                'lname' =>  $faker->lastName,
+                'gender' => $faker->randomElement(['male', 'female']),
+                'email' => $faker->unique()->safeEmail,
+                'birthdate' => $faker->date,
+                'contact' => $faker->phoneNumber,
+                'address' => $faker->address,
+                'email_verified_at' => now(),
+                'password' => bcrypt('test'),
+                'is_verified' => "1",
+                'user_type' => 'patient',
+                'remember_token' => Str::random(10),
+            ]);
+        }
     }
 }

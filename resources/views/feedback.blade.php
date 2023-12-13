@@ -30,15 +30,22 @@
                         @csrf <!-- Blade directive para sa CSRF protection -->
 
                         <!-- Input field for comments -->
-                        <div class="form-group">
+                        <div class="form-group mb-2">
                             <label for="comments">Comments:</label>
                             <textarea name="comments" id="comments" class="form-control" required>{{ old('comments') }}</textarea>
                         </div>
 
                         <!-- Input field for star rating -->
-                        <div class="form-group">
-                            <label for="star_rating">Star Rating:</label>
-                            <!-- Dito mo ilagay ang iyong HTML para sa star rating -->
+                        <div class="form-group mb-3">
+                            <label for="star">Star Rating:</label>
+                            <select class="form-select" id="star_rating" name="star_rating" required>
+                                <option selected disabled>Select Rating</option>
+                                <option value="5">Very Satisfied (5)</option>
+                                <option value="4">Satisfied (4)</option>
+                                <option value="3">Neutral (3)</option>
+                                <option value="2">Dissatisfied (2)</option>
+                                <option value="1">Very Dissatisfied (1)</option>
+                            </select>
                         </div>
 
                         <button type="submit" class="btn btn-primary">Submit Feedback</button>
