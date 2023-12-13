@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\{User, service_offers, schedule_list};
 
 use Illuminate\Support\Facades\Hash;
 
@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 class PatientController extends Controller{
     public function index(){
         $data['patients'] = User::where('user_type', 'patient')->get();
+        $data['doctors'] = User::where('user_type','doctor')->get();
+        $data['services'] = service_offers::all();
 
         return view('components.patient', $data);
     }
@@ -71,6 +73,24 @@ class PatientController extends Controller{
             return redirect()->back()->with('success', 'Data has been Updated successful!');
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', 'updating failed!');
+        }
+    }
+
+    public function add_appointment(Request $request){
+        try {
+            schedule_list::create([
+                'user_id' => $request['user_id'],
+                'schedule_date' => $request['schedule_date'],
+                'time_from' => $request['time_from'],
+                'time_to' => $request['time_to'],
+                'service' => $request['service'],
+                'doctor' => $request['doctor'],
+                'status' => 0,
+            ]);
+
+            return redirect()->back()->with('success', 'New Appointment has been Added successful!');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'Errer: '.$th->getMessage());
         }
     }
 

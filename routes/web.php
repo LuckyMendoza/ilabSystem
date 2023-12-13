@@ -82,6 +82,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Patient
     Route::resource('patient', PatientController::class);
+    Route::post('/patient/add_appointment', [PatientController::class, 'add_appointment']);
 
     Route::get('/chat', [ChatController::class, 'index']);
     Route::post('/chat', [ChatController::class, 'store']);

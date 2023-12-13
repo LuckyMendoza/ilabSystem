@@ -28,7 +28,6 @@
                     <th>First Name</th>
                     <th>First Last</th>
                     <th>Gender</th>
-                    <th>Address</th>
                     <th>Contact</th>
                     <th>Email Address</th>
                     <th>Birthdate</th>
@@ -42,21 +41,80 @@
                     <td class="text-center"> {{ $patient->fname }} </td>
                     <td class="text-center"> {{ $patient->lname }} </td>
                     <td class="text-center"> {{ $patient->gender }} </td>
-                    <td class="text-center"> {{ $patient->address }} </td>
                     <td class="text-center"> {{ $patient->contact }} </td>
                     <td class="text-center"> {{ $patient->email }} </td>
                     <td class="text-center"> {{ date("M d, Y", strtotime($patient->birthdate)) }} </td>
                     <td class="text-center"> {{ date("M d, Y", strtotime($patient->created_at)) }} </td>
-                    <td class="text-center">
+                    <td class="!text-center">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modal_edit{{ $index }}"
                             class="edit btn btn-sm btn-primary"><i class="fa fa-pencil-alt"></i></button>
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modal_delete{{ $index }}"
                             class="edit btn btn-sm btn-primary"><i class="fa fa-trash"></i></button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#add_appointment{{ $index }}"
+                            class="edit btn btn-sm btn-primary"><i class="fa fa-calendar"></i></button>
                     </td>
 
+                    {{-- add appointment --}}
+                    <div class="modal modal-top fade" data-bs-backdrop="static" id="add_appointment{{ $index }}" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title bold text-primary" id="modalTopTitle">Create Appointment {{ $patient->lname }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <form action="{{ url('/patient/add_appointment') }}" method="post">
+                                    @csrf
+                                    <div class="modal-body">
+                                        <input type="hidden" id="user_id" name="user_id" value="{{ $patient->id }}"/>
+
+                                        <div class="form-group mb-2">
+                                            <label for="email" class="form-label">Service</label>
+                                            <select class="form-select" id="service" name="service" required>
+                                                <option selected disabled>Select Services</option>
+                                                @foreach($services as $service)
+                                                    <option value="{{$service->id}}">{{$service->service_name}} - {{$service->price}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="email" class="form-label">Doctor</label>
+                                            <select class="form-select" id="doctor" name="doctor" required>
+                                                <option selected disabled>Select Doctor</option>
+                                                @foreach($doctors as $doctor)
+                                                    <option value="{{$doctor->id}}">{{$doctor->fname}} {{$doctor->lname}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-12 row">
+                                            <div class="col-6 mb-2">
+                                                <label for="time_from" class="form-label">Time From</label>
+                                                <input type="time" class="form-control" id="time_from" name="time_from" autofocus autocomplete="off" required>
+                                            </div>
+                                            <div class="col-6 mb-2">
+                                                <label for="time_to" class="form-label">Time To</label>
+                                                <input type="time" class="form-control" id="time_to" name="time_to" autofocus autocomplete="off" required>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Schedule Date</label>
+                                            <input type="date" class="form-control" id="schedule_date" name="schedule_date" autofocus autocomplete="off" required />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-link" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+
                     {{-- update patient --}}
-                    <div class="modal modal-top fade" data-bs-backdrop="static" id="modal_edit{{ $index }}"
-                        tabindex="-1">
+                    <div class="modal modal-top fade" data-bs-backdrop="static" id="modal_edit{{ $index }}" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -119,8 +177,7 @@
                     </div>
 
                     {{-- Delete patient --}}
-                    <div class="modal modal-top fade" data-bs-backdrop="static" id="modal_delete{{ $index }}"
-                        tabindex="-1">
+                    <div class="modal modal-top fade" data-bs-backdrop="static" id="modal_delete{{ $index }}" tabindex="-1">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
