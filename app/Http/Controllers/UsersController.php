@@ -103,164 +103,94 @@ class UsersController extends Controller
         return DataTables::of($query)->make(true);
     }
 
-//     public function createAppointmentSchedule(Request $request){
+    public function createAppointmentSchedule(Request $request){
 
-//         $check_avail = schedule_list::where('doctor', $request['doctor'])->where('status', '1')->count();
+        $check_avail = schedule_list::where('doctor', $request['doctor'])->where('status', '1')->count();
 
-//         if ($check_avail > 10) {
-//             $patient = User::find(Auth::user()->id);
-//             $info = [
-// 				'fname' => $patient->fname,
-// 				'email_message' => 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
-// 				'is_sent' => true,
+        $result = null;
 
-// 			];
-//             try {
-//                 $patient->notify(new UserVerification($info));
-//             } catch (\Throwable $th) {
-//                 $message = 'Email sending failed';
-//             }
-
-//             $result = $this->storeAppointment($request, '2');
-
-//             if($result){
-//                 return 'warning';
-//             }else{
-//                 return 'Something went wrong!';
-//             }
-//         }else{
-//             DB::beginTransaction();
-//             // $check_appointment = schedule_list::where('user_id',Auth::user()->id)
-//             //                                   ->where('schedule_date',$request['schedule_date'])
-//             //                                   ->where('status','0')
-//             //                                   ->count();
-            
-     
-//     // Check for pending appointments for the user on the specified date and time
-//     $check_pending_appointment = schedule_list::where('user_id', Auth::user()->id)
-//     ->where('schedule_date', $request['schedule_date'])
-//     ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
-//     ->where('status', '0')
-//     ->count();
-
-// // Check for approved appointments for the user on the specified date and time
-// $check_approved_appointment = schedule_list::where('user_id', Auth::user()->id)
-//     ->where('schedule_date', $request['schedule_date'])
-//     ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
-//     ->where('status', '1')
-//     ->count();
-
-// // If there is a pending or approved appointment, return a warning
-// if ($check_pending_appointment > 0 || $check_approved_appointment > 0) {
-//     DB::rollBack(); // Rollback the transaction
-//  // Send an email to the patient
-//  $patient = User::find(Auth::user()->id);
-//  $info = [
-//      'fname' => $patient->fname,
-//      'email_message' => 'Someone has already booked an appointment at the same time. Please choose a different time.',
-//      'is_sent' => true,
-//  ];
-
-//  try {
-//     $patient->notify(new UserVerification($info));
-// } catch (\Throwable $th) {
-//     $message = 'Email sending failed';
-// }
- 
-
-//     return 'Someone has already booked an appointment at the same time. Please choose a different time.';
-// }
-
-// $result = $this->storeAppointment($request, '0');
-    
-//             if ($result) {
-//                 // Commit transaction if successful
-//                 DB::commit();
-//                 return 'success';
-//             } else {
-//                 // Rollback transaction if something went wrong
-//                 DB::rollBack();
-//                 return 'Something went wrong!';
-//             }
-//         }
-//     }
-public function createAppointmentSchedule(Request $request)
-{
-    $check_avail = schedule_list::where('doctor', $request['doctor'])->where('status', '1')->count();
-
-    if ($check_avail > 10) {
-        $patient = User::find(Auth::user()->id);
-        $info = [
-            'fname' => $patient->fname,
-            'email_message' => 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
-            'is_sent' => true,
-        ];
-
-        try {
-            $patient->notify(new UserVerification($info));
-        } catch (\Throwable $th) {
-            $message = 'Email sending failed';
-        }
-
-        $result = $this->storeAppointment($request, '2');
-
-        if ($result) {
-            return response()->json(['status' => 'warning']);
-        } else {
-            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);
-        }
-    } else {
-        DB::beginTransaction();
-
-        // Check for pending appointments for the user on the specified date and time
-        $check_pending_appointment = schedule_list::where('user_id', Auth::user()->id)
-            ->where('schedule_date', $request['schedule_date'])
-            ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
-            ->where('status', '0')
-            ->count();
-
-        // Check for approved appointments for the user on the specified date and time
-        $check_approved_appointment = schedule_list::where('user_id', Auth::user()->id)
-            ->where('schedule_date', $request['schedule_date'])
-            ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
-            ->where('status', '1')
-            ->count();
-
-        // If there is a pending or approved appointment, return a warning
-        if ($check_pending_appointment > 0 || $check_approved_appointment > 0) {
-            DB::rollBack(); // Rollback the transaction
-
-            // Send an email to the patient
+        if ($check_avail > 10) {
             $patient = User::find(Auth::user()->id);
             $info = [
-                'fname' => $patient->fname,
-                'email_message' => 'Someone has already booked an appointment at the same time. Please choose a different time.',
-                'is_sent' => true,
-            ];
+				'fname' => $patient->fname,
+				'email_message' => 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
+				'is_sent' => true,
 
+			];
             try {
                 $patient->notify(new UserVerification($info));
             } catch (\Throwable $th) {
                 $message = 'Email sending failed';
             }
 
-            return response()->json(['status' => 'warning', 'message' => 'Someone has already booked an appointment at the same time. Please choose a different time.']);
-        }
+            $result = $this->storeAppointment($request, '2');
 
-        $result = $this->storeAppointment($request, '0');
+            if($result){
+                return 'warning';
+            }else{
+                return 'Something went wrong!';
+            }
+        }else{
+            DB::beginTransaction();
+            // $check_appointment = schedule_list::where('user_id',Auth::user()->id)
+            //                                   ->where('schedule_date',$request['schedule_date'])
+            //                                   ->where('status','0')
+            //                                   ->count();
+            
+     
+    // Check for pending appointments for the user on the specified date and time
+    $check_pending_appointment = schedule_list::where('user_id', Auth::user()->id)
+    ->where('schedule_date', $request['schedule_date'])
+    ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
+    ->where('status', '0')
+    ->count();
 
-        if ($result) {
-            // Commit transaction if successful
-            DB::commit();
-            return response()->json(['status' => 'success']);
-        } else {
-            // Rollback transaction if something went wrong
-            DB::rollBack();
-            return response()->json(['status' => 'error', 'message' => 'Something went wrong!']);
-        }
-    }
+// Check for approved appointments for the user on the specified date and time
+$check_approved_appointment = schedule_list::where('user_id', Auth::user()->id)
+    ->where('schedule_date', $request['schedule_date'])
+    ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
+    ->where('status', '1')
+    ->count();
+
+// If there is a pending or approved appointment, return a warning
+if ($check_pending_appointment > 0 || $check_approved_appointment > 0) {
+    DB::rollBack(); // Rollback the transaction
+ // Send an email to the patient
+ $patient = User::find(Auth::user()->id);
+ $info = [
+     'fname' => $patient->fname,
+     'email_message' => 'Someone has already booked an appointment at the same time. Please choose a different time.',
+     'is_sent' => true,
+ ];
+
+ try {
+    $patient->notify(new UserVerification($info));
+} catch (\Throwable $th) {
+    $message = 'Email sending failed';
+}
+return 'warning';
+// if($result){
+//     return 'warning';
+// }else{
+//     return 'Something went wrong!';
+// }
+
+  
 }
 
+$result = $this->storeAppointment($request, '0');
+    
+            if ($result) {
+                // Commit transaction if successful
+                DB::commit();
+                return 'success';
+            } else {
+                // Rollback transaction if something went wrong
+                DB::rollBack();
+                return 'Something went wrong!';
+            }
+        }
+    }
 
 
 
@@ -269,7 +199,7 @@ public function createAppointmentSchedule(Request $request)
 
 
 
-    private function storeAppointment($request, $status){
+    public function storeAppointment($request, $status){
         try {
             $book_appointment = new schedule_list;
             $book_appointment->user_id = Auth::user()->id;
