@@ -66,7 +66,6 @@
     <div data-i18n="Settings">Settings</div>
   </a>
 </li>
-<<<<<<< Updated upstream
 
 <li class="menu-item {{ (request()->is('chat*')) ? 'active' : '' }}">
     <a href="/chat" class="menu-link">
@@ -76,5 +75,3 @@
   </li>
 
 
-=======
->>>>>>> Stashed changes
