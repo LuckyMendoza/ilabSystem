@@ -349,7 +349,7 @@ $result = $this->storeAppointment($request, '0');
         try {
 
             PrescriptionRecord::create([
-                'appointment_id' => $request['appointment_id'],
+                'appointment_id' => $request['appointmentId'],
                 'patient_id' => $request['id'],
                 'service_id' => $request['service'],
                 'result' => $request['result'],
