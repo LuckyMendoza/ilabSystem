@@ -14,6 +14,9 @@ use App\Notifications\UserVerification;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Storage;
+use PDF;
 
 class UsersController extends Controller
 {
@@ -346,6 +349,7 @@ $result = $this->storeAppointment($request, '0');
         try {
 
             PrescriptionRecord::create([
+                'appointment_id' => $request['appointment_id'],
                 'patient_id' => $request['id'],
                 'service_id' => $request['service'],
                 'result' => $request['result'],
@@ -359,6 +363,25 @@ $result = $this->storeAppointment($request, '0');
             throw $th;
             return 'Something went wrong!';
         }
+    }
+
+    public function generatePdf(Request $request)
+    {
+        $query = schedule_list::with('patient', 'services',  'prescription')->where('id', $request->data_id)->first();
+
+        $data = [
+            'date' => $query->schedule_date,
+            'patient_firstname' => $query->patient->fname,
+            'patient_lastname' => $query->patient->lname,
+            'gender' => $query->patient->gender,
+            'birthday' => $query->patient->birthdate,
+            'service' => $query->services->service_name,
+            'prescription' => $query->prescription->result
+        ];
+
+        $pdf = PDF::loadView('pdf.generate-pdf', $data);
+
+        return $pdf->download('patient-prescription.pdf');
     }
 
 }

@@ -80,6 +80,8 @@ Route::middleware(['auth'])->group(function () {
      Route::get('/approveAppointment/{id}/{status}/{patient}', [UsersController::class, 'approveAppointmentSchedule'])->name('approveAppointment');
      Route::get('/monthlyAnalytics', [UsersController::class, 'getMonthlyAnalytics'])->name('monthlyAnalytics');
      Route::post('prescription', [UsersController::class, 'storePrescription'])->name('prescription.store');
+     Route::post('prescription', [UsersController::class, 'storePrescription'])->name('prescription.store');
+     Route::get('generate-prescription', [UsersController::class, 'generatePdf'])->name('generate-pdf');
 
     // Patient
     Route::resource('patient', PatientController::class);

@@ -18,5 +18,20 @@ class schedule_list extends Model{
         'service',
         'status'
     ];
+
+    public function patient()
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function prescription()
+    {
+        return $this->hasOne(PrescriptionRecord::class, 'appointment_id', 'id');
+    }
+
+    public function services()
+    {
+        return $this->hasOne(service_offers::class, 'id', 'service');
+    }
 }
 

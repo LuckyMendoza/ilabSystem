@@ -10,5 +10,5 @@ class PrescriptionRecord extends Model
     use HasFactory;
 
     protected $table = 'prescription_records';
-    protected $fillable = ['patient_id', 'service_id', 'result'];
+    protected $fillable = ['appointment_id', 'patient_id', 'service_id', 'result'];
 }

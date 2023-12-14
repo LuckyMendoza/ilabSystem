@@ -108,8 +108,12 @@ $(document).ready(function() {
                         + '" data-time_from="' + data.time_from
                         + '" data-time_to="' + data.time_to
                         + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
-                    }else if(user == 'patient' && (data.status == 1 || data.status == 2)){
-                        return '<span>No available</span>';
+                    }else if(user == 'patient' && (data.status == 1)){
+                        return '<button type="button"  data-id=' + data.id
+                        + '" data-patient="' + data.patient
+                        + '" data-patient_id="' + data.user_id
+                        + '" data-schedule_date="' + data.schedule_date
+                        + '"  data-bs-toggle="modal" data-bs-target="#modal_download" id="download-prescription" class="btn btn-sm btn-secondary"><i class="fa fa-download"></i></button>';
                     }else if (user == 'doctor' && data.status == 0){
                         return '<button type="button"  data-id=' + data.id
                         + '" data-patient="' + data.patient
@@ -330,6 +334,7 @@ $(document).ready(function() {
         });
     }) 
     
+    //Save Prescription
     $('table tbody').on('click', '#prescription', function() {
         $('#data_id').val($(this).data('id'));
         $('#patient_id').val($(this).data('patient_id'));
@@ -343,6 +348,7 @@ $(document).ready(function() {
             id: $('#patient_id').val(),
             result: $('#result').val(),
             service: $('#service').val(),
+            appointmentId: $('#data_id').val()
         };
 
         $.ajax({
@@ -362,5 +368,50 @@ $(document).ready(function() {
                 btn.attr('disabled', false);
             }
         });
+    });
+
+    //Download Prescription
+    $('table tbody').on('click', '#download-prescription', function() {
+        $('#download_data_id').val($(this).data('id'));
+        $('#download_patient_id').val($(this).data('patient_id'));
+
+        $('#download-form').attr('action', `/generate-prescription`)
+    });
+
+    $('#confirm_download_btn').on('click', function() {
+        // var prescriptionData = {
+        //     id: $('#data_id').val(),
+        //     patientId: $('#patient_id').val(),
+        // };
+
+
+        // $.ajax({
+        //     type: 'GET',
+        //     url: 'generate-prescription',
+        //     data: prescriptionData,
+        //     beforeSend: function() {
+        //         $('#msg').empty();
+        //     },
+        //     success: function(result) {
+        //         // Convert the result content to a Blob
+        //         var blob = new Blob([result], { type: 'application/pdf' });
+
+        //         // Create a download link
+        //         var downloadLink = document.createElement('a');
+        //         downloadLink.href = URL.createObjectURL(blob);
+        //         downloadLink.download = 'prescription.pdf';
+
+        //         // Append the link to the body
+        //         document.body.appendChild(downloadLink);
+
+        //         // Trigger a click on the link to start the download
+        //         downloadLink.click();
+
+        //         // Remove the link from the body
+        //         document.body.removeChild(downloadLink);
+
+        //         // btn.attr('disabled', false);
+        //     }
+        // });
     });
 });
