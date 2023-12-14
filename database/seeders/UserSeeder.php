@@ -28,6 +28,8 @@ class UserSeeder extends Seeder
             'is_verified'   => '1'
         ]);
 
+        
+
         $faker = Faker::create();
         $addressCount = 10;
         for ($i = 1; $i <= $addressCount; $i++) {

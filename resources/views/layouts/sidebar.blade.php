@@ -59,6 +59,15 @@
 @endif
 
 
+
+<li class="menu-item {{ (request()->is('chat*')) ? 'active' : '' }}">
+  <a href="/chat" class="menu-link">
+    <i class="menu-icon tf-icons bx bx-message"></i>
+    <div data-i18n="Messages">Messages</div>
+  </a>
+</li>
+  
+
 <!-- Change Password -->
 <li class="menu-item">
   <a href="/changepassword" class="menu-link">
@@ -67,11 +76,5 @@
   </a>
 </li>
 
-<li class="menu-item {{ (request()->is('chat*')) ? 'active' : '' }}">
-    <a href="/chat" class="menu-link">
-      <i class="menu-icon tf-icons bx bx-message"></i>
-      <div data-i18n="Messages">Messages</div>
-    </a>
-  </li>
 
 

@@ -206,7 +206,7 @@ $(document).ready(function() {
                     alert('Appointment updated successfully!.');
                     window.location.reload();
                 } else {
-                    alert('Error: ' + result);
+                    alert('Error: ' + result);  
                 }
                 btn.attr('disabled', false);
             }
