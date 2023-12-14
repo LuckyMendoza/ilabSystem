@@ -79,6 +79,7 @@ Route::middleware(['auth'])->group(function () {
      Route::post('/updateAppointment', [UsersController::class, 'updateAppointmentSchedule'])->name('updateAppointment');
      Route::get('/approveAppointment/{id}/{status}/{patient}', [UsersController::class, 'approveAppointmentSchedule'])->name('approveAppointment');
      Route::get('/monthlyAnalytics', [UsersController::class, 'getMonthlyAnalytics'])->name('monthlyAnalytics');
+     Route::post('prescription', [UsersController::class, 'storePrescription'])->name('prescription.store');
 
     // Patient
     Route::resource('patient', PatientController::class);

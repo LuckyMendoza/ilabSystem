@@ -131,7 +131,33 @@
         </div>
     </div>
 </div>
+</div>
 
+
+<div class="modal modal-top fade" data-bs-backdrop="static" id="modal_prescription" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title bold text-primary" id="modalTopTitle">Medical Prescription</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            @csrf
+            <input type="hidden" id="patient_id" name="patient_id"/>
+            <input type="hidden" id="service" name="service"/>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="result" class="form-label">Result/Prescription</label>
+                    <textarea class="form-control" id="result" name="result"></textarea>
+                </div>
+              <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="prescribe_btn">Save</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
     @endsection
 
     @section('specific-js')

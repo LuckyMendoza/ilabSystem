@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PrescriptionRecord;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use DataTables;
@@ -335,6 +336,27 @@ $result = $this->storeAppointment($request, '0');
         if($update){
             return 'success';
         }else{
+            return 'Something went wrong!';
+        }
+    }
+
+    //Patient Result/Prescription
+    public function storePrescription(Request $request)
+    {
+        try {
+
+            PrescriptionRecord::create([
+                'patient_id' => $request['id'],
+                'service_id' => $request['service'],
+                'result' => $request['result'],
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+
+            return 'success';
+
+        } catch (\Throwable $th) {
+            throw $th;
             return 'Something went wrong!';
         }
     }
