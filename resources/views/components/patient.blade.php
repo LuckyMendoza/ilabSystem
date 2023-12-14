@@ -52,6 +52,10 @@
                             class="edit btn btn-sm btn-primary"><i class="fa fa-pencil-alt"></i></button>
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modal_delete{{ $index }}"
                             class="edit btn btn-sm btn-primary"><i class="fa fa-trash"></i></button>
+                         
+                            <button type="button" data-bs-toggle="modal" data-bs-backdrop="static" id="#modal_add"
+                            class="edit btn btn-sm btn-success"><i class="fa fa-calendar-plus"></i> Create Appointment</button>
+                           
                     </td>
 
                     {{-- update patient --}}
@@ -62,7 +66,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title bold text-primary" id="modalTopTitle">Update {{
                                         $patient->lname }} Patient Information</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    <button type="button" class="btn-close"    data-bs-dismiss="modal" 
                                         aria-label="Close"></button>
                                 </div>
 
