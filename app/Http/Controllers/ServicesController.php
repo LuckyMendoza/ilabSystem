@@ -14,6 +14,9 @@ class ServicesController extends Controller
     public function viewServices(){
         return view('services');
     }
+   
+
+
 
     public function getAllServices(){
         $query = service_offers::all();

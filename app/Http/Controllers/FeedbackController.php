@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Feedback;
+
 use Illuminate\Support\Facades\DB;
 
 class FeedbackController extends Controller{
@@ -11,6 +13,9 @@ class FeedbackController extends Controller{
     public function feedback(){
         return view('feedback');
     }
+
+    
+    
 
     public function createFeedback(Request $request){
         try {
@@ -32,6 +37,18 @@ class FeedbackController extends Controller{
             return redirect()->back()->with('error', 'Inserting failed!');
         }
     }
+
+
+
+
+
+
+    public function userFeedback(){
+        $feedback['feedback'] = Feedback::all();
+      
+        return view('homepage.partials.feedback', $feedback);
+    }
+    
 
 }
 

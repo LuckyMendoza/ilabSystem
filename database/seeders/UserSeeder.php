@@ -23,9 +23,10 @@ class UserSeeder extends Seeder
             'fname'       => "System",
             'lname'       => "Admin",
             'email'   => 'admin@gmail.com',
-            'password'   => Hash::make('admin'),
+            'password'   => Hash::make('admin123'),
             'user_type'   => 'admin',
-            'is_verified'   => '1'
+            'is_verified'   => '1',
+          
         ]);
 
         

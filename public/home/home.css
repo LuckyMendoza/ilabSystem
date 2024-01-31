@@ -874,6 +874,7 @@ section.department-area .heading h2 {
 
 section.department-area .single-department-details .single-department-item {
     display: flex;
+    flex-wrap: wrap; /* Ito ay idadagdag mo */
 }
 
 section.department-area .single-department-details .department-col5 {

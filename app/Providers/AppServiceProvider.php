@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Models\service_offers;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      
+        // Retrieve all services from the database
+        $services = service_offers::all();
+
+        // Share the services variable with all views
+        view()->share('services', $services);
     }
 }

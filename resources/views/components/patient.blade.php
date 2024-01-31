@@ -49,16 +49,15 @@
                     <td class="text-center"> {{ date("M d, Y", strtotime($patient->created_at)) }} </td>
                     <td class="text-center">
                         <button type="button" data-bs-toggle="modal" data-bs-target="#modal_edit{{ $index }}"
-                        class="edit btn btn-sm btn-primary"><i class="fa fa-pencil-alt"></i></button>
+                            class="edit btn btn-sm btn-primary"><i class="fa fa-pencil-alt"></i></button>
 
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#modal_delete{{ $index }}"
-                        class="edit btn btn-sm btn-primary"><i class="fa fa-trash"></i></button>
-                    <button type="button" data-bs-toggle="modal" data-bs-target="#add_appointment{{ $index }}"
-                     
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal_delete{{ $index }}"
+                            class="edit btn btn-sm btn-primary"><i class="fa fa-trash"></i></button>
                         <button type="button" data-bs-toggle="modal" data-bs-target="#add_appointment{{ $index }}"
-                        class="edit btn btn-sm btn-primary"><i class="fa fa-calendar"></i></button>
-                </td>
-                            
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#add_appointment{{ $index }}"
+                            class="edit btn btn-sm btn-primary"><i class="fa fa-calendar"></i></button>
+                    </td>
+
                     {{-- update patient --}}
                     <div class="modal modal-top fade" data-bs-backdrop="static" id="modal_edit{{ $index }}"
                         tabindex="-1">
@@ -67,7 +66,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title bold text-primary" id="modalTopTitle">Update {{
                                         $patient->lname }} Patient Information</h5>
-                                    <button type="button" class="btn-close"    data-bs-dismiss="modal" 
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
 
@@ -185,9 +184,10 @@
                     <div class="form-group mb-2">
                         <label for="gender" class="form-label">--Select gender--</label>
                         <select class="form-control" name="gender" required>
+                            <option value="" selected disabled>--Select gender--</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
-                            <option value="other">Other</option>
+
                         </select>
                     </div>
                     <div class="form-group mb-2">

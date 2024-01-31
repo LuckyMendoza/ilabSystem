@@ -1,23 +1,5 @@
-   <!-- Call to action area Start -->
-   <section class="emergency-hotline-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="emme    rgency-hotline-content">
-                    <h2>Emergency hotline</h2>
-                    <h4><a href="tel:01234567890">(+01) – 234 567 890</a></h4>
-                    <p>
-                        We provide 24/7 customer support. Please feel free to contact us
-                        for emergency case.
-                    </p>
-                    <div class="appoinment-btn">
-                        <a href="#" class="btn1">Make an Appointment</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+
+   
 <!-- Call to action area End -->
 
 <!-- contact area start -->

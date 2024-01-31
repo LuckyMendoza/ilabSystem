@@ -185,6 +185,7 @@ $(document).ready(function() {
         }
 
 
+
         btn.attr('disabled', true);
         var data = new FormData(form[0]);
 
@@ -200,117 +201,215 @@ $(document).ready(function() {
             beforeSend: function(){
                 $('#msg').empty();
             },
-            success: function(result) {
-              
-                if (result === 'warning') {
-                    alert('Someone has already booked an appointment at the same time. Please choose a different time.');
-                    window.location.reload();
-                } else if (result === 'warning') {
-                    alert('Doctor appointment limit reached. Please wait for availability or try another time slot.');
-                    window.location.reload();
-                } else if (result === 'success') {
-                    alert('Your appointment has been received and is under review. Please wait for confirmation.');
-                    window.location.reload();
-
-                } else if (result === 'update') {
-                    alert('Appointment updated successfully!.');
-                    window.location.reload();
-                } else {
-                    alert('Error: ' + result);  
-                }
-                btn.attr('disabled', false);
-            }
-
-            //     if (result === 'conflict') {
-            //         alert('Someone has already booked an appointment at the same time. Please choose a different time.');
+           
+            // success: function(result) {
+            //     if (result === 'warning_past_date') {
+            //         Swal.fire({
+            //             position: "top-end",
+            //             icon: 'warning',
+            //             title: 'You cannot book an appointment in the past. Please choose a future date.',
+            //             showConfirmButton: false,
+            //             timer: 3000
+            //         });
             //         window.location.reload();
-
-            //      } else if (result === 'warning') {
-            //         alert('Doctor appointment limit reached. Please wait for availability or try another time slot.');
+            //     } else if (result === 'warning') {
+            //         Swal.fire({
+                       
+            //             icon: 'warning',
+            //             title: 'Someone has already booked an appointment at the same time. Please choose a different time.',
+            //             showConfirmButton: false,
+            //             timer: 3000
+            //         });
+            //         window.location.reload();
+            //     } else if (result === 'warning') {
+            //         Swal.fire({
+                       
+            //             icon: 'warning',
+            //             title: 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
+            //             showConfirmButton: true,
+            //             timer: 3000
+            //         });
             //         window.location.reload();
             //     } else if (result === 'success') {
-            //         alert('Your appointment has been received and is under review. Please wait for confirmation.');
+            //         Swal.fire({
+                       
+            //             icon: 'success',
+            //             title: 'Your appointment has been received and is under review. Please wait for confirmation.',
+            //             showConfirmButton: true,
+            //             timer: 3000
+            //         });
             //         window.location.reload();
             //     } else if (result === 'update') {
-            //         alert('Appointment updated successfully!.');
+            //         Swal.fire({
+                      
+            //             icon: 'success',
+            //             title: 'Appointment updated successfully!',
+            //             showConfirmButton: true,
+            //             timer: 3000
+            //         });
             //         window.location.reload();
             //     } else {
-            //         alert('Error: ' + result);
+            //         Swal.fire({
+                      
+            //             icon: 'error',
+            //             title: 'Error: ' + result,
+            //             showConfirmButton: true,
+            //             timer: 3000
+            //         });
             //     }
-
             //     btn.attr('disabled', false);
             // }
-        });
-        // $.ajax({
-        //     type: 'POST',
-        //     url: url,
-        //     data: data,
-        //     processData: false,
-        //     contentType: false,
-        //     beforeSend: function(){
-        //         $('#msg').empty();
-        //     },
-        //     success: function(response) {
-        //         if (response.status === 'warning') {
-        //             alert(response.message);
-        //             window.location.reload();
-        //         } else if (response.status === 'success') {
-        //             alert('Your appointment has been received and is under review. Please wait for confirmation.');
-        //             window.location.reload();
-        //         } else if (response.status === 'update') {
-        //             alert('Appointment updated successfully!.');
-        //             window.location.reload();
-        //         } else {
-        //             alert('Error: ' + response.message);
-        //         }
-        
-        //         btn.attr('disabled', false);
-        //     }
-        // });
-        
 
-    });
-
-
-
-    // Edit - with universal route
-    $('table tbody').on('click', '.edit', function() {
-        console.log($(this).data())
-        $('#data_id').val($(this).data('id'));
-        $('#service').val($(this).data('service'));
-        $('#doctor').val($(this).data('doctor'));
-        $('#schedule_date').val($(this).data('schedule_date'));
-        $('#time_from').val($(this).data('time_from'));
-        $('#time_to').val($(this).data('time_to'));
-    });
-
-    $('table tbody').on('click', '#approve', function() {
-        $('#data_id').val($(this).data('id'));
-        $('#patient_id').val($(this).data('patient_id'));
-        $('#client_info').html('patient '+$(this).data('patient')+' on '+$(this).data('schedule_date'))
-    });
-
-    $('#approve_btn').click(function(){
-        $.ajax({
-            type: 'GET',
-            url: '/approveAppointment/'+$('#data_id').val()+'/approved/'+$('#patient_id').val(),
-            processData: false,
-            contentType: false,
-            beforeSend: function(){
-                $('#msg').empty();
-            },
-            success: function(result) {
-                //toastr.clear();
-                if(result != 'success'){
-                    alert(result)
-                }else{
-                    alert('save')
-                    window.location.reload();
+            success: function (result) {
+                let swalConfig = {}; // Configure SweetAlert2 options
+            
+                if (result === 'warning_past_date') {
+                    swalConfig = {
+                        icon: 'warning',
+                        title: 'You cannot book an appointment in the past. Please choose a future date.',
+                    };
+                } else if (result === 'warning') {
+                    swalConfig = {
+                        icon: 'warning',
+                        title: 'Someone has already booked an appointment at the same time. Please choose a different time.',
+                    };
+                } else if (result === 'warning_limit') {
+                    swalConfig = {
+                        icon: 'warning',
+                        title: 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
+                    };
+                } else if (result === 'success') {
+                    swalConfig = {
+                        icon: 'success',
+                        title: 'Your appointment has been received and is under review. Please wait for confirmation.',
+                    };
+                } else if (result === 'update') {
+                    swalConfig = {
+                        icon: 'success',
+                        title: 'Appointment updated successfully!',
+                    };
+                } else {
+                    swalConfig = {
+                        icon: 'error',
+                        title: 'Error: ' + result,
+                    };
                 }
-                btn.attr('disabled', false);
-            }
+            
+                // Display SweetAlert2 with configured options
+                Swal.fire(swalConfig).then(() => {
+                    // This block will be executed after the user clicks the "OK" button
+                    btn.attr('disabled', false);
+                    window.location.reload();
+                });
+            },
+            
+            
+
+          
         });
-    })
+     
+        
+
+    });
+
+
+
+    // // Edit - with universal route
+    // $('table tbody').on('click', '.edit', function() {
+    //     console.log($(this).data())
+    //     $('#data_id').val($(this).data('id'));
+    //     $('#service').val($(this).data('service'));
+    //     $('#doctor').val($(this).data('doctor'));
+    //     $('#schedule_date').val($(this).data('schedule_date'));
+    //     $('#time_from').val($(this).data('time_from'));
+    //     $('#time_to').val($(this).data('time_to'));
+    // });
+
+    // $('table tbody').on('click', '#approve', function() {
+    //     $('#data_id').val($(this).data('id'));
+    //     $('#patient_id').val($(this).data('patient_id'));
+    //     $('#client_info').html('patient '+$(this).data('patient')+' on '+$(this).data('schedule_date'))
+    // });
+
+    // $('#approve_btn').click(function(){
+    //     $.ajax({
+    //         type: 'GET',
+    //         url: '/approveAppointment/'+$('#data_id').val()+'/approved/'+$('#patient_id').val(),
+    //         processData: false,
+    //         contentType: false,
+    //         beforeSend: function(){
+    //             $('#msg').empty();
+    //         },
+    //         success: function(result) {
+    //             //toastr.clear();
+    //             if(result != 'success'){
+    //                 alert(result)
+    //             }else{
+    //                 alert('save')
+    //                 window.location.reload();
+    //             }
+    //             btn.attr('disabled', false);
+    //         }
+    //     });
+    // })
+// Edit - with universal route
+$('table tbody').on('click', '.edit', function() {
+    console.log($(this).data())
+    $('#data_id').val($(this).data('id'));
+    $('#service').val($(this).data('service'));
+    $('#doctor').val($(this).data('doctor'));
+    $('#schedule_date').val($(this).data('schedule_date'));
+    $('#time_from').val($(this).data('time_from'));
+    $('#time_to').val($(this).data('time_to'));
+});
+
+$('table tbody').on('click', '#approve', function() {
+    $('#data_id').val($(this).data('id'));
+    $('#patient_id').val($(this).data('patient_id'));
+    $('#client_info').html('patient ' + $(this).data('patient') + ' on ' + $(this).data('schedule_date'));
+});
+
+$('#approve_btn').click(function() {
+    var btn = $(this);
+
+    $.ajax({
+        type: 'GET',
+        url: '/approveAppointment/' + $('#data_id').val() + '/approved/' + $('#patient_id').val(),
+        processData: false,
+        contentType: false,
+        beforeSend: function() {
+            $('#msg').empty();
+        },
+        success: function(result) {
+            let swalConfig = {}; // Configure SweetAlert2 options
+
+            if (result === 'success') {
+                swalConfig = {
+                    icon: 'success',
+                    title: 'Appointment approved successfully!',
+                };
+            } else {
+                swalConfig = {
+                    icon: 'error',
+                    title: 'Error: ' + result,
+                };
+            }
+
+            // Display SweetAlert2 with configured options
+            Swal.fire(swalConfig).then(() => {
+                // This block will be executed after the user clicks the "OK" button
+                btn.attr('disabled', false);
+                window.location.reload();
+            });
+        }
+    });
+});
+
+
+
+
+
+
 
     $('#cancel_btn').click(function(){
         $.ajax({

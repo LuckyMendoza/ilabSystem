@@ -11,16 +11,18 @@
         <div class="d-flex justify-content-between">
             <h4 class="text-primary mb-0 semi-bold">Appointments</h4>
             <!-- hidden logged role -->
-            @if(Auth::user()->user_type != 'doctor')
-            <div class="">
-                <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal_add" id="new">
-                    <i class="menu-icon tf-icons bx bx-plus"></i>
-                    Book Appointment
-                </button>
-            </div>
+            @if(Auth::user()->user_type == 'doctor' || Auth::user()->user_type == 'patient')
+                <div class="">
+                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal_add" id="new">
+                        <i class="menu-icon tf-icons bx bx-plus"></i>
+                        Book Appointment
+                    </button>
+                </div>
             @endif
         </div>
     </div>
+</div>
+
     <div class="card-body">
         <!-- Table -->
         <table class="table" id="services_table">

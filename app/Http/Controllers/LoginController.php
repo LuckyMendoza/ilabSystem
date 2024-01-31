@@ -26,6 +26,23 @@ class LoginController extends Controller
 	public function home(){
 		return view('index');
 	}
+	// public function about() {
+
+    //     return view('homepage.partials.about');
+    // }
+	// public function feedback() {
+
+    //     return view('homepage.partials.feedback');
+    // }
+	// public function services() {
+
+    //     return view('homepage.partials.services');
+    // }
+	// public function contact() {
+
+    //     return view('homepage.partials.contact');
+    // }
+
 
     public function login() {
 

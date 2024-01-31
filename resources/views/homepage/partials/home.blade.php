@@ -1,3 +1,6 @@
+
+
+
 <!-- PRELOADER -->
 <div class="loader">
     <div class="loader-icon">
@@ -5,6 +8,7 @@
         <p></p>
     </div>
 </div>
+
 
 
 
@@ -25,12 +29,17 @@
                 <div class="main-menu">
                     <nav id="menu">
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#about">about us</a></li>
-                            <li><a href="#feedback">Feedback</a></li>
-                            <li><a href="#departments">Services</a></li>
-                            <li><a href="#Contact">Contact</a></li>
-                            <li><a class="btn" href="/register">Book Appionment</a></li>
+                            <nav id="menu">
+                                <ul>
+                                    <li><a href="{{ route('home') }}">Home</a></li>
+                                    <li><a href="{{ route('about') }}">About us</a></li>
+                                    <li><a href="{{ route('feedback') }}">Feedback</a></li>
+                                    <li><a href="{{ route('services') }}">Services</a></li>
+                                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                                    <li><a class="btn" href="/register">Book Appointment</a></li>
+                                </ul>
+                            </nav>
+                            
                             {{-- <a href="/register" class="register">Register</a> --}}
                         </ul>
                     </nav>

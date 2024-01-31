@@ -29,9 +29,17 @@ use App\Http\Controllers\{
 // });
 
 
-//home
+//homepage route
 
 Route::get('/', [LoginController::class, 'home'])->name('home');
+Route::get('/#about', [LoginController::class, 'about'])->name('about');
+Route::get('/#feedback', [LoginController::class, 'feedback'])->name('feedback');
+Route::get('/#services', [LoginController::class, 'services'])->name('services');
+Route::get('/#contact', [LoginController::class, 'contact'])->name('contact');
+
+
+
+
 //Login
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 

@@ -109,6 +109,16 @@ class UsersController extends Controller
 
     public function createAppointmentSchedule(Request $request){
 
+
+        // Check if the appointment date is in the past
+        if (strtotime($request['schedule_date']) < strtotime(date('Y-m-d'))) {
+            // Appointment date is in the past
+            return 'warning_past_date';
+          
+        }
+        
+
+
         $check_avail = schedule_list::where('doctor', $request['doctor'])->where('status', '1')->count();
 
         $result = null;
@@ -148,6 +158,7 @@ class UsersController extends Controller
     ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
     ->where('status', '0')
     ->count();
+
 
 // Check for approved appointments for the user on the specified date and time
 $check_approved_appointment = schedule_list::where('user_id', Auth::user()->id)
