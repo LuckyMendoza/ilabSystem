@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Models\service_offers;
+use App\Models\Feedback;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +30,11 @@ class AppServiceProvider extends ServiceProvider
 
         // Share the services variable with all views
         view()->share('services', $services);
+
+        // Retrieve all feedback from the database
+        $feedback = Feedback::all();
+
+        // Share the feedback variable with all views
+        view()->share('feedback', $feedback);
     }
 }

@@ -43,11 +43,11 @@ class FeedbackController extends Controller{
 
 
 
-    public function userFeedback(){
-        $feedback['feedback'] = Feedback::all();
+    // public function userFeedback(){
+    //     $feedback['feedback'] = Feedback::all();
       
-        return view('homepage.partials.feedback', $feedback);
-    }
+    //     return view('homepage.partials.feedback', $feedback);
+    // }
     
 
 }
