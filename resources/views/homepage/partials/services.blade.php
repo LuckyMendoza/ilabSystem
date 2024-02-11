@@ -17,7 +17,7 @@
                         @foreach($services as $key => $service)
                         <li class="col-lg-2 nav-item">
                             <a class="nav-link {{ $key == 0 ? 'active' : '' }}" id="tab{{ $key + 1 }}" data-toggle="tab" href="#service{{ $key + 1 }}" role="tab" aria-controls="service{{ $key + 1 }}" aria-selected="{{ $key == 0 ? 'true' : 'false' }}">
-                                <img src="/home/images/cardiology.png" alt="{{ $service->service_name }}">
+                                <img src="/home/images/cardiology.png" alt="">
                                 <h4>{{ $service->service_name }}</h4>
                                 <p> Price:{{ $service->price }}</p>
                             </a>

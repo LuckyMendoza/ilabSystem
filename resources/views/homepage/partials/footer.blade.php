@@ -55,9 +55,9 @@
                     <div class="contact title">
                         <h4>contact</h4>
                         <ul>
-                            <li><a href="#"><i class="fas fa-envelope"></i>info@company.com</a></li>
+                            <li><a href="#"><i class="fas fa-envelope"></i>ilabclinic01@gmail.com</a></li>
                             <li><a href="#"><i class="fas fa-phone-alt"></i>+12 123 4567</a></li>
-                            <li><a href="#"><i class="fas fa-map-marker-alt"></i>12 - Pkview, San Joes, NY-1206, USA</a></li>
+                            <li><a href="#"><i class="fas fa-map-marker-alt"></i>Ibaba East ,Calapan City</a></li>
                         </ul>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
             <div class="col-lg-12">
                 <div class="footer-bottom">
                     <ul>
-                    <li>&copy; 2023 Copyright Reserved</li>
+                    <li>&copy; 2024 Copyright Reserved</li>
                    
                 </ul>
                 </div>

@@ -2,9 +2,10 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
+
  <!-- Patients area start -->
 <section class="patients-area" id="patients">
-    <div class="container"> 
+    <div class="container">     
         <div class="row">
             <div class="col-lg-5 patient-col5">
                 <div class="patients-details">

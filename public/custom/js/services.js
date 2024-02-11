@@ -33,8 +33,7 @@ $(document).ready(function() {
         
 			
 			{
-                data: "created_at",
-                name: "created_at",
+               
                 searchable: true,
                 class: 'v-middle',
                 render: function(data, type) {
