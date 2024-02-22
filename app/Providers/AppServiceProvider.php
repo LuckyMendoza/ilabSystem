@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
         // Retrieve all feedback from the database
         $feedback = Feedback::all();
 
-        // Share the feedback variable with all views
+        // // Share the feedback variable with all views
         view()->share('feedback', $feedback);
     }
 }

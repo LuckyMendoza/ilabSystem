@@ -16,6 +16,7 @@
         "postcss": "^8.1.14"
     },
     "dependencies": {
-        "particles.js": "^2.0.0"
+        "particles.js": "^2.0.0",
+        "preact": "^10.19.5"
     }
 }

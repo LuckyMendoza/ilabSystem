@@ -21,6 +21,7 @@ use App\Http\Controllers\{
     PatientController,
     ChatController,
     FeedbackController,
+    BotManController,
 
 };
 
@@ -37,6 +38,8 @@ Route::get('/#feedback', [LoginController::class, 'feedback'])->name('feedback')
 Route::get('/#services', [LoginController::class, 'services'])->name('services');
 Route::get('/#contact', [LoginController::class, 'contact'])->name('contact');
 
+
+Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 
 
 

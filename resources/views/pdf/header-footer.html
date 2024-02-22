@@ -16,29 +16,25 @@
     <h3 class="text-center fw-bold">DIVINE GRACE CLINICAL LABORATORY</h3>
     <h6 class="text-center">Plaza Center Bldg. Sto. Nino St. Ibaba East Calapan City</h6>
     <h6 class="text-center">PLDT Tel. No. (043) 748 6927</h6>
-    <hr>
-    <p>Date: {{ $date }}</p>
-    <p>Patient: {{ $patient_firstname . ' ' . $patient_lastname }}</p>
-    <p>Physician: {{ $patient_firstname . ' ' . $patient_lastname }}</p>
-    <p>Gender: {{ $gender }}</p>
+    <h6 class="text-center">"THE CLINICAL LABORATORY WITH A QUALITY PERFROMANCE"</h6>
+    <hr style=" border: 1px solid black;">
+
+    <p>Date: </p> <p>Patient: </p>
+   
+    <p>Physician: </p>
+    <p>Gender: </p>
     <hr>
     <table class="table table-bordered">
         <tr>    
+            <th>Examination</th> 
+            <th>Reference Value</th>
+            <th>Result</th>
             <th>Examination</th>
+            <th>Refrence Value</th>
             <th>Result</th>
         </tr>
-        <tr>
-            <td>{{ $service }}</td>
-            <td>{{ $prescription }}</td>
-        </tr>
+     
+        
     </table>
 </body>
 </html>
-
-{{-- 'date' => $query->schedule_date,
-            'patient_firstname' => $query->patient->fname,
-            'patient_lastname' => $query->patient->lname,
-            'gender' => $query->patient->gender,
-            'birthday' => $query->patient->birthdate,
-            'service' => $query->services->service_name,
-            'prescription' => $query->prescription->result --}}

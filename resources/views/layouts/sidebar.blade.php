@@ -1,3 +1,8 @@
+<!--font-->
+
+
+
+
 <!-- Dashboard -->
 @if(Auth::user()->user_type != 'patient')
 <li class="menu-item @yield('dashboard')">

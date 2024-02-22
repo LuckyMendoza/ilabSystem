@@ -37,7 +37,8 @@
 
   <link href="{{ asset('custom/css/custom.css')}}" rel="stylesheet" type="text/css" />
 
-  <script src="{{ asset('js/sweetalert2/dist/sweetalert2.all.js') }}"></script>
+
+<script src="{{ asset('js/sweetalert2/dist/sweetalert2.all.js') }}"></script>
   @yield('specific-css')
 
   <!-- Helpers -->

@@ -148,7 +148,8 @@
             <input type="hidden" id="patient_id" name="patient_id"/>
             <input type="hidden" id="service" name="service"/>
             <input type="hidden" id="data_id" name="appointment_id"/>
-            <div class="modal-body">
+            
+            <div class="modal-body">    
                 <div class="mb-3">
                     <label for="result" class="form-label">Result/Prescription</label>
                     <textarea class="form-control" id="result" name="result"></textarea>

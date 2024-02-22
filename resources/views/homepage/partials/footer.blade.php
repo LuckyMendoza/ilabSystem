@@ -1,8 +1,5 @@
-  
-  
-  
-  <!-- Footer area start -->
-  <footer class="footer-area">
+<!-- Footer area start -->
+<footer class="footer-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-5 col-md-6">
@@ -12,7 +9,9 @@
                             <img src="/home/images/footer-logo.png" alt="footer logo">
                         </a>
                     </div>
-                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p>
+                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered
+                        alteration in some form, by injected humour, or randomised words which don't look even slightly
+                        believable.</p>
                     <div class="footer-social">
                         <ul>
                             <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
@@ -67,9 +66,9 @@
             <div class="col-lg-12">
                 <div class="footer-bottom">
                     <ul>
-                    <li>&copy; 2024 Copyright Reserved</li>
-                   
-                </ul>
+                        <li>&copy; 2024 Copyright Reserved</li>
+
+                    </ul>
                 </div>
             </div>
         </div>
@@ -80,6 +79,20 @@
 
 <!--=================JS Start===================-->
 <!-- jquery js -->
+
+<!----chatbot widget---->
+{{-- 
+<script>
+    var botmanWidget = {
+        aboutText: 'Start the conversation with Hi',
+        introMessage: "WELCOME TO ALL ABOUT LARAVEL"
+        title: 'ilab',
+        mainColor: '#408591'
+    };
+</script>
+
+<script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script> --}}
+
 <script src="/home/js/jquery-2.2.4.min.js"></script>
 <!-- bootstrap js -->
 <script src="/home/js/bootstrap.min.js"></script>
