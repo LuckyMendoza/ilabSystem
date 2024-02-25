@@ -25,6 +25,11 @@ class DashboardController extends Controller{
 
             $data['user'] = User::registered_patients_per_month();
 
+            $data['services'] = schedule_list::select('service_offers.*', DB::raw('COUNT(*) as count'))
+                ->join('service_offers', 'service_offers.id', '=', 'schedule_lists.service')
+                ->groupBy('service_offers.id', 'service_offers.service_name')
+                ->get();
+
             return view('dashboard', $data);
         }
 

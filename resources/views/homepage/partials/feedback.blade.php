@@ -50,7 +50,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- Include Owl Carousel JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
-<script>ss
+<script>
     $(document).ready(function(){
         $(".patient-carousel").owlCarousel({
             items: 3,

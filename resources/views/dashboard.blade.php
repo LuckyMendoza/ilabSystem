@@ -54,6 +54,22 @@
       </div>
 
     </div>
+
+    <div class="row">
+      @foreach ($services as $item)
+        <div class="col-md-3">
+          <div class="card dashboard">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <h5 class="mb-0">{{ ucfirst($item->service_name) }}</h5>
+                <!-- <span class="badge bg-label-info rounded-pill">Year 2022</span> -->
+              </div>
+              <h3 class="card-title mb-2">{{ $item->count }}</h3>
+            </div>
+          </div>
+        </div>   
+      @endforeach
+    </div>
     <br />
   </div>
 </div>
