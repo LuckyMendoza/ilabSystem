@@ -38,7 +38,10 @@ Route::get('/#feedback', [LoginController::class, 'feedback'])->name('feedback')
 Route::get('/#services', [LoginController::class, 'services'])->name('services');
 Route::get('/#contact', [LoginController::class, 'contact'])->name('contact');
 
+//FOR LIVE
+Route::match(['get', 'post'], 'public/botman', [BotManController::class, 'handle']);
 
+//FOR LOCAL
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 
 

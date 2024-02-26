@@ -10,6 +10,7 @@ use BotMan\BotMan\Drivers\DriverManager;
 use BotMan\BotMan\Messages\Incoming\Answer;
 use BotMan\BotMan\Messages\Outgoing\Question;
 use BotMan\BotMan\Messages\Outgoing\Actions\Button;
+use BotMan\BotMan\Messages\Conversations\Conversation;
 
 
 $config = [
@@ -19,8 +20,6 @@ $config = [
 //       'verification'=>'MY_SECRET_VERIFICATION_TOKEN',
 //   ]
 ];
-
-
 
 DriverManager::loadDriver(\BotMan\Drivers\Web\WebDriver::class);
 
@@ -32,38 +31,34 @@ class BotManController extends Controller
 {
     public function handle()
     {
-    
- 
         $botman = app('botman');
 
         // Listen for greetings
         $botman->hears('.*(hi|hello).*', function (BotMan $bot) {
-            $this->askForName($bot);
+            $bot->startConversation(new NameConversation());
         });
 
         $botman->listen();
     }
+}
 
-    /**
-     * Ask for the user's name after greeting.
-     */
-    public function askForName(BotMan $bot)
+
+class NameConversation extends Conversation
+{
+    public function askForName()
     {
-        $bot->ask("Hi there! What's your name?", function (Answer $answer) use ($bot) {
+        $this->ask("Hi there! What's your name?", function (Answer $answer) {
             $name = $answer->getText();
 
             // Respond with a personalized message
-            $bot->reply("Nice to meet you, $name! How can I assist you today?");
+            $this->say("Nice to meet you, $name! How can I assist you today?");
             
             // Show the menu options
-            $this->showMenu($bot);
+            $this->showMenu();
         });
     }
 
-    /**
-     * Show menu options.
-     */
-    public function showMenu(BotMan $bot)
+    public function showMenu()
     {
         $question = Question::create('Please select an option:')
             ->addButtons([
@@ -71,42 +66,41 @@ class BotManController extends Controller
                 Button::create('Services Offer')->value('services_offer'),
             ]);
 
-        $bot->ask($question, function (Answer $answer) use ($bot) {
+        $this->ask($question, function (Answer $answer) {
             if ($answer->isInteractiveMessageReply()) {
                 switch ($answer->getValue()) {
                     case 'clinic_location':
-                        $this->showClinicLocation($bot);
+                        $this->showClinicLocation();
                         break;
                     case 'services_offer':
-                        $this->showServicesOffer($bot);
+                        $this->showServicesOffer();
                         break;
                     default:
-                        $bot->reply('Invalid option selected. Please choose again.');
-                        $this->showMenu($bot);
+                        $this->say('Invalid option selected. Please choose again.');
+                        $this->showMenu();
                         break;
                 }
             }
         });
     }
 
-    /**
-     * Show clinic location.
-     */
-    public function showClinicLocation(BotMan $bot)
+    public function showClinicLocation()
     {
-        $bot->reply('Clinic located at Ibaba East Calapan City.');
+        $this->say('Clinic located at Ibaba East Calapan City.');
         // Show menu again
-        $this->showMenu($bot);
+        $this->showMenu();
     }
 
-    /**
-     * Show services offered.
-     */
-    public function showServicesOffer(BotMan $bot)
+    public function showServicesOffer()
     {
-        $bot->reply('Services Offered: Urinalysis, CBC');
+        $this->say('Services Offered: Urinalysis, CBC');
         // Show menu again
-        $this->showMenu($bot);
+        $this->showMenu();
     }
-   
+
+    public function run()
+    {
+        // Start the conversation
+        $this->askForName();
+    }
 }
