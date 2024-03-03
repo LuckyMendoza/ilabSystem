@@ -53,8 +53,9 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
         'links' => [
-            public_path('storage') => storage_path('app/public'),
-            public_path('images') => storage_path('app/images'),
+            // public_path('storage') => storage_path('app/public'),
+            // public_path('images') => storage_path('app/images'),
+            base_path('public_html/storage') => storage_path('app/public'),
         ],
 
     ],

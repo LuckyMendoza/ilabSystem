@@ -14,15 +14,16 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 
 
 $config = [
-//     'facebook' => [
-//         'token' => 'YOUR-FACEBOOK-PAGE-TOKEN-HERE',
-//       'app_secret' => 'YOUR-FACEBOOK-APP-SECRET-HERE',
-//       'verification'=>'MY_SECRET_VERIFICATION_TOKEN',
-//   ]
+    'facebook' => [
+        'token' => EAADwdLUwOaoBO6efQZByvpF2SBw6DKgUHXogmx87iZBhLNDvHGZBkOkl3r2MzEZBWWeZAqXG01WWXbpHjUveMpGjD1BrZB8rY5ZAGpmDVrZBTbLv1wQCvoCW46zZBg7e6bivXpItETRTZBIAJxbD8NaT3ohNN9soZC2af7nDNE2PoY0AKtKbkwwRy1qJ5wsR8SEuab0,
+      'app_secret' => '',
+      'verification'=>'ilabgraceclinic',
+  ]
 ];
 
 DriverManager::loadDriver(\BotMan\Drivers\Web\WebDriver::class);
 
+DriverManager::loadDriver(\BotMan\Drivers\Facebook\FacebookDriver::class);
 // Create BotMan instance
 BotManFactory::create($config);
 

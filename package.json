@@ -17,6 +17,7 @@
     },
     "dependencies": {
         "particles.js": "^2.0.0",
-        "preact": "^10.19.5"
+        "preact": "^10.19.5",
+        "valet": "^0.1.5-b"
     }
 }
