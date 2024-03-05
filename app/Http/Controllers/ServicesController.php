@@ -6,28 +6,30 @@ use Illuminate\Http\Request;
 use App\Models\service_offers;
 use Illuminate\Support\Facades\DB;
 use DataTables;
+use Carbon\Carbon;
 
 class ServicesController extends Controller
 {
     //
-
-    public function viewServices(){
-        return view('services');
+    public function viewServices()
+    {
+        $totalServices = $this->getTotalServicesCreated();
+        return view('services', compact('totalServices'));
     }
-   
 
 
-
-    public function getAllServices(){
+    public function getAllServices()
+    {
         $query = service_offers::all();
         return DataTables::of($query)->make(true);
     }
 
-    public function createService(Request $request){
-        
-        $check = service_offers::where('service_name',$request['service_name'])->count();
+    public function createService(Request $request)
+    {
 
-        if($check > 0){
+        $check = service_offers::where('service_name', $request['service_name'])->count();
+
+        if ($check > 0) {
             return 'already exists!';
         }
 
@@ -39,16 +41,21 @@ class ServicesController extends Controller
         return 'success';
     }
 
-    public function updateServiceData(Request $request){
-        
-        $update = service_offers::where('id',$request['hidden_id_edit'])
-                              ->update(['service_name' => $request['edit_service_name'], 'price' => $request['edit_price']]);
+    public function updateServiceData(Request $request)
+    {
 
-        if($update){
-            return 'success';  
-        }else{
+        $update = service_offers::where('id', $request['hidden_id_edit'])
+            ->update(['service_name' => $request['edit_service_name'], 'price' => $request['edit_price']]);
+
+        if ($update) {
+            return 'success';
+        } else {
             return 'Something went wrong';
         }
-
+    }
+    public function getTotalServicesCreated()
+    {
+        $totalServices = service_offers::count();
+        return $totalServices;
     }
 }

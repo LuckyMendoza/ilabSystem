@@ -22,7 +22,6 @@ use App\Http\Controllers\{
     ChatController,
     FeedbackController,
     BotManController,
-
 };
 
 // Route::get('/', function () {
@@ -86,16 +85,16 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/updatePass', [UsersController::class, 'updatePassword'])->name('updatePass');
 
 
-     // Appointment
-     Route::get('/appointment', [UsersController::class, 'viewAppointment'])->name('appointment');
-     Route::get('/scheduleList', [UsersController::class, 'viewScheduledAppointment'])->name('scheduleList');
-     Route::post('/createAppointment', [UsersController::class, 'createAppointmentSchedule'])->name('createAppointment');
-     Route::post('/updateAppointment', [UsersController::class, 'updateAppointmentSchedule'])->name('updateAppointment');
-     Route::get('/approveAppointment/{id}/{status}/{patient}', [UsersController::class, 'approveAppointmentSchedule'])->name('approveAppointment');
-     Route::get('/monthlyAnalytics', [UsersController::class, 'getMonthlyAnalytics'])->name('monthlyAnalytics');
-     Route::post('prescription', [UsersController::class, 'storePrescription'])->name('prescription.store');
-     Route::post('prescription', [UsersController::class, 'storePrescription'])->name('prescription.store');
-     Route::get('generate-prescription', [UsersController::class, 'generatePdf'])->name('generate-pdf');
+    // Appointment
+    Route::get('/appointment', [UsersController::class, 'viewAppointment'])->name('appointment');
+    Route::get('/scheduleList', [UsersController::class, 'viewScheduledAppointment'])->name('scheduleList');
+    Route::post('/createAppointment', [UsersController::class, 'createAppointmentSchedule'])->name('createAppointment');
+    Route::post('/updateAppointment', [UsersController::class, 'updateAppointmentSchedule'])->name('updateAppointment');
+    Route::get('/approveAppointment/{id}/{status}/{patient}', [UsersController::class, 'approveAppointmentSchedule'])->name('approveAppointment');
+    Route::get('/monthlyAnalytics', [UsersController::class, 'getMonthlyAnalytics'])->name('monthlyAnalytics');
+    Route::post('prescription', [UsersController::class, 'storePrescription'])->name('prescription.store');
+    Route::post('prescription', [UsersController::class, 'storePrescription'])->name('prescription.store');
+    Route::get('generate-prescription', [UsersController::class, 'generatePdf'])->name('generate-pdf');
 
     // Patient
     Route::resource('patient', PatientController::class);
@@ -106,4 +105,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/chat/{user}', [ChatController::class, 'getUserChat']);
     Route::get('/feedback', [FeedbackController::class, 'feedback']);
     Route::post('/createFeedback', [FeedbackController::class, 'createFeedback'])->name('createFeedback');
+    Route::get('/getTotalServicesCount', [ServicesController::class, 'getTotalServicesCreated'])->name('getTotalServicesCount');
 });
