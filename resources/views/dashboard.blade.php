@@ -101,12 +101,16 @@
         for (var i = 0; i < serviceDivs.length; i++) {
           var week = serviceDivs[i].getAttribute('data-week');
           var count = parseInt(serviceDivs[i].getAttribute('data-count'));
-          var name = serviceDivs[i].getAttribute('data-name');
+          var name = serviceDivs[i].getAttribute('data-name').toUpperCase(); 
 
-          weeklyServiceCounts[week] = {
-            count: count,
-            name: name
-          };
+          if (weeklyServiceCounts.hasOwnProperty(week)) {
+            weeklyServiceCounts[week].count += count; 
+          } else {
+            weeklyServiceCounts[week] = {
+              count: count,
+              name: name
+            };
+          }
         }
 
         var serviceLabels = Object.keys(weeklyServiceCounts).map(function(week) {
@@ -114,7 +118,25 @@
         });
         var serviceData = Object.values(weeklyServiceCounts);
 
-        var backgroundColors = generateBackgroundColors(serviceLabels.length);
+
+        var backgroundColors = serviceLabels.map(function(label) {
+          var serviceName = label.split(' - ')[0];
+          switch (serviceName) {
+            case 'CBC':
+              return 'yellow';
+            case 'CHOLESTEROL':
+              return 'blue';
+            case 'URIC ACID':
+              return 'green';
+            case 'URINALYSIS':
+              return 'red';
+            case 'ESR':
+              return 'orange)';
+            default:
+              return 'orange';
+          }
+        });
+
 
         var servicesCtx = document.getElementById('servicePieChart').getContext('2d');
         var servicesChart = new Chart(servicesCtx, {
@@ -123,8 +145,8 @@
             labels: serviceLabels,
             datasets: [{
               label: 'Services Data',
-              data: serviceData.map(function(week) {
-                return week.count;
+              data: serviceData.map(function(service) {
+                return service.count;
               }),
               backgroundColor: backgroundColors,
               borderColor: backgroundColors,
@@ -139,15 +161,6 @@
             }
           }
         });
-
-        function generateBackgroundColors(count) {
-          var colors = [];
-          for (var i = 0; i < count; i++) {
-            var color = 'rgba(' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ',' + Math.floor(Math.random() * 256) + ', 0.2)';
-            colors.push(color);
-          }
-          return colors;
-        }
       });
     </script>
 
