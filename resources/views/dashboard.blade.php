@@ -101,10 +101,10 @@
         for (var i = 0; i < serviceDivs.length; i++) {
           var week = serviceDivs[i].getAttribute('data-week');
           var count = parseInt(serviceDivs[i].getAttribute('data-count'));
-          var name = serviceDivs[i].getAttribute('data-name').toUpperCase(); // Convert to uppercase for case-insensitive comparison
+          var name = serviceDivs[i].getAttribute('data-name').toUpperCase(); 
 
           if (weeklyServiceCounts.hasOwnProperty(week)) {
-            weeklyServiceCounts[week].count += count; // Aggregate counts for the same week
+            weeklyServiceCounts[week].count += count; 
           } else {
             weeklyServiceCounts[week] = {
               count: count,
