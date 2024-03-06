@@ -15,7 +15,7 @@ use BotMan\BotMan\Messages\Conversations\Conversation;
 
 $config = [
     'facebook' => [
-        'token' => EAADwdLUwOaoBO6efQZByvpF2SBw6DKgUHXogmx87iZBhLNDvHGZBkOkl3r2MzEZBWWeZAqXG01WWXbpHjUveMpGjD1BrZB8rY5ZAGpmDVrZBTbLv1wQCvoCW46zZBg7e6bivXpItETRTZBIAJxbD8NaT3ohNN9soZC2af7nDNE2PoY0AKtKbkwwRy1qJ5wsR8SEuab0,
+        'token' => 'EAADwdLUwOaoBO6efQZByvpF2SBw6DKgUHXogmx87iZBhLNDvHGZBkOkl3r2MzEZBWWeZAqXG01WWXbpHjUveMpGjD1BrZB8rY5ZAGpmDVrZBTbLv1wQCvoCW46zZBg7e6bivXpItETRTZBIAJxbD8NaT3ohNN9soZC2af7nDNE2PoY0AKtKbkwwRy1qJ5wsR8SEuab0',
       'app_secret' => '',
       'verification'=>'ilabgraceclinic',
   ]
