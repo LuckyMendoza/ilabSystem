@@ -79,8 +79,16 @@ $(document).ready(function() {
                         return 'PENDING';
                     }else if (data.status == '1') {
                         return 'APPROVED';
-                    }else{
+                    }else if (data.status == '2'){
                         return 'DISAPPROVED';
+                    } else if (data.status == '3') {
+                        return 'Done Appointment / For Result Releasing';
+                    } else if (data.status == '4') {
+                        return 'For Accounting';
+                    } else if (data.status == '5') {
+                        return 'Done Transaction';
+                    } else {
+                        return 'Unknown Status';
                     }
                   }
                 },
@@ -100,49 +108,125 @@ $(document).ready(function() {
             searchable: false,
             class: 'text-right',
             render: function(data, type, row) {
-                // console.log(data.status == 1)
-                    if(user == 'patient' && data.status == 0){
-                        return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
-                        + '" data-service="' + data.service_id
-                        + '" data-schedule_date="' + data.schedule_date
-                        + '" data-time_from="' + data.time_from
-                        + '" data-time_to="' + data.time_to
-                        + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
-                    }else if(user == 'patient' && (data.status == 1)){
-                        return '<button type="button"  data-id=' + data.id
-                        + '" data-patient="' + data.patient
-                        + '" data-patient_id="' + data.user_id
-                        + '" data-schedule_date="' + data.schedule_date
-                        + '"  data-bs-toggle="modal" data-bs-target="#modal_download" id="download-prescription" class="btn btn-sm btn-secondary"><i class="fa fa-download"></i></button>';
-                    }else if (user == 'doctor' && data.status == 0){
-                        return '<button type="button"  data-id=' + data.id
-                        + '" data-patient="' + data.patient
-                        + '" data-patient_id="' + data.user_id
-                        + '" data-schedule_date="' + data.schedule_date
-                        + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>';
-                    }else if (user == 'doctor' && data.status == 1) {
-                        return '<button type="button" data-id="' + data.id +
-                        '" data-patient="' + data.patient +
-                        '" data-service="' + data.service_id +
-                        '" data-patient_id="' + data.user_id +
-                        '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'; 
-                    } else if (user == 'doctor' && (data.status == 1 || data.status == 2)){
-                        return '<span>No available</span>';
-                    }else if (user == 'admin' && data.status == 0){
-                        return '<button type="button"  data-id=' + data.id
-                        + '" data-patient="' + data.patient
-                        + '" data-schedule_date="' + data.schedule_date
-                        + '" data-patient_id="' + data.user_id
-                        + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>'
-                        +'<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
-                        + '" data-service="' + data.service_id
-                        + '" data-schedule_date="' + data.schedule_date
-                        + '" data-time_from="' + data.time_from
-                        + '" data-time_to="' + data.time_to
-                        + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
-                    }else if (user == 'admin' && (data.status == 1 || data.status == 2)){
+
+                    if (user == 'patient') {
+                        if (data.status == 0) {
+                            return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
+                                + '" data-service="' + data.service_id
+                                + '" data-schedule_date="' + data.schedule_date
+                                + '" data-time_from="' + data.time_from
+                                + '" data-time_to="' + data.time_to
+                                + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
+                        } else if (data.status == 4) {
+                            return '<button type="button"  data-id=' + data.id
+                                + '" data-patient="' + data.patient
+                                + '" data-patient_id="' + data.user_id
+                                + '" data-schedule_date="' + data.schedule_date
+                                + '"  data-bs-toggle="modal" data-bs-target="#modal_download" id="download-prescription" class="btn btn-sm btn-secondary"><i class="fa fa-download"></i></button>';
+                        }
+                    } else if (user == 'doctor') {
+                        if (data.status == 0) {
+                            return '<button type="button"  data-id=' + data.id
+                                + '" data-patient="' + data.patient
+                                + '" data-patient_id="' + data.user_id
+                                + '" data-schedule_date="' + data.schedule_date
+                                + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>';
+                        } else if (data.status == 1) {
+                            return '<button type="button" data-id="' + data.id +
+                                '" data-patient="' + data.patient +
+                                '" data-service="' + data.service_id +
+                                '" data-patient_id="' + data.user_id +
+                                '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-appointment-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
+                        } else if (data.status == 3) {
+                            return '<button type="button" data-id="' + data.id +
+                                '" data-patient="' + data.patient +
+                                '" data-service="' + data.service_id +
+                                '" data-patient_id="' + data.user_id +
+                                '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
+                        } else if (data.status == 4) {
+                            return '<button type="button" data-id="' + data.id +
+                                '" data-patient="' + data.patient +
+                                '" data-service="' + data.service_id +
+                                '" data-patient_id="' + data.user_id +
+                                '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-transaction-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
+                        } else {
+                            return '<span>No available</span>';
+                        }
+                    } else if (user == 'admin') {
+                        if (data.status == 0) {
+                            return '<button type="button"  data-id=' + data.id
+                                + '" data-patient="' + data.patient
+                                + '" data-patient_id="' + data.user_id
+                                + '" data-schedule_date="' + data.schedule_date
+                                + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>';
+                        } else if (data.status == 1) {
+                            return '<button type="button" data-id="' + data.id +
+                                '" data-patient="' + data.patient +
+                                '" data-service="' + data.service_id +
+                                '" data-patient_id="' + data.user_id +
+                                '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-appointment-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
+                        } else if (data.status == 3) {
+                            return '<button type="button" data-id="' + data.id +
+                                '" data-patient="' + data.patient +
+                                '" data-service="' + data.service_id +
+                                '" data-patient_id="' + data.user_id +
+                                '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
+                        } else if (data.status == 4) {
+                            return '<button type="button" data-id="' + data.id +
+                                '" data-patient="' + data.patient +
+                                '" data-service="' + data.service_id +
+                                '" data-patient_id="' + data.user_id +
+                                '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-transaction-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
+                        } else {
+                            return '<span>No available</span>';
+                        }
+                    } else {
                         return '<span>No available</span>';
                     }
+
+
+                    // if(user == 'patient' && data.status == 0){
+                    //     return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
+                    //     + '" data-service="' + data.service_id
+                    //     + '" data-schedule_date="' + data.schedule_date
+                    //     + '" data-time_from="' + data.time_from
+                    //     + '" data-time_to="' + data.time_to
+                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
+                    // }else if(user == 'patient' && (data.status == 1)){
+                    //     return '<button type="button"  data-id=' + data.id
+                    //     + '" data-patient="' + data.patient
+                    //     + '" data-patient_id="' + data.user_id
+                    //     + '" data-schedule_date="' + data.schedule_date
+                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_download" id="download-prescription" class="btn btn-sm btn-secondary"><i class="fa fa-download"></i></button>';
+                    // }else if (user == 'doctor' && data.status == 0){
+                    //     return '<button type="button"  data-id=' + data.id
+                    //     + '" data-patient="' + data.patient
+                    //     + '" data-patient_id="' + data.user_id
+                    //     + '" data-schedule_date="' + data.schedule_date
+                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>';
+                    // }else if (user == 'doctor' && data.status == 1) {
+                    //     return '<button type="button" data-id="' + data.id +
+                    //     '" data-patient="' + data.patient +
+                    //     '" data-service="' + data.service_id +
+                    //     '" data-patient_id="' + data.user_id +
+                    //     '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'; 
+                    // } else if (user == 'doctor' && (data.status == 1 || data.status == 2)){
+                    //     return '<span>No available</span>';
+                    // }else if (user == 'admin' && data.status == 0){
+                    //     return '<button type="button"  data-id=' + data.id
+                    //     + '" data-patient="' + data.patient
+                    //     + '" data-schedule_date="' + data.schedule_date
+                    //     + '" data-patient_id="' + data.user_id
+                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>'
+                    //     +'<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
+                    //     + '" data-service="' + data.service_id
+                    //     + '" data-schedule_date="' + data.schedule_date
+                    //     + '" data-time_from="' + data.time_from
+                    //     + '" data-time_to="' + data.time_to
+                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
+                    // }else if (user == 'admin' && (data.status == 1 || data.status == 2)){
+                    //     return '<span>No available</span>';
+                    // }
 				}
 			}
         ],

@@ -12,7 +12,7 @@ use Validator;
 use Illuminate\Support\Facades\Hash;
 use App\Notifications\UserVerification;
 use Illuminate\Support\Facades\Notification;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class LoginController extends Controller
 {

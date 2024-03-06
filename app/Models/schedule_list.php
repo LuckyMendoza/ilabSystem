@@ -8,6 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class schedule_list extends Model{
     use HasFactory;
 
+    //0 - Pending
+    //1 - Approved
+    //2 - Disapproved
+    //3 - Done Appointment / For Result Releasing
+    //4 - For Accounting
+    //5 - Done Transaction
+
     protected $table = 'schedule_lists';
     protected $fillable = [
         'user_id',

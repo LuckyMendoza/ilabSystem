@@ -135,12 +135,12 @@
 </div>
 </div>
 
-
+<!--Prescription modal (NEED TO MODIFY BASED ON THE SERVICE)-->
 <div class="modal modal-top fade" data-bs-backdrop="static" id="modal_prescription" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title bold text-primary" id="modalTopTitle">Medical Prescription</h5>
+                <h5 class="modal-title bold text-primary text-center" id="modalTopTitle">Medical Prescription</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -163,11 +163,12 @@
     </div>
 </div>
 
+<!--Download Result modal-->
 <div class="modal modal-top fade" data-bs-backdrop="static" id="modal_download" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title bold text-primary" id="modalTopTitle">Download Medical Prescription</h5>
+                <h5 class="modal-title bold text-primary text-center" id="modalTopTitle">Download Medical Prescription</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -190,7 +191,96 @@
         </div>
     </div>
 </div>
-    @endsection
+
+<!--Changing Status Modal to Done Appointment / For Result Releasing-->
+<div class="modal modal-top fade" data-bs-backdrop="static" id="change-status-to-done-appointment-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title bold text-primary text-center" id="modalTopTitle">Change Status to Done Appointment / For Result Releasing</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form method="GET" id="download-form">
+                @csrf
+                <input type="hidden" id="download_patient_id" name="patient_id"/>
+                <input type="hidden" id="download_data_id" name="data_id"/>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h4 class="fw-bold">Are you sure?</h4>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="change-status-to-done-appointment">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Changing Status Modal to For Accounting-->
+<div class="modal modal-top fade" data-bs-backdrop="static" id="change-status-to-for-accounting-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title bold text-primary text-center" id="modalTopTitle">Change Status to For Accounting</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form method="GET" id="download-form">
+                @csrf
+                <input type="hidden" id="download_patient_id" name="patient_id"/>
+                <input type="hidden" id="download_data_id" name="data_id"/>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h4 class="fw-bold">Are you sure?</h4>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="change-status-to-for-accounting">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Changing Status Modal to Done Transaction-->
+<div class="modal modal-top fade" data-bs-backdrop="static" id="change-status-to-done-transaction-modal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title bold text-primary text-center" id="modalTopTitle">Change Status to Done Transaction</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form method="GET" id="download-form">
+                @csrf
+                <input type="hidden" id="download_patient_id" name="patient_id"/>
+                <input type="hidden" id="download_data_id" name="data_id"/>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h4 class="fw-bold">Are you sure?</h4>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="change-status-to-done-transaction">Yes</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--View Medical Result (For Patient)-->
+@endsection
 
     @section('specific-js')
     <script src="{{ asset('js/toastr.min.js') }}" type="text/javascript"></script>
