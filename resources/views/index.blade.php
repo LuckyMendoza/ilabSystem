@@ -59,7 +59,7 @@
 
 
     {{--start about---}}
-    {{-- @include('homepage.partials.about'); --}}
+    @include('homepage.partials.about');
     {{--end about}}
 
 
@@ -74,7 +74,7 @@
     {{--fedback end --}}
 
     {{--contact--}}
-    @include('homepage.partials.contact')
+    {{-- @include('homepage.partials.contact') --}}
     {{--end contact--}}
 
     {{--start footer--}}
