@@ -106,4 +106,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/feedback', [FeedbackController::class, 'feedback']);
     Route::post('/createFeedback', [FeedbackController::class, 'createFeedback'])->name('createFeedback');
     Route::get('/getTotalServicesCount', [ServicesController::class, 'getTotalServicesCreated'])->name('getTotalServicesCount');
+    Route::post('/update-status', 'UsersController@updateStatus')->name('update.status');
+    // Add this route definition within the 'auth' middleware group
+    Route::post('/update-appointment-status', [UsersController::class, 'updateAppointmentStatus'])->name('update-appointment-status');
 });

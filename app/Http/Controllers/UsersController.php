@@ -6,7 +6,7 @@ use App\Models\PrescriptionRecord;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use DataTables;
-
+use Illuminate\Support\Facades\Log; // Add this line to import the Log facade
 use App\Models\User;
 use App\Models\service_offers;
 use App\Models\schedule_list;
@@ -22,25 +22,28 @@ use PDF;
 class UsersController extends Controller
 {
     //users
-    public function viewDoctors(){
+    public function viewDoctors()
+    {
         return view('users');
     }
 
-    public function getAllDoctors(){
-        $query = User::where('user_type','doctor')->get();
+    public function getAllDoctors()
+    {
+        $query = User::where('user_type', 'doctor')->get();
         return DataTables::of($query)->make(true);
     }
 
-    public function addDoctor(Request $request){
-        $check_email = User::where('email',$request['email'])->count();
-		if($check_email > 0){
-			return 'email already in use';
-		}
+    public function addDoctor(Request $request)
+    {
+        $check_email = User::where('email', $request['email'])->count();
+        if ($check_email > 0) {
+            return 'email already in use';
+        }
 
-		DB::beginTransaction();
+        DB::beginTransaction();
 
-		$user = new User;
-		$user->fname = $request['fname'];
+        $user = new User;
+        $user->fname = $request['fname'];
         $user->lname = $request['lname'];
         $user->gender = $request['gender'];
         $user->email = $request['email'];
@@ -48,76 +51,85 @@ class UsersController extends Controller
         $user->contact = $request['contact'];
         $user->address = $request['address'];
         $user->is_verified = '1';
-		$user->user_type = 'doctor';
+        $user->user_type = 'doctor';
         $user->password = Hash::make($request['password']);
-		$user->save();
+        $user->save();
 
-		if($user){
-			DB::commit();
-			return 'success';
-		}else{
-			return 'Something went wrong';
-		}
+        if ($user) {
+            DB::commit();
+            return 'success';
+        } else {
+            return 'Something went wrong';
+        }
     }
 
-    public function updateDoctorData(Request $request){
+    public function updateDoctorData(Request $request)
+    {
 
         DB::beginTransaction();
 
-        $user = User::where('id',$request['data_id'])->first();
+        $user = User::where('id', $request['data_id'])->first();
         $user->fname = $request['fname'];
         $user->lname = $request['lname'];
         $user->email = $request['email'];
         $user->birthdate = $request['birthdate'];
         $user->contact = $request['contact'];
         $user->address = $request['address'];
-		$user->save();
+        $user->save();
 
-		if($user){
-			DB::commit();
-			return 'success';
-		}else{
-			return 'Something went wrong';
-		}
+        if ($user) {
+            DB::commit();
+            return 'success';
+        } else {
+            return 'Something went wrong';
+        }
     }
 
-    public function viewAppointment(){
-        $doctors = User::where('user_type','doctor')->get();
+    public function viewAppointment()
+    {
+        $doctors = User::where('user_type', 'doctor')->get();
         $services = service_offers::all();
-        return view('appointment',['doctors' => $doctors, 'services' => $services]);
+        return view('appointment', ['doctors' => $doctors, 'services' => $services]);
     }
-
-    public function viewScheduledAppointment(){
-
+    public function viewScheduledAppointment()
+    {
         $query = DB::table('schedule_lists as a')
-                   ->join('users as b','b.id','a.user_id')
-                   ->join('users as c','c.id','a.doctor')
-                   ->join('service_offers as d','d.id','a.service')
-                   ->select('a.*','b.fname as patient','c.fname as doctor_name','d.service_name as service','d.id as service_id'
-                   ,'d.price');
-        if(Auth::user()->user_type == 'doctor'){
-            $query = $query->where('a.doctor',Auth::user()->id);
-        }else if(Auth::user()->user_type == 'patient'){
-            $query = $query->where('a.user_id',Auth::user()->id);
-        }else{
-            $query = $query->get();
+            ->join('users as b', 'b.id', 'a.user_id')
+            ->join('users as c', 'c.id', 'a.doctor')
+            ->join('service_offers as d', 'd.id', 'a.service')
+            ->select(
+                'a.*',
+                'b.fname as patient',
+                'c.fname as doctor_name',
+                'd.service_name as service',
+                'd.id as service_id',
+                'd.price'
+            );
+
+        if (Auth::user()->user_type == 'doctor') {
+            $query = $query->where('a.doctor', Auth::user()->id);
+        } else if (Auth::user()->user_type == 'patient') {
+            $query = $query->where('a.user_id', Auth::user()->id);
         }
 
+        // Fetch data
+        $appointments = $query->get();
 
-
-        return DataTables::of($query)->make(true);
+        // Return the data to DataTables
+        return DataTables::of($appointments)->make(true);
     }
 
-    public function createAppointmentSchedule(Request $request){
+
+    public function createAppointmentSchedule(Request $request)
+    {
 
 
         // Check if the appointment date is in the past
         if (strtotime($request['schedule_date']) < strtotime(date('Y-m-d'))) {
             // Appointment date is in the past
             return 'warning_past_date';
-          
         }
-        
+
 
 
         $check_avail = schedule_list::where('doctor', $request['doctor'])->where('status', '1')->count();
@@ -127,11 +139,11 @@ class UsersController extends Controller
         if ($check_avail > 10) {
             $patient = User::find(Auth::user()->id);
             $info = [
-				'fname' => $patient->fname,
-				'email_message' => 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
-				'is_sent' => true,
+                'fname' => $patient->fname,
+                'email_message' => 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
+                'is_sent' => true,
 
-			];
+            ];
             try {
                 $patient->notify(new UserVerification($info));
             } catch (\Throwable $th) {
@@ -140,62 +152,62 @@ class UsersController extends Controller
 
             $result = $this->storeAppointment($request, '2');
 
-            if($result){
+            if ($result) {
                 return 'warning';
-            }else{
+            } else {
                 return 'Something went wrong!';
             }
-        }else{
+        } else {
             DB::beginTransaction();
             // $check_appointment = schedule_list::where('user_id',Auth::user()->id)
             //                                   ->where('schedule_date',$request['schedule_date'])
             //                                   ->where('status','0')
             //                                   ->count();
-            
-     
-    // Check for pending appointments for the user on the specified date and time
-    $check_pending_appointment = schedule_list::where('user_id', Auth::user()->id)
-    ->where('schedule_date', $request['schedule_date'])
-    ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
-    ->where('status', '0')
-    ->count();
 
 
-// Check for approved appointments for the user on the specified date and time
-$check_approved_appointment = schedule_list::where('user_id', Auth::user()->id)
-    ->where('schedule_date', $request['schedule_date'])
-    ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
-    ->where('status', '1')
-    ->count();
+            // Check for pending appointments for the user on the specified date and time
+            $check_pending_appointment = schedule_list::where('user_id', Auth::user()->id)
+                ->where('schedule_date', $request['schedule_date'])
+                ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
+                ->where('status', '0')
+                ->count();
 
-// If there is a pending or approved appointment, return a warning
-if ($check_pending_appointment > 0 || $check_approved_appointment > 0) {
-    DB::rollBack(); // Rollback the transaction
- // Send an email to the patient
- $patient = User::find(Auth::user()->id);
- $info = [
-     'fname' => $patient->fname,
-     'email_message' => 'Someone has already booked an appointment at the same time. Please choose a different time.',
-     'is_sent' => true,
- ];
 
- try {
-    $patient->notify(new UserVerification($info));
-} catch (\Throwable $th) {
-    $message = 'Email sending failed';
-}
-return 'warning';
-// if($result){
-//     return 'warning';
-// }else{
-//     return 'Something went wrong!';
-// }
+            // Check for approved appointments for the user on the specified date and time
+            $check_approved_appointment = schedule_list::where('user_id', Auth::user()->id)
+                ->where('schedule_date', $request['schedule_date'])
+                ->whereBetween('time_from', [$request['time_from'], $request['time_to']])
+                ->where('status', '1')
+                ->count();
 
-  
-}
+            // If there is a pending or approved appointment, return a warning
+            if ($check_pending_appointment > 0 || $check_approved_appointment > 0) {
+                DB::rollBack(); // Rollback the transaction
+                // Send an email to the patient
+                $patient = User::find(Auth::user()->id);
+                $info = [
+                    'fname' => $patient->fname,
+                    'email_message' => 'Someone has already booked an appointment at the same time. Please choose a different time.',
+                    'is_sent' => true,
+                ];
 
-$result = $this->storeAppointment($request, '0');
-    
+                try {
+                    $patient->notify(new UserVerification($info));
+                } catch (\Throwable $th) {
+                    $message = 'Email sending failed';
+                }
+                return 'warning';
+                // if($result){
+                //     return 'warning';
+                // }else{
+                //     return 'Something went wrong!';
+                // }
+
+
+            }
+
+            $result = $this->storeAppointment($request, '0');
+
             if ($result) {
                 // Commit transaction if successful
                 DB::commit();
@@ -207,15 +219,27 @@ $result = $this->storeAppointment($request, '0');
             }
         }
     }
+    public function updateStatus(Request $request)
+    {
+        // Retrieve data from the request
+        $data_id = $request->input('data_id');
+        $status = $request->input('status');
 
 
+        try {
+            $schedule = schedule_list::findOrFail($data_id);
+            $schedule->status = $status;
+            $schedule->save();
+
+            return response()->json(['success' => true, 'message' => 'Status updated successfully']);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Failed to update status']);
+        }
+    }
 
 
-
-
-
-
-    public function storeAppointment($request, $status){
+    public function storeAppointment($request, $status)
+    {
         try {
             $book_appointment = new schedule_list;
             $book_appointment->user_id = Auth::user()->id;
@@ -234,41 +258,42 @@ $result = $this->storeAppointment($request, '0');
         return $message;
     }
 
-    public function updateAppointmentSchedule(Request $request){
+    public function updateAppointmentSchedule(Request $request)
+    {
 
         DB::beginTransaction();
-        $update = schedule_list::where('id',$request['data_id'])
-                                ->update([
-                                        'doctor' => $request['doctor'],
-                                        'service' => $request['service'],
-                                        'schedule_date' => $request['schedule_date'],
-                                        'time_from' => $request['time_from'],
-                                        'time_to' => $request['time_to']
-                                    ]);
+        $update = schedule_list::where('id', $request['data_id'])
+            ->update([
+                'doctor' => $request['doctor'],
+                'service' => $request['service'],
+                'schedule_date' => $request['schedule_date'],
+                'time_from' => $request['time_from'],
+                'time_to' => $request['time_to']
+            ]);
 
-        if($update){
+        if ($update) {
 
             DB::commit();
             return 'success';
-        }else{
+        } else {
             return 'Something went wrong!';
         }
-
     }
 
-    public function approveAppointmentSchedule($id,$status,$patientid){
+    public function approveAppointmentSchedule($id, $status, $patientid)
+    {
         $stats = $status == 'approved' ? '1' : '2';
         DB::beginTransaction();
         $update = schedule_list::find($id)->update(['status' => $stats]);
 
-        if($update){
+        if ($update) {
             $patient = User::find($patientid);
             $info = [
-				'fname' => $patient->fname,
-				'email_message' => $status == 'approved' ? 'Good day.! Please be inform that your appointment has been approved.' : 'Good day.! Please be inform that your appointment has been disapproved.',
-				'is_sent' => true,
+                'fname' => $patient->fname,
+                'email_message' => $status == 'approved' ? 'Good day.! Please be inform that your appointment has been approved.' : 'Good day.! Please be inform that your appointment has been disapproved.',
+                'is_sent' => true,
 
-			];
+            ];
             try {
                 $patient->notify(new UserVerification($info));
             } catch (\Throwable $th) {
@@ -276,10 +301,9 @@ $result = $this->storeAppointment($request, '0');
             }
             DB::commit();
             return 'success';
-        }else{
+        } else {
             return 'Something went wrong!';
         }
-
     }
 
     // public static function getMonthlyAnalytics(){
@@ -340,17 +364,19 @@ $result = $this->storeAppointment($request, '0');
 
 
 
-    public function changePass(){
+    public function changePass()
+    {
         return view('changepass');
     }
 
-    public function updatePassword(Request $request){
+    public function updatePassword(Request $request)
+    {
         $new = Hash::make($request['new_password']);
-        $update = User::where('id',Auth::user()->id)->update(['password' => $new]);
+        $update = User::where('id', Auth::user()->id)->update(['password' => $new]);
 
-        if($update){
+        if ($update) {
             return 'success';
-        }else{
+        } else {
             return 'Something went wrong!';
         }
     }
@@ -370,7 +396,6 @@ $result = $this->storeAppointment($request, '0');
             ]);
 
             return 'success';
-
         } catch (\Throwable $th) {
             throw $th;
             return 'Something went wrong!';
@@ -396,4 +421,29 @@ $result = $this->storeAppointment($request, '0');
         return $pdf->download('patient-prescription.pdf');
     }
 
+    public function updateAppointmentStatus(Request $request)
+    {
+        try {
+            // Retrieve data from the request
+            $data_id = $request->input('data_id');
+            $status = $request->input('status');
+
+            // Update the status of the appointment
+            $schedule = schedule_list::findOrFail($data_id);
+            $schedule->status = $status;
+            $schedule->save();
+
+            return response()->json(['success' => true, 'message' => 'Status updated successfully']);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            // Log the error for debugging purposes
+            Log::error('Appointment not found: ' . $e->getMessage());
+
+            return response()->json(['success' => false, 'message' => 'Appointment not found']);
+        } catch (\Exception $e) {
+            // Log the error for debugging purposes
+            Log::error('Failed to update appointment status: ' . $e->getMessage());
+
+            return response()->json(['success' => false, 'message' => 'Failed to update status']);
+        }
+    }
 }

@@ -19,7 +19,7 @@ class CreateScheduleListsTable extends Migration
             $table->date('schedule_date');
             $table->integer('doctor')->unsigned();
             $table->integer('service')->unsigned();
-            $table->enum('status',[0,1,2]);
+            $table->enum('status', [0, 1, 2, 3, 4, 5]);
             $table->timestamps();
         });
     }
