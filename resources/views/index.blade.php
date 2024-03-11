@@ -59,7 +59,7 @@
 
 
     {{--start about---}}
-    @include('homepage.partials.about');
+    {{-- @include('homepage.partials.about'); --}}
     {{--end about}}
 
 
