@@ -306,6 +306,31 @@ class UsersController extends Controller
         }
     }
 
+    public function doneAppointmentSchedule($id,$status,$patientid){
+        DB::beginTransaction();
+        $update = schedule_list::find($id)->update(['status' => '3']);
+
+        if($update){
+            $patient = User::find($patientid);
+            $info = [
+				'fname' => $patient->fname,
+				'email_message' => 'Good day.! Your medical result is available now and can be downloaded via our website',
+				'is_sent' => true,
+
+			];
+            try {
+                $patient->notify(new UserVerification($info));
+            } catch (\Throwable $th) {
+                $message = 'Email sending failed';
+            }
+            DB::commit();
+            return 'success';
+        }else{
+            return 'Something went wrong!';
+        }
+
+    }
+
     // public static function getMonthlyAnalytics(){
     //     $result = User::where('user_type', 'patient')
     //         ->whereYear('created_at', '=', Carbon::now()->year)
@@ -394,6 +419,8 @@ class UsersController extends Controller
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
+
+            schedule_list::find($request['appointmentId'])->update(['status' => '4']);
 
             return 'success';
         } catch (\Throwable $th) {

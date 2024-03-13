@@ -5,7 +5,6 @@
 @endsection
 
 @section('main_content')
-
 <div class="card">
     <div class="card-header">
         <div class="d-flex justify-content-between">
@@ -143,21 +142,72 @@
                 <h5 class="modal-title bold text-primary text-center" id="modalTopTitle">Medical Prescription</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
-            @csrf
-            <input type="hidden" id="patient_id" name="patient_id" />
-            <input type="hidden" id="service" name="service" />
-            <input type="hidden" id="data_id" name="appointment_id" />
-
-            <div class="modal-body">
-                <div class="mb-3">
-                    <label for="result" class="form-label">Result/Prescription</label>
-                    <textarea class="form-control" id="result" name="result"></textarea>
+                <input type="hidden" id="patient_id" name="patient_id"/>
+                <input type="hidden" id="service" name="service"/>
+                <input type="hidden" id="data_id" name="appointment_id"/>
+            <div id="urinalDiv" style="display: none !important;">
+                <div class="modal-body">    
+                    <div class="mb-3">
+                        <h6 class="form-label bold">Urinalysis</h6>
+                        <!-- <textarea class="form-control" id="result" name="result"></textarea> -->
+                        <div class="form-group w-100">
+                            <label for="sugar" class="form-label">Sugar</label>
+                            <input type="text" class="form-control" id="sugar"/>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="blood" class="form-label">Blood</label>
+                            <input type="text" class="form-control" id="blood"/>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="ketones" class="form-label">Ketones</label>
+                            <input type="text" class="form-control" id="ketones"/>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="phospates" class="form-label">Phospates</label>
+                            <input type="text" class="form-control" id="phospates"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success" id="prescribe_btn">Save</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+            </div>
+            <div id="cbcDiv" style="display: none !important;">
+                <div class="modal-body">    
+                    <div class="mb-3">
+                        <h6 class="form-label bold">Complete blood count (CBC)</h6>
+                        <!-- <textarea class="form-control" id="result" name="result"></textarea> -->
+                        <div class="form-group w-100">
+                            <label for="glucose" class="form-label">Glucose</label>
+                            <input type="text" class="form-control" id="glucose"/>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="choles" class="form-label">Cholesterol</label>
+                            <input type="text" class="form-control" id="choles"/>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="bua" class="form-label">Blood Uric Acid</label>
+                            <input type="text" class="form-control" id="bua"/>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="bun" class="form-label">Blood Urea Nitrogen</label>
+                            <input type="text" class="form-control" id="bun"/>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="sgot" class="form-label">SGOT</label>
+                            <input type="text" class="form-control" id="sgot"/>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="cal" class="form-label">Calcuim</label>
+                            <input type="text" class="form-control" id="cal"/>
+                        </div>
+                        <div class="form-group w-100">
+                            <label for="chl" class="form-label">Chloride</label>
+                            <input type="text" class="form-control" id="chl"/>
+                        </div>
+                    </div>
                 </div>
+            </div>    
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="prescribe_btn">Save</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
             </div>
         </div>
     </div>
@@ -172,10 +222,11 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form method="GET" id="download-form">
+            <form method="GET" id="download-form" action="{{ route('generate-result') }}">
                 @csrf
-                <input type="hidden" id="download_patient_id" name="patient_id" />
-                <input type="hidden" id="download_data_id" name="data_id" />
+                <input type="hidden" id="download_patient_id" name="patient_id"/>
+                <input type="hidden" id="download_data_id" name="data_id"/>
+                <input type="hidden" id="download_data_service" name="data_service"/>
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12 text-center">
@@ -184,14 +235,37 @@
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-success" id="download-prescription">Yes</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
-                    </div>
+                        <button type="button" class="btn btn-secondary" id="download-prescription-close" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                </div>
             </form>
+            </div>
         </div>
     </div>
 </div>
-</div>
+<!--pending Result modal-->
+<div class="modal modal-top fade" data-bs-backdrop="static" id="modal_pending" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title bold text-primary text-center" id="modalTopTitle">Waiting for result</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
 
+                <input type="hidden" id="download_patient_id" name="patient_id"/>
+                <input type="hidden" id="download_data_id" name="data_id"/>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h4 class="fw-bold">pending</h4>
+                        </div>
+                    </div>
+                <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--Changing Status Modal to Done Appointment / For Result Releasing-->
 <div class="modal modal-top fade" data-bs-backdrop="static" id="change-status-to-done-appointment-modal" tabindex="-1">
     <div class="modal-dialog">
@@ -211,8 +285,8 @@
                             <h4 class="fw-bold">Are you sure?</h4>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" id="change-status-to-done-appointment">Yes</button>
+                <div class="modal-footer">
+                        <button type="submit" class="btn btn-success" id="done_btn">Yes</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>
                     </div>
             </form>

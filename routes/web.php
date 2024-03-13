@@ -29,6 +29,7 @@ use App\Http\Controllers\{
 // });
 
 
+
 //homepage route
 
 Route::get('/', [LoginController::class, 'home'])->name('home');
@@ -66,7 +67,7 @@ Route::post('/resetPassword', [LoginController::class, 'resetUserPassword'])->na
 
 Route::middleware(['auth'])->group(function () {
 
-
+    Route::get('generate-result',[App\Http\Controllers\PdfController::class,'result'])->name('generate-result');
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
@@ -91,8 +92,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/createAppointment', [UsersController::class, 'createAppointmentSchedule'])->name('createAppointment');
     Route::post('/updateAppointment', [UsersController::class, 'updateAppointmentSchedule'])->name('updateAppointment');
     Route::get('/approveAppointment/{id}/{status}/{patient}', [UsersController::class, 'approveAppointmentSchedule'])->name('approveAppointment');
+
+    Route::get('/doneAppointment/{id}/{status}/{patient}', [UsersController::class, 'doneAppointmentSchedule'])->name('doneAppointment');
+
     Route::get('/monthlyAnalytics', [UsersController::class, 'getMonthlyAnalytics'])->name('monthlyAnalytics');
-    Route::post('prescription', [UsersController::class, 'storePrescription'])->name('prescription.store');
     Route::post('prescription', [UsersController::class, 'storePrescription'])->name('prescription.store');
     Route::get('generate-prescription', [UsersController::class, 'generatePdf'])->name('generate-pdf');
 

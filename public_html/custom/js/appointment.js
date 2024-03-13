@@ -84,20 +84,28 @@ $(document).ready(function () {
                 data: null,
                 orderable: false,
                 searchable: false,
-                class: "text-right",
-                render: function (data, type, row) {
-                    if (data.status == "0") {
-                        return "PENDING";
-                    } else if (data.status == "1") {
-                        return "APPROVED";
-                    } else if (data.status == "2") {
-                        return "DISAPPROVED";
-                    } else if (data.status == "3") {
-                        return "Done Appointment / For Result Releasing";
-                    } else if (data.status == "4") {
-                        return "For Accounting";
-                    } else if (data.status == "5") {
-                        return "Done Transaction";
+                class: 'text-right',
+                render: function(data, type, row) {
+                    console.log(data.status);
+                    if (data.status == '0') {
+                        return 'PENDING';
+                    }else if (data.status == '1') {
+                        return 'APPROVED';
+                    }else if (data.status == '2'){
+                        return 'DISAPPROVED';
+                    } else if (data.status == '3') {
+                        return 'Done Appointment / For Result Releasing';
+                    } else if (data.status == '4') {
+                        let usertype = null;
+                        if (user == 'patient') 
+                        {
+                            usertype = 'Download Result';
+                        }else{
+                            usertype = 'For Accounting';
+                        }
+                        return usertype;
+                    } else if (data.status == '5') {
+                        return 'Done Transaction';
                     } else {
                         return "Unknown Status";
                     }
@@ -118,41 +126,40 @@ $(document).ready(function () {
                 },
                 defaultContent: "",
             },
-            {
-                data: null,
-                orderable: false,
-                searchable: true,
-                class: "text-right",
-                render: function (data, type, row) {
-                    if (user == "patient") {
+			{
+            data: null,
+            orderable: false,
+            searchable: false,
+            class: 'text-right',
+            render: function(data, type, row) {
+
+                    if (user == 'patient') {
+                        console.log(data)
                         if (data.status == 0) {
-                            return (
-                                '<button type="button"  data-id=' +
-                                data.id +
-                                ' data-doctor="' +
-                                data.doctor +
-                                '" data-service="' +
-                                data.service_id +
-                                '" data-schedule_date="' +
-                                data.schedule_date +
-                                '" data-time_from="' +
-                                data.time_from +
-                                '" data-time_to="' +
-                                data.time_to +
-                                '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>'
-                            );
-                        } else if (data.status == 4) {
-                            return (
-                                '<button type="button"  data-id=' +
-                                data.id +
-                                '" data-patient="' +
-                                data.patient +
-                                '" data-patient_id="' +
-                                data.user_id +
-                                '" data-schedule_date="' +
-                                data.schedule_date +
-                                '"  data-bs-toggle="modal" data-bs-target="#modal_download" id="download-prescription" class="btn btn-sm btn-secondary"><i class="fa fa-download"></i></button>'
-                            );
+                            return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
+                                + '" data-service="' + data.service_id
+                                + '" data-schedule_date="' + data.schedule_date
+                                + '" data-time_from="' + data.time_from
+                                + '" data-time_to="' + data.time_to
+                                + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
+                        }else if (data.status == 1) {
+                            return '<button type="button"  data-id=' + data.id
+                                + '" data-patient="' + data.patient
+                                + '" data-patient_id="' + data.user_id
+                                + '" data-schedule_date="' + data.schedule_date
+                                + '"  data-bs-toggle="modal" data-bs-target="#modal_pending" id="pending-prescription" class="btn btn-sm btn-secondary"><i class="fa fa-clock"></i></button>';
+                        }
+                        else if (data.status == 2) {
+                            return '❌';
+                        }else if (data.status == 3) {
+                            return 'Waiting';
+                        }  else if (data.status == 4) {
+                            return '<button type="button"  data-id=' + data.id
+                                + '" data-service="' + data.service_id
+                                + '" data-patient="' + data.patient
+                                + '" data-patient_id="' + data.user_id
+                                + '" data-schedule_date="' + data.schedule_date
+                                + '"  data-bs-toggle="modal" data-bs-target="#modal_download" id="download-prescription" class="btn btn-sm btn-secondary"><i class="fa fa-download"></i></button>';
                         }
                     } else if (user == "doctor") {
                         if (data.status == 0) {
@@ -232,17 +239,12 @@ $(document).ready(function () {
                                 '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-appointment-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
                             );
                         } else if (data.status == 3) {
-                            return (
-                                '<button type="button" data-id="' +
-                                data.id +
-                                '" data-patient="' +
-                                data.patient +
-                                '" data-service="' +
-                                data.service_id +
-                                '" data-patient_id="' +
-                                data.user_id +
-                                '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
-                            );
+                            console.log(data.service_id);
+                            return '<button type="button" data-id="' + data.id +
+                                '" data-patient="' + data.patient +
+                                '" data-service="' + data.service_id +
+                                '" data-patient_id="' + data.user_id +
+                                '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
                         } else if (data.status == 4) {
                             return (
                                 '<button type="button" data-id="' +
@@ -261,49 +263,6 @@ $(document).ready(function () {
                     } else {
                         return "<span>No available</span>";
                     }
-
-                    // if(user == 'patient' && data.status == 0){
-                    //     return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
-                    //     + '" data-service="' + data.service_id
-                    //     + '" data-schedule_date="' + data.schedule_date
-                    //     + '" data-time_from="' + data.time_from
-                    //     + '" data-time_to="' + data.time_to
-                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
-                    // }else if(user == 'patient' && (data.status == 1)){
-                    //     return '<button type="button"  data-id=' + data.id
-                    //     + '" data-patient="' + data.patient
-                    //     + '" data-patient_id="' + data.user_id
-                    //     + '" data-schedule_date="' + data.schedule_date
-                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_download" id="download-prescription" class="btn btn-sm btn-secondary"><i class="fa fa-download"></i></button>';
-                    // }else if (user == 'doctor' && data.status == 0){
-                    //     return '<button type="button"  data-id=' + data.id
-                    //     + '" data-patient="' + data.patient
-                    //     + '" data-patient_id="' + data.user_id
-                    //     + '" data-schedule_date="' + data.schedule_date
-                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>';
-                    // }else if (user == 'doctor' && data.status == 1) {
-                    //     return '<button type="button" data-id="' + data.id +
-                    //     '" data-patient="' + data.patient +
-                    //     '" data-service="' + data.service_id +
-                    //     '" data-patient_id="' + data.user_id +
-                    //     '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
-                    // } else if (user == 'doctor' && (data.status == 1 || data.status == 2)){
-                    //     return '<span>No available</span>';
-                    // }else if (user == 'admin' && data.status == 0){
-                    //     return '<button type="button"  data-id=' + data.id
-                    //     + '" data-patient="' + data.patient
-                    //     + '" data-schedule_date="' + data.schedule_date
-                    //     + '" data-patient_id="' + data.user_id
-                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>'
-                    //     +'<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
-                    //     + '" data-service="' + data.service_id
-                    //     + '" data-schedule_date="' + data.schedule_date
-                    //     + '" data-time_from="' + data.time_from
-                    //     + '" data-time_to="' + data.time_to
-                    //     + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
-                    // }else if (user == 'admin' && (data.status == 1 || data.status == 2)){
-                    //     return '<span>No available</span>';
-                    // }
                 },
                 defaultContent: "",
             },
@@ -359,64 +318,7 @@ $(document).ready(function () {
             beforeSend: function () {
                 $("#msg").empty();
             },
-
-            // success: function(result) {
-            //     if (result === 'warning_past_date') {
-            //         Swal.fire({
-            //             position: "top-end",
-            //             icon: 'warning',
-            //             title: 'You cannot book an appointment in the past. Please choose a future date.',
-            //             showConfirmButton: false,
-            //             timer: 3000
-            //         });
-            //         window.location.reload();
-            //     } else if (result === 'warning') {
-            //         Swal.fire({
-
-            //             icon: 'warning',
-            //             title: 'Someone has already booked an appointment at the same time. Please choose a different time.',
-            //             showConfirmButton: false,
-            //             timer: 3000
-            //         });
-            //         window.location.reload();
-            //     } else if (result === 'warning') {
-            //         Swal.fire({
-
-            //             icon: 'warning',
-            //             title: 'Doctor appointment limit reached. Please wait for availability or try another time slot.',
-            //             showConfirmButton: true,
-            //             timer: 3000
-            //         });
-            //         window.location.reload();
-            //     } else if (result === 'success') {
-            //         Swal.fire({
-
-            //             icon: 'success',
-            //             title: 'Your appointment has been received and is under review. Please wait for confirmation.',
-            //             showConfirmButton: true,
-            //             timer: 3000
-            //         });
-            //         window.location.reload();
-            //     } else if (result === 'update') {
-            //         Swal.fire({
-
-            //             icon: 'success',
-            //             title: 'Appointment updated successfully!',
-            //             showConfirmButton: true,
-            //             timer: 3000
-            //         });
-            //         window.location.reload();
-            //     } else {
-            //         Swal.fire({
-
-            //             icon: 'error',
-            //             title: 'Error: ' + result,
-            //             showConfirmButton: true,
-            //             timer: 3000
-            //         });
-            //     }
-            //     btn.attr('disabled', false);
-            // }
+           
 
             success: function (result) {
                 let swalConfig = {}; // Configure SweetAlert2 options
@@ -463,68 +365,89 @@ $(document).ready(function () {
         });
     });
 
-    // // Edit - with universal route
-    // $('table tbody').on('click', '.edit', function() {
-    //     console.log($(this).data())
-    //     $('#data_id').val($(this).data('id'));
-    //     $('#service').val($(this).data('service'));
-    //     $('#doctor').val($(this).data('doctor'));
-    //     $('#schedule_date').val($(this).data('schedule_date'));
-    //     $('#time_from').val($(this).data('time_from'));
-    //     $('#time_to').val($(this).data('time_to'));
-    // });
+// Edit - with universal route
+$('table tbody').on('click', '.edit', function() {
+    console.log($(this).data())
+    $('#data_id').val($(this).data('id'));
+    $('#service').val($(this).data('service'));
+    $('#doctor').val($(this).data('doctor'));
+    $('#schedule_date').val($(this).data('schedule_date'));
+    $('#time_from').val($(this).data('time_from'));
+    $('#time_to').val($(this).data('time_to'));
+});
 
-    // $('table tbody').on('click', '#approve', function() {
-    //     $('#data_id').val($(this).data('id'));
-    //     $('#patient_id').val($(this).data('patient_id'));
-    //     $('#client_info').html('patient '+$(this).data('patient')+' on '+$(this).data('schedule_date'))
-    // });
+$('table tbody').on('click', '#approve', function() {
+    $('#data_id').val($(this).data('id'));
+    $('#patient_id').val($(this).data('patient_id'));
+    $('#client_info').html('patient ' + $(this).data('patient') + ' on ' + $(this).data('schedule_date'));
+});
 
-    // $('#approve_btn').click(function(){
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: '/approveAppointment/'+$('#data_id').val()+'/approved/'+$('#patient_id').val(),
-    //         processData: false,
-    //         contentType: false,
-    //         beforeSend: function(){
-    //             $('#msg').empty();
-    //         },
-    //         success: function(result) {
-    //             //toastr.clear();
-    //             if(result != 'success'){
-    //                 alert(result)
-    //             }else{
-    //                 alert('save')
-    //                 window.location.reload();
-    //             }
-    //             btn.attr('disabled', false);
-    //         }
-    //     });
-    // })
-    // Edit - with universal route
-    $("table tbody").on("click", ".edit", function () {
-        console.log($(this).data());
-        $("#data_id").val($(this).data("id"));
-        $("#service").val($(this).data("service"));
-        $("#doctor").val($(this).data("doctor"));
-        $("#schedule_date").val($(this).data("schedule_date"));
-        $("#time_from").val($(this).data("time_from"));
-        $("#time_to").val($(this).data("time_to"));
+$('#approve_btn').click(function() {
+    var btn = $(this);
+
+    $.ajax({
+        type: 'GET',
+        url: '/approveAppointment/' + $('#data_id').val() + '/approved/' + $('#patient_id').val(),
+        processData: false,
+        contentType: false,
+        beforeSend: function() {
+            $('#msg').empty();
+        },
+        success: function(result) {
+            let swalConfig = {}; // Configure SweetAlert2 options
+
+            if (result === 'success') {
+                swalConfig = {
+                    icon: 'success',
+                    title: 'Appointment approved successfully!',
+                };
+            } else {
+                swalConfig = {
+                    icon: 'error',
+                    title: 'Error: ' + result,
+                };
+            }
+
+            // Display SweetAlert2 with configured options
+            Swal.fire(swalConfig).then(() => {
+                // This block will be executed after the user clicks the "OK" button
+                btn.attr('disabled', false);
+                window.location.reload();
+            });
+        }
     });
 
-    $("table tbody").on("click", "#approve", function () {
-        $("#data_id").val($(this).data("id"));
-        $("#patient_id").val($(this).data("patient_id"));
-        $("#client_info").html(
-            "patient " +
-                $(this).data("patient") +
-                " on " +
-                $(this).data("schedule_date")
-        );
-    });
+$('#done_btn').click(function() {
+    var btn = $(this);
 
-    $("#approve_btn").click(function () {
-        var btn = $(this);
+    $.ajax({
+        type: 'GET',
+        url: '/doneAppointment/' + $('#data_id').val() + '/3/' + $('#patient_id').val(),
+        processData: false,
+        contentType: false,
+        beforeSend: function() {
+            $('#msg').empty();
+        },
+        success: function(result) {
+            let swalConfig = {};
+            if (result === 'success') {
+                swalConfig = {
+                    icon: 'success',
+                    title: 'Patient medical result is release!',
+                };
+            } else {
+                swalConfig = {
+                    icon: 'error',
+                    title: 'Error: ' + result,
+                };
+            }
+            Swal.fire(swalConfig).then(() => {
+                btn.attr('disabled', false);
+                window.location.reload();
+            });
+        }
+    });
+});
 
         $.ajax({
             type: "GET",
@@ -561,53 +484,57 @@ $(document).ready(function () {
                 });
             },
         });
-    });
-
-    $("#cancel_btn").click(function () {
-        $.ajax({
-            type: "GET",
-            url:
-                "/approveAppointment/" +
-                $("#data_id").val() +
-                "/disapproved/" +
-                $("#patient_id").val(),
-            processData: false,
-            contentType: false,
-            beforeSend: function () {
-                $("#msg").empty();
-            },
-            success: function (result) {
-                //toastr.clear();
-                if (result != "success") {
-                    alert(result);
-                } else {
-                    alert("save");
-                    window.location.reload();
-                }
-                btn.attr("disabled", false);
-            },
-        });
-    });
-
+    }) 
+    
     //Save Prescription
-    $("table tbody").on("click", "#prescription", function () {
-        $("#data_id").val($(this).data("id"));
-        $("#patient_id").val($(this).data("patient_id"));
-        $("#client_info").html(
-            "patient " +
-                $(this).data("patient") +
-                " on " +
-                $(this).data("schedule_date")
-        );
-        $("#service").val($(this).data("service"));
+    $('table tbody').on('click', '#prescription', function() {
+        if($(this).data('service') == 1)
+        {
+            $('#urinalDiv').show();
+            $('#cbcDiv').hide();
+        }
+        if($(this).data('service') == 2)
+        {
+            $('#cbcDiv').show();
+            $('#urinalDiv').hide();
+        }
+        $('#data_id').val($(this).data('id'));
+        $('#patient_id').val($(this).data('patient_id'));
+        $('#client_info').html('patient '+$(this).data('patient')+' on '+$(this).data('schedule_date'))
+        $('#service').val($(this).data('service'));
     });
 
-    $("#prescribe_btn").on("click", function () {
+    
+    $('#prescribe_btn').on('click', function() {
+        let results = null;
+        if($('#service').val() == 1)
+        {
+            //urine
+            results = `{ 
+                    "sugar": "${$('#sugar').val()}",
+                     "blood": "${$('#blood').val()}", 
+                     "ketones": "${$('#ketones').val()}", 
+                     "phospates": "${$('#phospates').val()}"
+                    }`;
+        }
+        if($('#service').val() == 2)
+        {
+            //cbc
+            results = `{ 
+                "glucose": "${$('#glucose').val()}",
+                 "choles": "${$('#choles').val()}", 
+                 "bua": "${$('#bua').val()}", 
+                 "bun": "${$('#bun').val()}",
+                 "sgot": "${$('#sgot').val()}",
+                 "cal": "${$('#cal').val()}",
+                 "chl": "${$('#chl').val()}",
+                }`;
+        }
         var prescriptionData = {
-            id: $("#patient_id").val(),
-            result: $("#result").val(),
-            service: $("#service").val(),
-            appointmentId: $("#data_id").val(),
+            id: $('#patient_id').val(),
+            result: results,
+            service: $('#service').val(),
+            appointmentId: $('#data_id').val()
         };
 
         $.ajax({
@@ -629,33 +556,26 @@ $(document).ready(function () {
         });
     });
 
-    /*     $("table tbody").on("click", "#download-prescription", function () {
-        $("#download_data_id").val($(this).data("id"));
-        $("#download_patient_id").val($(this).data("patient_id"));
-        // Show the modal for confirmation
-        $("#change-status-to-done-appointment-modal").modal("show");
+    //Download Prescription
+    $('table tbody').on('click', '#download-prescription', function() {
+        $('#download_data_id').val($(this).data('id'));
+        $('#download_patient_id').val($(this).data('patient_id'));
+        $('#download_data_service').val($(this).data('service'));
+        console.log('dsadsa');
     });
-
-    $("#download-form").submit(function (event) {
-        event.preventDefault(); // Prevent default form submission
-        // Submit the form via AJAX
-        $.ajax({
-            type: "GET",
-            url: "/generate-prescription",
-            data: $("#download-form").serialize(), // Serialize form data
-            success: function (response) {
-                // Handle success, maybe close modal or show success message
-                console.log("PDF Generated Successfully");
-                $("#change-status-to-done-appointment-modal").modal("hide"); // Hide the modal
-            },
-            error: function (xhr, status, error) {
-                // Handle error
-                console.error("Error generating PDF: " + error);
-            },
-        });
-    }); */
-    $("#change-status-to-done-appointment").on("click", function (e) {
-        e.preventDefault();
+    $('#download-prescription').click(()=>{
+        console.log('1111');
+        $('#download-prescription-close').trigger('click');
+    })
+    $('table tbody').on('click', '#pending-prescription', function() {
+        $('#download_data_id').val($(this).data('id'));
+        $('#download_patient_id').val($(this).data('patient_id'));
+    });
+    $('#confirm_download_btn').on('click', function() {
+        // var prescriptionData = {
+        //     id: $('#data_id').val(),
+        //     patientId: $('#patient_id').val(),
+        // };
 
         var appointmentId = $("#data_id").val();
         console.log(appointmentId);

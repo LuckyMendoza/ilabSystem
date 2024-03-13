@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "azuyalabs/yasumi": "^2.5",
-        "barryvdh/laravel-dompdf": "^2.0",
+        "barryvdh/laravel-dompdf": "^2.1",
         "botman/botman": "^2.8",
         "botman/driver-facebook": "^1.11",
         "botman/driver-web": "^1.5",

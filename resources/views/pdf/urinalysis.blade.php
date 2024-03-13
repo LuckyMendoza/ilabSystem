@@ -21,34 +21,23 @@
     <h6 class="text-center">Plaza Center Bldg. Sto. Nino St. Ibaba East Calapan City</h6>
     <h6 class="text-center">PLDT Tel. No. (043) 748 6927</h6>
     <h6 class="text-center">"THE CLINICAL LABORATORY WITH A QUALITY PERFROMANCE"</h6>
-    <hr style=" border: 2px solid black;">
-    <h3 class="text-center fw-bold">Fecalysis</h3><br><br>
+    <hr style=" border: 1px solid black;">
+    <h4 class="text-center fw-bold">Urinalysis</h3><br><br>
 
-    <div class="container">
-        <div class="container">
-            <div class="row">
-              <div class="col">
-                <p>Date: </p>
-              </div>
-              <div class="col">
-                <p>Physician: </p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col">
-                <p>Patient: </p>
-              </div>
-              <div class="col">
-                <p>Age: </p>
-              </div>
-              <div class="col">
-                <p>Gender: </p>
-              </div>
-              <div class="col">
-                <p>Civil Status: </p>
-              </div>
-            </div>
-          </div>
+    <table class="w-100 mt-2">
+        <tr>
+          <td class="w-50">Date: {{ $araw }}</td>
+          <td class="w-50">Physician: {{ $doc }}</td>
+        </tr>
+      </table>
+      <table class="w-100 mt-3 mb-2">
+        <tr>
+          <td class="w-50">Patient: {{ $pangalan }}</td>
+          <td>Age: {{ $age }}</td>
+          <td>Gender: {{ $gender }}</td>
+          <td>Civil Status: {{ $status }}</td>
+        </tr>
+      </table>
         
     
     <table class="table table-bordered">
@@ -66,21 +55,21 @@
         </tr>
         <tr>
             <th>Sugar</th>
-            <td></td>
+            <td id="sugar">{{ $result->sugar }}</td>
             <th>A.Urates/phosphates</th>
-            <td></td>
+            <td id="phosphates">{{ $result->phospates }}</td>
             
           </tr>
           <tr>
             <th>Blood</th>
-            <td></td>
+            <td id="blood">{{ $result->blood }}</td>
             <th></th>
             <td></td>
             
           </tr>
           <tr>
             <th>Ketones</th>
-            <td></td>
+            <td id="ketones">{{ $result->ketones }}</td>
             <th></th>
             <td></td>
             
@@ -88,33 +77,21 @@
         
           
     </table>
-    <div class="row">
-        <div class="col">
-          <p>Analyzed by:</p>
-        </div>
-        <div class="col">
-          <p>Verified by:</p>
-        </div>
-        <div class="col">
-          <p>Noted by:</p>
-        </div>
-      </div>
-      <br>
-      <!---signature0----->
-  <div class="row">
-    <div class="col">
-      <p ><b class="underline">ELBERT R. DALISAY, RMT</b><br>Medical Technologist<br>Lic.No. 0104373</p>
-    </div>
-    <div class="col">
-      <p ><b class="underline">Annaline D. Alferez,RMT</b><br>Medical Technologist<br>Lic.No. 0030409</p>
-    </div>
-    <div class="col">
-      <p ><b class="underline">Dr. Anacleta P. Valdez ,MHA, FPSP</b><br>Medical Technologist<br>Lic.No. 0066916</p>
-    </div>
-  </div>
-
-
-
-
+    <table class="w-100 mt-2">
+    <tr>
+      <td>
+        <p>Analyzed by:</p>
+        <p ><b class="underline">ELBERT R. DALISAY, RMT</b><br>Medical Technologist<br>Lic.No. 0104373</p>
+      </td>
+      <td>
+        <p>Verified by:</p>
+        <p ><b class="underline">Annaline D. Alferez,RMT</b><br>Medical Technologist<br>Lic.No. 0030409</p>
+      </td>
+      <td>
+        <p>Noted by:</p>
+        <p ><b class="underline">Dr. Anacleta P. Valdez ,MHA, FPSP</b><br>Medical Technologist<br>Lic.No. 0066916</p>
+      </td>
+    </tr>
+  </table>
 </body>
 </html>
