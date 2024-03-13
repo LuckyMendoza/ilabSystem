@@ -277,8 +277,8 @@
 
             <form method="GET" id="download-form">
                 @csrf
-                <input type="hidden" id="download_patient_id" name="patient_id" />
-                <input type="hidden" id="download_data_id" name="data_id" />
+                <input type="hidden" id="download_patient_id_stat" name="patient_id" />
+                <input type="hidden" id="download_data_id_stat" name="data_id" />
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12 text-center">

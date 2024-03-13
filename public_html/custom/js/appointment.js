@@ -365,90 +365,91 @@ $(document).ready(function () {
         });
     });
 
-// Edit - with universal route
-$('table tbody').on('click', '.edit', function() {
-    console.log($(this).data())
-    $('#data_id').val($(this).data('id'));
-    $('#service').val($(this).data('service'));
-    $('#doctor').val($(this).data('doctor'));
-    $('#schedule_date').val($(this).data('schedule_date'));
-    $('#time_from').val($(this).data('time_from'));
-    $('#time_to').val($(this).data('time_to'));
-});
-
-$('table tbody').on('click', '#approve', function() {
-    $('#data_id').val($(this).data('id'));
-    $('#patient_id').val($(this).data('patient_id'));
-    $('#client_info').html('patient ' + $(this).data('patient') + ' on ' + $(this).data('schedule_date'));
-});
-
-$('#approve_btn').click(function() {
-    var btn = $(this);
-
-    $.ajax({
-        type: 'GET',
-        url: '/approveAppointment/' + $('#data_id').val() + '/approved/' + $('#patient_id').val(),
-        processData: false,
-        contentType: false,
-        beforeSend: function() {
-            $('#msg').empty();
-        },
-        success: function(result) {
-            let swalConfig = {}; // Configure SweetAlert2 options
-
-            if (result === 'success') {
-                swalConfig = {
-                    icon: 'success',
-                    title: 'Appointment approved successfully!',
-                };
-            } else {
-                swalConfig = {
-                    icon: 'error',
-                    title: 'Error: ' + result,
-                };
-            }
-
-            // Display SweetAlert2 with configured options
-            Swal.fire(swalConfig).then(() => {
-                // This block will be executed after the user clicks the "OK" button
-                btn.attr('disabled', false);
-                window.location.reload();
-            });
-        }
+    // Edit - with universal route
+    $('table tbody').on('click', '.edit', function() {
+        console.log($(this).data())
+        $('#data_id').val($(this).data('id'));
+        $('#service').val($(this).data('service'));
+        $('#doctor').val($(this).data('doctor'));
+        $('#schedule_date').val($(this).data('schedule_date'));
+        $('#time_from').val($(this).data('time_from'));
+        $('#time_to').val($(this).data('time_to'));
     });
 
-$('#done_btn').click(function() {
-    var btn = $(this);
-
-    $.ajax({
-        type: 'GET',
-        url: '/doneAppointment/' + $('#data_id').val() + '/3/' + $('#patient_id').val(),
-        processData: false,
-        contentType: false,
-        beforeSend: function() {
-            $('#msg').empty();
-        },
-        success: function(result) {
-            let swalConfig = {};
-            if (result === 'success') {
-                swalConfig = {
-                    icon: 'success',
-                    title: 'Patient medical result is release!',
-                };
-            } else {
-                swalConfig = {
-                    icon: 'error',
-                    title: 'Error: ' + result,
-                };
-            }
-            Swal.fire(swalConfig).then(() => {
-                btn.attr('disabled', false);
-                window.location.reload();
-            });
-        }
+    $('table tbody').on('click', '#approve', function() {
+        $('#data_id').val($(this).data('id'));
+        $('#patient_id').val($(this).data('patient_id'));
+        $('#client_info').html('patient ' + $(this).data('patient') + ' on ' + $(this).data('schedule_date'));
     });
-});
 
+    $('#approve_btn').click(function() {
+        var btn = $(this);
+
+        $.ajax({
+            type: 'GET',
+            url: '/approveAppointment/' + $('#data_id').val() + '/approved/' + $('#patient_id').val(),
+            processData: false,
+            contentType: false,
+            beforeSend: function() {
+                $('#msg').empty();
+            },
+            success: function(result) {
+                let swalConfig = {}; // Configure SweetAlert2 options
+
+                if (result === 'success') {
+                    swalConfig = {
+                        icon: 'success',
+                        title: 'Appointment approved successfully!',
+                    };
+                } else {
+                    swalConfig = {
+                        icon: 'error',
+                        title: 'Error: ' + result,
+                    };
+                }
+
+                // Display SweetAlert2 with configured options
+                Swal.fire(swalConfig).then(() => {
+                    // This block will be executed after the user clicks the "OK" button
+                    btn.attr('disabled', false);
+                    window.location.reload();
+                });
+            }
+        });
+    });
+
+    $('#done_btn').click(function() {
+        var btn = $(this);
+
+        $.ajax({
+            type: 'GET',
+            url: '/doneAppointment/' + $('#download_data_id_stat').val() + '/3/' + $('#download_patient_id_stat').val(),
+            processData: false,
+            contentType: false,
+            beforeSend: function() {
+                $('#msg').empty();
+            },
+            success: function(result) {
+                let swalConfig = {};
+                if (result === 'success') {
+                    swalConfig = {
+                        icon: 'success',
+                        title: 'Patient medical result is release!',
+                    };
+                } else {
+                    swalConfig = {
+                        icon: 'error',
+                        title: 'Error: ' + result,
+                    };
+                }
+                Swal.fire(swalConfig).then(() => {
+                    btn.attr('disabled', false);
+                    window.location.reload();
+                });
+            }
+        });
+    });
+    $("#cancel_btn").click(function () {
         $.ajax({
             type: "GET",
             url:
@@ -484,7 +485,7 @@ $('#done_btn').click(function() {
                 });
             },
         });
-    }) 
+    });
     
     //Save Prescription
     $('table tbody').on('click', '#prescription', function() {
@@ -498,8 +499,8 @@ $('#done_btn').click(function() {
             $('#cbcDiv').show();
             $('#urinalDiv').hide();
         }
-        $('#data_id').val($(this).data('id'));
-        $('#patient_id').val($(this).data('patient_id'));
+        $('#download_data_id_stat').val($(this).data('id'));
+        $('#download_patient_id_stat').val($(this).data('patient_id'));
         $('#client_info').html('patient '+$(this).data('patient')+' on '+$(this).data('schedule_date'))
         $('#service').val($(this).data('service'));
     });

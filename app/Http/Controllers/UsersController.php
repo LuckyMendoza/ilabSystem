@@ -307,6 +307,7 @@ class UsersController extends Controller
     }
 
     public function doneAppointmentSchedule($id,$status,$patientid){
+        
         DB::beginTransaction();
         $update = schedule_list::find($id)->update(['status' => '3']);
 
