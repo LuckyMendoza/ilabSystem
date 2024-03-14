@@ -55,21 +55,21 @@
         </tr>
         <tr>
             <th>Sugar</th>
-            <td id="sugar">{{ $result->sugar }}</td>
+            <td id="sugar">{{ $result->sugar ? $result->sugar : '' }}</td>
             <th>A.Urates/phosphates</th>
-            <td id="phosphates">{{ $result->phospates }}</td>
+            <td id="phosphates">{{ $result->phospates ? $result->phospates : '' }}</td>
             
           </tr>
           <tr>
             <th>Blood</th>
-            <td id="blood">{{ $result->blood }}</td>
+            <td id="blood">{{ $result->blood ? $result->blood : '' }}</td>
             <th></th>
             <td></td>
             
           </tr>
           <tr>
             <th>Ketones</th>
-            <td id="ketones">{{ $result->ketones }}</td>
+            <td id="ketones">{{ $result->ketones ? $result->ketones : '' }}</td>
             <th></th>
             <td></td>
             

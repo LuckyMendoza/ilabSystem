@@ -54,16 +54,16 @@
             <th>Glucose</th>
             <td></td>
             <td></td>
-            <td>{{ $result->glucose }}</td>
+            <td>{{ $result->glucose ? $result->glucose : '' }}</td>
             <th>SGOT</th>       
             <td></td>
-            <td>{{ $result->sgot }}</td>  
+            <td>{{ $result->sgot ? $result->sgot : ''}}</td>  
           </tr>
           <tr>
             <th>Cholesterol</th>
             <td></td>
             <td></td>
-            <td>{{ $result->choles }}</td>
+            <td>{{ $result->choles ? $result->choles : '' }}</td>
             <th></th>       
             <td></td>
             <td></td>  
@@ -72,19 +72,19 @@
             <th>Blood Uric Acid</th>
             <td></td>
             <td></td>
-            <td>{{ $result->bua }}</td>
+            <td>{{ $result->bua ? $result->bua : '' }}</td>
             <th>Calcuim</th>       
             <td></td>
-            <td>{{ $result->cal }}</td>  
+            <td>{{ $result->cal ? result->cal : '' }}</td>  
           </tr>
           <tr>
             <th>Blood Urea Nitrogen</th>
             <td></td>
             <td></td>
-            <td>{{ $result->bun }}</td>
+            <td>{{ $result->bun ? $result->bun : '' }}</td>
             <th>Chloride</th>       
             <td></td>
-            <td>{{ $result->chl }}</td>  
+            <td>{{ $result->chl ? $result->chl : '' }}</td>  
           </tr>
           
     </table>
