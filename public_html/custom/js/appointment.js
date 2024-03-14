@@ -187,6 +187,7 @@ $(document).ready(function () {
                                 '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-appointment-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
                             );
                         } else if (data.status == 3) {
+                            console.log('dito',data);
                             return (
                                 '<button type="button" data-id="' +
                                 data.id +
@@ -196,7 +197,7 @@ $(document).ready(function () {
                                 data.service_id +
                                 '" data-patient_id="' +
                                 data.user_id +
-                                '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
+                                '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription_pres" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
                             );
                         } else if (data.status == 4) {
                             return (
@@ -239,12 +240,12 @@ $(document).ready(function () {
                                 '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-appointment-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
                             );
                         } else if (data.status == 3) {
-                            console.log(data.service_id);
+                            console.log('dito',data);
                             return '<button type="button" data-id="' + data.id +
                                 '" data-patient="' + data.patient +
                                 '" data-service="' + data.service_id +
                                 '" data-patient_id="' + data.user_id +
-                                '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
+                                '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription_pres" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>';
                         } else if (data.status == 4) {
                             return (
                                 '<button type="button" data-id="' +
@@ -489,6 +490,13 @@ $(document).ready(function () {
     
     //Save Prescription
     $('table tbody').on('click', '#prescription', function() {
+        console.log('dito');
+        $('#download_data_id_stat').val($(this).data('id'));
+        $('#download_patient_id_stat').val($(this).data('patient_id'));
+        $('#service').val($(this).data('service'));
+    });
+    $('table tbody').on('click', '#prescription_pres', function() {
+        console.log('dito_pres');
         if($(this).data('service') == 1)
         {
             $('#urinalDiv').show();
@@ -499,16 +507,14 @@ $(document).ready(function () {
             $('#cbcDiv').show();
             $('#urinalDiv').hide();
         }
-        $('#download_data_id_stat').val($(this).data('id'));
-        $('#download_patient_id_stat').val($(this).data('patient_id'));
-        $('#client_info').html('patient '+$(this).data('patient')+' on '+$(this).data('schedule_date'))
-        $('#service').val($(this).data('service'));
+        $('#patient_id_pres').val($(this).data('patient_id'));
+        $('#data_id_pres').val($(this).data('id'));
+        $('#service_pres').val($(this).data('service'));
     });
-
-    
+    //lappy
     $('#prescribe_btn').on('click', function() {
         let results = null;
-        if($('#service').val() == 1)
+        if($('#service_pres').val() == 1)
         {
             //urine
             results = `{ 
@@ -518,7 +524,7 @@ $(document).ready(function () {
                      "phospates": "${$('#phospates').val()}"
                     }`;
         }
-        if($('#service').val() == 2)
+        if($('#service_pres').val() == 2)
         {
             //cbc
             results = `{ 
@@ -532,12 +538,12 @@ $(document).ready(function () {
                 }`;
         }
         var prescriptionData = {
-            id: $('#patient_id').val(),
+            id: $('#patient_id_pres').val(),
             result: results,
-            service: $('#service').val(),
-            appointmentId: $('#data_id').val()
+            service: $('#service_pres').val(),
+            appointment_id: $('#data_id_pres').val()
         };
-
+        console.log(results);
         $.ajax({
             type: "POST",
             url: "prescription",
@@ -546,13 +552,13 @@ $(document).ready(function () {
                 $("#msg").empty();
             },
             success: function (result) {
+                console.log(result,'dsad');
                 if (result != "success") {
                     alert(result);
                 } else {
                     alert("save");
                     window.location.reload();
                 }
-                btn.attr("disabled", false);
             },
         });
     });

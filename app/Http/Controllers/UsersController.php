@@ -413,7 +413,7 @@ class UsersController extends Controller
         try {
 
             PrescriptionRecord::create([
-                'appointment_id' => $request['appointmentId'],
+                'appointment_id' => $request['appointment_id'],
                 'patient_id' => $request['id'],
                 'service_id' => $request['service'],
                 'result' => $request['result'],
@@ -421,7 +421,7 @@ class UsersController extends Controller
                 'updated_at' => Carbon::now()
             ]);
 
-            schedule_list::find($request['appointmentId'])->update(['status' => '4']);
+            schedule_list::find($request['appointment_id'])->update(['status' => '4']);
 
             return 'success';
         } catch (\Throwable $th) {

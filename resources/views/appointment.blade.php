@@ -142,9 +142,9 @@
                 <h5 class="modal-title bold text-primary text-center" id="modalTopTitle">Medical Prescription</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-                <input type="hidden" id="patient_id" name="patient_id"/>
-                <input type="hidden" id="service" name="service"/>
-                <input type="hidden" id="data_id" name="appointment_id"/>
+                <input type="hidden" id="patient_id_pres" name="patient_id"/>
+                <input type="hidden" id="service_pres" name="service"/>
+                <input type="hidden" id="data_id_pres" name="appointment_id"/>
             <div id="urinalDiv" style="display: none !important;">
                 <div class="modal-body">    
                     <div class="mb-3">
