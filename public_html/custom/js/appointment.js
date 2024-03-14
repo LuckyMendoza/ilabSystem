@@ -80,7 +80,53 @@ $(document).ready(function () {
                 searchable: true,
                 defaultContent: "",
             },
-            {
+            // {
+            //     data: null,
+            //     orderable: false,
+            //     searchable: false,
+            //     class: 'text-right',
+            //     render: function(data, type, row) {
+            //         console.log(data.status);
+            //         if (data.status == '0') {
+            //             return 'PENDING';
+            //         }else if (data.status == '1') {
+            //             return 'APPROVED';
+            //         }else if (data.status == '2'){
+            //             return 'DISAPPROVED';
+            //         } else if (data.status == '3') {
+            //             return 'Done Appointment / For Result Releasing';
+            //         } else if (data.status == '4') {
+            //             let usertype = null;
+            //             if (user == 'patient') 
+            //             {
+            //                 usertype = 'Download Result';
+            //             }else{
+            //                 usertype = 'For Accounting';
+            //             }
+            //             return usertype;
+            //         } else if (data.status == '5') {
+            //             return 'Done Transaction';
+            //         } else {
+            //             return "Unknown Status";
+            //         }
+            //     },
+            //     defaultContent: "",
+            // },
+            // {
+            //     data: "created_at",
+            //     name: "created_at",
+            //     searchable: true,
+            //     class: "v-middle",
+            //     render: function (data, type) {
+            //         return type === "sort"
+            //             ? data
+            //             : moment(data).isValid()
+            //             ? moment(data).format("ll")
+            //             : "---";
+            //     },
+            //     defaultContent: "",
+            // },
+			{
                 data: null,
                 orderable: false,
                 searchable: false,
@@ -89,19 +135,18 @@ $(document).ready(function () {
                     console.log(data.status);
                     if (data.status == '0') {
                         return 'PENDING';
-                    }else if (data.status == '1') {
+                    } else if (data.status == '1') {
                         return 'APPROVED';
-                    }else if (data.status == '2'){
+                    } else if (data.status == '2') {
                         return 'DISAPPROVED';
                     } else if (data.status == '3') {
                         return 'Done Appointment / For Result Releasing';
                     } else if (data.status == '4') {
                         let usertype = null;
-                        if (user == 'patient') 
-                        {
+                        if (user == 'patient') {
                             usertype = 'Download Result';
-                        }else{
-                            usertype = 'For Accounting';
+                        } else {
+                            usertype = 'Done Transaction';
                         }
                         return usertype;
                     } else if (data.status == '5') {
@@ -111,51 +156,50 @@ $(document).ready(function () {
                     }
                 },
                 defaultContent: "",
-            },
-            {
+                },
+                {
                 data: "created_at",
                 name: "created_at",
                 searchable: true,
                 class: "v-middle",
-                render: function (data, type) {
-                    return type === "sort"
-                        ? data
-                        : moment(data).isValid()
-                        ? moment(data).format("ll")
-                        : "---";
+                render: function(data, type) {
+                    return type === "sort" ?
+                        data :
+                        moment(data).isValid() ?
+                        moment(data).format("ll") :
+                        "---";
                 },
                 defaultContent: "",
-            },
-			{
-            data: null,
-            orderable: false,
-            searchable: false,
-            class: 'text-right',
-            render: function(data, type, row) {
-
+                },
+                {
+                data: null,
+                orderable: false,
+                searchable: false,
+                class: 'text-right',
+                render: function(data, type, row) {
+                
                     if (user == 'patient') {
                         console.log(data)
                         if (data.status == 0) {
-                            return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor
-                                + '" data-service="' + data.service_id
+                            return '<button type="button"  data-id=' + data.id + ' data-doctor="' + data.doctor +
+                                +'"  data-service="' + data.service_id
                                 + '" data-schedule_date="' + data.schedule_date
                                 + '" data-time_from="' + data.time_from
                                 + '" data-time_to="' + data.time_to
                                 + '"  data-bs-toggle="modal" data-bs-target="#modal_add" class="edit btn btn-sm btn-secondary"><i class="fa fa-pencil-alt"></i></button>';
-                        }else if (data.status == 1) {
-                            return '<button type="button"  data-id=' + data.id
-                                + '" data-patient="' + data.patient
+                        } else if (data.status == 1) {
+                            return '<button type="button"  data-id=' + data.id +
+                                +'" data-patient="' + data.patient
                                 + '" data-patient_id="' + data.user_id
                                 + '" data-schedule_date="' + data.schedule_date
                                 + '"  data-bs-toggle="modal" data-bs-target="#modal_pending" id="pending-prescription" class="btn btn-sm btn-secondary"><i class="fa fa-clock"></i></button>';
-                        }
-                        else if (data.status == 2) {
+                        } else if (data.status == 2) {
                             return '❌';
-                        }else if (data.status == 3) {
+                        } else if (data.status == 3) {
                             return 'Waiting';
-                        }  else if (data.status == 4) {
-                            return '<button type="button"  data-id=' + data.id
-                                + '" data-service="' + data.service_id
+                        } else if (data.status == 4) {
+                            return '<button type="button"  data-id=' + data.id +
+                                +'" data-service="' + data.service_id
                                 + '" data-patient="' + data.patient
                                 + '" data-patient_id="' + data.user_id
                                 + '" data-schedule_date="' + data.schedule_date
@@ -165,51 +209,35 @@ $(document).ready(function () {
                         if (data.status == 0) {
                             return (
                                 '<button type="button"  data-id=' +
-                                data.id +
-                                '" data-patient="' +
-                                data.patient +
-                                '" data-patient_id="' +
-                                data.user_id +
-                                '" data-schedule_date="' +
-                                data.schedule_date +
-                                '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>'
+                                data.id + '" data-patient="' +
+                                data.patient + '" data-patient_id="' +
+                                data.user_id + '" data-schedule_date="' +
+                                data.schedule_date + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>'
                             );
                         } else if (data.status == 1) {
                             return (
                                 '<button type="button" data-id="' +
-                                data.id +
-                                '" data-patient="' +
-                                data.patient +
-                                '" data-service="' +
-                                data.service_id +
-                                '" data-patient_id="' +
-                                data.user_id +
-                                '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-appointment-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
+                                data.id + '" data-patient="' +
+                                data.patient + '" data-service="' +
+                                data.service_id + '" data-patient_id="' +
+                                data.user_id + '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-appointment-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
                             );
                         } else if (data.status == 3) {
-                            console.log('dito',data);
+                            console.log('dito', data);
                             return (
                                 '<button type="button" data-id="' +
-                                data.id +
-                                '" data-patient="' +
-                                data.patient +
-                                '" data-service="' +
-                                data.service_id +
-                                '" data-patient_id="' +
-                                data.user_id +
-                                '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription_pres" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
+                                data.id + '" data-patient="' +
+                                data.patient + '" data-service="' +
+                                data.service_id + '" data-patient_id="' +
+                                data.user_id + '" data-bs-toggle="modal" data-bs-target="#modal_prescription" id="prescription_pres" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
                             );
                         } else if (data.status == 4) {
                             return (
-                                '<button type="button" data-id="' +
-                                data.id +
-                                '" data-patient="' +
-                                data.patient +
-                                '" data-service="' +
-                                data.service_id +
-                                '" data-patient_id="' +
-                                data.user_id +
-                                '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-transaction-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
+                                '<but type="button" data-id="' +
+                                data.id + '" data-patient="' +
+                                data.patient + '" data-service="' +
+                                data.service_id + '" data-patient_id="' +
+                                data.user_id + '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-transaction-modal" id="prescription"    <i class="fa fa-check-circle fa-2x text-success"> </i>'
                             );
                         } else {
                             return "<span>No available</span>";
@@ -218,29 +246,21 @@ $(document).ready(function () {
                         if (data.status == 0) {
                             return (
                                 '<button type="button"  data-id=' +
-                                data.id +
-                                '" data-patient="' +
-                                data.patient +
-                                '" data-patient_id="' +
-                                data.user_id +
-                                '" data-schedule_date="' +
-                                data.schedule_date +
-                                '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>'
+                                data.id + '" data-patient="' +
+                                data.patient + '" data-patient_id="' +
+                                data.user_id + '" data-schedule_date="' +
+                                data.schedule_date + '"  data-bs-toggle="modal" data-bs-target="#modal_approve" id="approve" class="btn btn-sm btn-secondary"><i class="fa fa-thumbs-up"></i></button>'
                             );
                         } else if (data.status == 1) {
                             return (
                                 '<button type="button" data-id="' +
-                                data.id +
-                                '" data-patient="' +
-                                data.patient +
-                                '" data-service="' +
-                                data.service_id +
-                                '" data-patient_id="' +
-                                data.user_id +
-                                '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-appointment-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
+                                data.id + '" data-patient="' +
+                                data.patient + '" data-service="' +
+                                data.service_id + '" data-patient_id="' +
+                                data.user_id + '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-appointment-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
                             );
                         } else if (data.status == 3) {
-                            console.log('dito',data);
+                            console.log('dito', data);
                             return '<button type="button" data-id="' + data.id +
                                 '" data-patient="' + data.patient +
                                 '" data-service="' + data.service_id +
@@ -249,14 +269,10 @@ $(document).ready(function () {
                         } else if (data.status == 4) {
                             return (
                                 '<button type="button" data-id="' +
-                                data.id +
-                                '" data-patient="' +
-                                data.patient +
-                                '" data-service="' +
-                                data.service_id +
-                                '" data-patient_id="' +
-                                data.user_id +
-                                '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-transaction-modal" id="prescription" class="btn btn-sm btn-secondary"><i class="fa fa-prescription"></i></button>'
+                                data.id + '" data-patient="' +
+                                data.patient + '" data-service="' +
+                                data.service_id + '" data-patient_id="' +
+                                data.user_id + '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-transaction-modal" id="prescription"   <i class="fa fa-check-circle fa-5x text-success"></i>'
                             );
                         } else {
                             return "<span>No available</span>";
@@ -266,12 +282,17 @@ $(document).ready(function () {
                     }
                 },
                 defaultContent: "",
-            },
-        ],
-        drawCallback: function (settings, json) {
-            $(".tooltips").tooltip();
-        },
-    });
+                },
+                ],
+                drawCallback: function(settings, json) {
+                $(".tooltips").tooltip();
+                },
+                });
+                
+                
+            
+        
+       
 
     $("#new").on("click", function (e) {
         $("#data_id").val(0);

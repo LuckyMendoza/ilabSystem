@@ -74,7 +74,7 @@
     {{--fedback end --}}
 
     {{--contact--}}
-    {{-- @include('homepage.partials.contact') --}}
+    @include('homepage.partials.contact')
     {{--end contact--}}
 
     {{--start footer--}}

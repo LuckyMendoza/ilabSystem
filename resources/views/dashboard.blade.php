@@ -126,12 +126,16 @@
               return 'yellow';
             case 'CHOLESTEROL':
               return 'blue';
-            case 'URIC ACID':
+            case 'URICACID':
               return 'green';
             case 'URINALYSIS':
               return 'red';
             case 'ESR':
-              return 'orange)';
+              return 'orange';
+            case 'FBS':
+              return 'brown';
+            case 'PREGNANCYTEST':
+              return 'pink';
             default:
               return 'orange';
           }
