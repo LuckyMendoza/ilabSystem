@@ -1,8 +1,11 @@
+
 @extends('layouts.master')
 @section('title', "Services")
 @section('services', "active")
 @section('specific-css')
 @endsection
+
+
 
 @section('main_content')
 <div class="card">
@@ -204,7 +207,35 @@
                         </div>
                     </div>
                 </div>
-            </div>    
+            </div>
+           
+<div class="form-group w-100 text-center">
+    <label for="email" class="form-label "><h5><b>Analyze by:</b></h5><</label>
+    <select class="form-select" id="doctor" name="doctor" required>
+        <option selected disabled>Select:Medical Technologist</option>
+        @foreach($doctors as $doctor)
+        <option value="{{$doctor->id}}">{{$doctor->fname}} {{$doctor->lname}}</option>
+        @endforeach
+    </select>
+</div>
+<div class="form-group w-100 text-center">
+    <label for="email" class="form-label"><h5><b>Verified by:</b></h5></label>
+    <select class="form-select" id="doctor" name="doctor" required>
+        <option selected disabled>Select:Medical Technologist</option>
+        @foreach($doctors as $doctor)
+        <option value="{{$doctor->id}}">{{$doctor->fname}} {{$doctor->lname}}</option>
+        @endforeach
+    </select>
+</div>
+<div class="form-group w-100 text-center">
+    <label for="email" class="form-label vertical-center-label"><h5><b>Note by:</b></h5><</label>
+    <select class="form-select" id="doctor" name="doctor" required>
+        <option selected disabled>Select:Medical Technologist</option>
+        @foreach($doctors as $doctor)
+        <option value="{{$doctor->id}}">{{$doctor->fname}} {{$doctor->lname}}</option>
+        @endforeach
+    </select>   
+</div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="prescribe_btn">Save</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Close</button>

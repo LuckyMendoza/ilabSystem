@@ -33,13 +33,13 @@
   <table class="w-100 mt-3 mb-2">
     <tr>
       <td class="w-50">Patient: {{ $pangalan }}</td>
-      <td>Age: {{ $age }}</td>
+   
       <td>Gender: {{ $gender }}</td>
-      <td>Civil Status: {{ $status }}</td>
+
     </tr>
   </table>
   
-    
+{{--     
     <table class="table table-bordered custom-table text-sm">
         <tr>    
             <th>Examination</th> 
@@ -87,20 +87,70 @@
             <td>{{ $result->chl ? $result->chl : '' }}</td>  
           </tr>
           
-    </table>
+    </table> --}}
+
+
+    <table class="table table-bordered custom-table text-sm">
+      <tr>    
+          <th>Examination</th> 
+          <th>Reference Value</th>
+          <th>Description</th>
+          <th>Result</th>
+          <th>Examination</th> 
+          <th>Reference Value</th>
+          <th>Result</th>
+      </tr>
+      <tr>
+          <th>Glucose</th>
+          <td></td>
+          <td></td>
+          <td id="glucose">{{ isset($result->glucose) ? $result->glucose : '' }}</td>
+          <th>SGOT</th>       
+          <td></td>
+          <td>{{ isset($result->sgot) ? $result->sgot : '' }}</td>  
+      </tr>
+      <tr>
+          <th>Cholesterol</th>
+          <td></td>
+          <td></td>
+          <td>{{ isset($result->choles) ? $result->choles : '' }}</td>
+          <th></th>       
+          <td></td>
+          <td></td>  
+      </tr>
+      <tr>
+          <th>Blood Uric Acid</th>
+          <td></td>
+          <td></td>
+          <td>{{ isset($result->bua) ? $result->bua : '' }}</td>
+          <th>Calcuim</th>       
+          <td></td>
+          <td>{{ isset($result->cal) ? $result->cal : '' }}</td>  
+      </tr>
+      <tr>
+          <th>Blood Urea Nitrogen</th>
+          <td></td>
+          <td></td>
+          <td>{{ isset($result->bun) ? $result->bun : '' }}</td>
+          <th>Chloride</th>       
+          <td></td>
+          <td>{{ isset($result->chl) ? $result->chl : '' }}</td>  
+      </tr>
+  </table>
+  
   <table class="w-100 mt-2">
     <tr>
       <td>
         <p>Analyzed by:</p>
-        <p ><b class="underline">ELBERT R. DALISAY, RMT</b><br>Medical Technologist<br>Lic.No. 0104373</p>
+        <p ><b class="underline">{{$doc}}</b><br>Medical Technologist<br>Lic.No. 0104373</p>
       </td>
       <td>
         <p>Verified by:</p>
-        <p ><b class="underline">Annaline D. Alferez,RMT</b><br>Medical Technologist<br>Lic.No. 0030409</p>
+        <p ><b class="underline">{{$doc}}</b><br>Medical Technologist<br>Lic.No. 0030409</p>
       </td>
       <td>
         <p>Noted by:</p>
-        <p ><b class="underline">Dr. Anacleta P. Valdez ,MHA, FPSP</b><br>Medical Technologist<br>Lic.No. 0066916</p>
+        <p ><b class="underline">{{$doc}}</b><br>Medical Technologist<br>Lic.No. 0066916</p>
       </td>
     </tr>
   </table>

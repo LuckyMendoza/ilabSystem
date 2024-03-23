@@ -198,7 +198,7 @@ $(document).ready(function () {
                         } else if (data.status == 3) {
                             return 'Waiting';
                         } else if (data.status == 4) {
-                            return '<button type="button"  data-id=' + data.id +
+                            return '<button type="button"  data-id=' + data.id 
                                 +'" data-service="' + data.service_id
                                 + '" data-patient="' + data.patient
                                 + '" data-patient_id="' + data.user_id
@@ -272,7 +272,7 @@ $(document).ready(function () {
                                 data.id + '" data-patient="' +
                                 data.patient + '" data-service="' +
                                 data.service_id + '" data-patient_id="' +
-                                data.user_id + '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-transaction-modal" id="prescription"   <i class="fa fa-check-circle fa-5x text-success"></i>'
+                                data.user_id + '" data-bs-toggle="modal" data-bs-target="#change-status-to-done-transaction-modal" id="prescription"   <i class="fa fa-check-circle fa-2x text-success"></i>'
                             );
                         } else {
                             return "<span>No available</span>";
@@ -533,56 +533,117 @@ $(document).ready(function () {
         $('#service_pres').val($(this).data('service'));
     });
     //lappy
-    $('#prescribe_btn').on('click', function() {
-        let results = null;
-        if($('#service_pres').val() == 1)
-        {
-            //urine
-            results = `{ 
-                    "sugar": "${$('#sugar').val()}",
-                     "blood": "${$('#blood').val()}", 
-                     "ketones": "${$('#ketones').val()}", 
-                     "phospates": "${$('#phospates').val()}"
-                    }`;
-        }
-        if($('#service_pres').val() == 2)
-        {
-            //cbc
-            results = `{ 
-                "glucose": "${$('#glucose').val()}",
-                 "choles": "${$('#choles').val()}", 
-                 "bua": "${$('#bua').val()}", 
-                 "bun": "${$('#bun').val()}",
-                 "sgot": "${$('#sgot').val()}",
-                 "cal": "${$('#cal').val()}",
-                 "chl": "${$('#chl').val()}",
-                }`;
-        }
-        var prescriptionData = {
-            id: $('#patient_id_pres').val(),
-            result: results,
-            service: $('#service_pres').val(),
-            appointment_id: $('#data_id_pres').val()
+    // $('#prescribe_btn').on('click', function() {
+    //     let results = null;
+    //     if($('#service_pres').val() == 1)
+    //     {
+    //         //urine
+    //         results = `{ 
+    //                 "sugar": "${$('#sugar').val()}",
+    //                  "blood": "${$('#blood').val()}", 
+    //                  "ketones": "${$('#ketones').val()}", 
+    //                  "phospates": "${$('#phospates').val()}"
+    //                 }`;
+    //     }
+      
+    //   if($('#service_pres').val() == 2)
+    //     {
+    //         //cbc
+    //         results = `{ 
+    //             "glucose": "${$('#glucose').val()}",
+    //              "choles": "${$('#choles').val()}", 
+    //              "bua": "${$('#bua').val()}", 
+    //              "bun": "${$('#bun').val()}",
+    //              "sgot": "${$('#sgot').val()}",
+    //              "cal": "${$('#cal').val()}",
+    //              "chl": "${$('#chl').val()}",
+    //             }`;
+    //     }
+    //     var prescriptionData = {
+    //         id: $('#patient_id_pres').val(),
+    //         result: results,
+    //         service: $('#service_pres').val(),
+    //         appointment_id: $('#data_id_pres').val()
+    //     };
+    //     console.log(results);
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "prescription",
+    //         data: prescriptionData,
+    //         beforeSend: function () {
+    //             $("#msg").empty();
+    //         },
+    //         success: function (result) {
+    //             console.log(result,'dsad');
+    //             if (result != "success") {
+    //                 alert(result);
+    //             } else {
+    //                 alert("save");
+    //                 window.location.reload();
+    //             }
+    //         },
+    //     });
+    // });
+
+// Save Prescription Button Click Event
+$('#prescribe_btn').on('click', function() {
+    let results = null;
+    if ($('#service_pres').val() == 1) {
+        // Urine
+        results = { 
+            "sugar": $('#sugar').val(),
+            "blood": $('#blood').val(),
+            "ketones": $('#ketones').val(),
+            "phospates": $('#phospates').val()
         };
-        console.log(results);
-        $.ajax({
-            type: "POST",
-            url: "prescription",
-            data: prescriptionData,
-            beforeSend: function () {
-                $("#msg").empty();
-            },
-            success: function (result) {
-                console.log(result,'dsad');
-                if (result != "success") {
-                    alert(result);
-                } else {
-                    alert("save");
-                    window.location.reload();
-                }
-            },
-        });
+    } else if ($('#service_pres').val() == 2) {
+        // CBC
+        results = { 
+            "glucose": $('#glucose').val(),
+            "choles": $('#choles').val(),
+            "bua": $('#bua').val(),
+            "bun": $('#bun').val(),
+            "sgot": $('#sgot').val(),
+            "cal": $('#cal').val(),
+            "chl": $('#chl').val(),
+        };
+    }
+
+    var prescriptionData = {
+        id: $('#patient_id_pres').val(),
+        result: JSON.stringify(results), // Convert object to JSON string
+        service: $('#service_pres').val(),
+        appointment_id: $('#data_id_pres').val()
+    };
+
+    console.log(prescriptionData);
+
+    $.ajax({
+        type: "POST",
+        url: "prescription",
+        data: prescriptionData,
+        beforeSend: function () {
+            $("#msg").empty();
+        },
+        success: function (result) {
+            console.log(result);
+            if (result != "success") {
+                alert(result);
+            } else {
+                alert("Saved successfully");
+                window.location.reload();
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(xhr.responseText);
+            alert("An error occurred while saving the prescription.");
+        }
     });
+});
+
+
+
+
 
     //Download Prescription
     $('table tbody').on('click', '#download-prescription', function() {

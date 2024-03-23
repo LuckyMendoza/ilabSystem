@@ -10,9 +10,7 @@
   <title class="text-center">Divine Grace Medical Clinic</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
-<style>
-    .underline { text-decoration: overline }
-  </style>
+
  
 <body>
 
@@ -33,9 +31,9 @@
       <table class="w-100 mt-3 mb-2">
         <tr>
           <td class="w-50">Patient: {{ $pangalan }}</td>
-          <td>Age: {{ $age }}</td>
+        
           <td>Gender: {{ $gender }}</td>
-          <td>Civil Status: {{ $status }}</td>
+        
         </tr>
       </table>
         
@@ -81,17 +79,17 @@
     <tr>
       <td>
         <p>Analyzed by:</p>
-        <p ><b class="underline">ELBERT R. DALISAY, RMT</b><br>Medical Technologist<br>Lic.No. 0104373</p>
+        <p ><b class="underline">{{$doc}}</b><br>Medical Technologist<br>Lic.No. 0104373</p>
       </td>
       <td>
         <p>Verified by:</p>
-        <p ><b class="underline">Annaline D. Alferez,RMT</b><br>Medical Technologist<br>Lic.No. 0030409</p>
+        <p ><b class="underline">{{$doc}}</b><br>Medical Technologist<br>Lic.No. 0030409</p>
       </td>
       <td>
         <p>Noted by:</p>
-        <p ><b class="underline">Dr. Anacleta P. Valdez ,MHA, FPSP</b><br>Medical Technologist<br>Lic.No. 0066916</p>
+        <p ><b class="underline">{{$doc}}</b><br>Medical Technologist<br>Lic.No. 0066916</p>
       </td>
     </tr>
   </table>
 </body>
-</html>
+</html>a
