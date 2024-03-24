@@ -79,15 +79,15 @@
     <tr>
       <td>
         <p>Analyzed by:</p>
-        <p ><b class="underline">{{$doc}}</b><br>Medical Technologist<br>Lic.No. 0104373</p>
+        <p ><b class="">Annaline D. Alferez,RMT</b><br>Medical Technologist<br>Lic.No. 0104373</p>
       </td>
       <td>
         <p>Verified by:</p>
-        <p ><b class="underline">{{$doc}}</b><br>Medical Technologist<br>Lic.No. 0030409</p>
+        <p ><b class="">ELBERT R. DALISAY, RMT</b><br>Medical Technologist<br>Lic.No. 0030409</p>
       </td>
       <td>
         <p>Noted by:</p>
-        <p ><b class="underline">{{$doc}}</b><br>Medical Technologist<br>Lic.No. 0066916</p>
+        <p ><b class="">Dr. Anacleta Valdez ,MHA, FPSP</b><br>Medical Technologist<br>Lic.No. 0066916</p>
       </td>
     </tr>
   </table>
